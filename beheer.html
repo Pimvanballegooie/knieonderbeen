@@ -12,15 +12,16 @@
     @font-face { font-family: 'Inter'; src: url('fonts/inter-v20-latin-700.woff2') format('woff2'); font-weight: 700; font-display: swap; }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --navy: #1B3A5C; --teal: #2A9D8F; --teal-light: #E8F5F4;
-      --oranje: #E8735A;
+      --navy: #1B3A4F; --navy-dark: #10232F; --teal: #2AA88F; --teal-light: #E6F5F1; --teal-dark: #1E8571;
+      --blauw: #2E7DB8; --accent: #F5921E;
+      --oranje: #F5921E;
       --grey-bg: #F5F7FA; --grey-border: #DDE3EC;
       --text: #1A1A2E; --text-muted: #6B7A99; --white: #FFFFFF;
       --green: #27AE60; --red: #E74C3C; --gold: #C9940A;
     }
     body { font-family: 'Inter', sans-serif; background: var(--grey-bg); color: var(--text); min-height: 100vh; }
     .login-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; }
-    .login-box { background: white; border-radius: 16px; padding: 40px; width: 100%; max-width: 400px; box-shadow: 0 4px 32px rgba(27,58,92,0.12); border: 1px solid var(--grey-border); }
+    .login-box { background: white; border-radius: 16px; padding: 40px; width: 100%; max-width: 400px; box-shadow: 0 4px 32px rgba(27,58,79,0.12); border: 1px solid var(--grey-border); }
     .login-logo { text-align: center; margin-bottom: 28px; }
     .login-logo .icon { font-size: 2.5rem; }
     .login-logo h1 { font-size: 1.3rem; font-weight: 700; color: var(--navy); margin-top: 8px; }
@@ -30,7 +31,7 @@
     .form-group input { width: 100%; padding: 11px 14px; border: 1.5px solid var(--grey-border); border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 0.9rem; outline: none; transition: border-color 0.2s; }
     .form-group input:focus { border-color: var(--teal); }
     .btn-login { width: 100%; padding: 12px; background: var(--teal); color: white; border: none; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 700; cursor: pointer; margin-top: 8px; }
-    .btn-login:hover { background: #238a7e; }
+    .btn-login:hover { background: #1E8571; }
     .login-fout { background: #FDE8E8; border: 1px solid var(--red); color: var(--red); border-radius: 8px; padding: 10px 14px; font-size: 0.85rem; margin-top: 12px; display: none; }
     .beheer-wrap { display: none; }
     header { background: var(--navy); padding: 16px 32px; display: flex; align-items: center; justify-content: space-between; }
@@ -82,7 +83,7 @@
     .subcat-toggle.open { border-color: var(--teal); color: var(--teal); background: var(--teal-light); }
     .subcat-toggle.disc { border-color: var(--grey-border); }
     .subcat-toggle.disc:hover { border-color: var(--oranje); color: var(--oranje); }
-    .subcat-toggle.disc.open { border-color: var(--oranje); color: var(--oranje); background: #FDF0ED; }
+    .subcat-toggle.disc.open { border-color: var(--oranje); color: var(--oranje); background: #FDF0E1; }
     .subcat-beheer { background: var(--grey-bg); border-radius: 10px; padding: 16px; margin-top: 12px; display: none; }
     .subcat-beheer.open { display: block; }
     .subcat-groep { margin-bottom: 14px; }
@@ -92,7 +93,7 @@
     .subcat-check:hover { border-color: var(--teal); }
     .subcat-check.aangevinkt { background: var(--teal-light); border-color: var(--teal); color: var(--teal); font-weight: 600; }
     .subcat-check.disc-check:hover { border-color: var(--oranje); }
-    .subcat-check.disc-check.aangevinkt { background: #FDF0ED; border-color: var(--oranje); color: var(--oranje); font-weight: 600; }
+    .subcat-check.disc-check.aangevinkt { background: #FDF0E1; border-color: var(--oranje); color: var(--oranje); font-weight: 600; }
     .subcat-check input { display: none; }
     .subcat-opslaan-melding { font-size: 0.78rem; color: var(--green); margin-top: 8px; display: none; }
   </style>
@@ -412,7 +413,7 @@ async function laadTherapeutenBeheer() {
             <div style="flex:1">
               <div class="kaart-naam">${naam}</div>
               <div style="font-size:0.82rem;color:var(--text-muted)">${t.email||''}</div>
-              ${huidigeDiscs.length>0?`<div style="margin-top:4px">${huidigeDiscs.map(d=>`<span style="display:inline-block;font-size:0.7rem;font-weight:700;padding:2px 8px;border-radius:999px;background:#FDF0ED;color:var(--oranje);margin-right:4px">${d}</span>`).join('')}</div>`:''}
+              ${huidigeDiscs.length>0?`<div style="margin-top:4px">${huidigeDiscs.map(d=>`<span style="display:inline-block;font-size:0.7rem;font-weight:700;padding:2px 8px;border-radius:999px;background:#FDF0E1;color:var(--oranje);margin-right:4px">${d}</span>`).join('')}</div>`:''}
             </div>
             <span class="datum">${new Date(t.aangemeld_op).toLocaleDateString('nl-NL',{day:'numeric',month:'long',year:'numeric'})}</span>
           </div>

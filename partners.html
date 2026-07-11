@@ -38,11 +38,12 @@
 }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --navy: #1B3A5C; --teal: #2A9D8F; --teal-light: #E8F5F4;
+      --navy: #1B3A4F; --navy-dark: #10232F; --teal: #2AA88F; --teal-light: #E6F5F1; --teal-dark: #1E8571;
+      --blauw: #2E7DB8; --accent: #F5921E;
       --grey-bg: #F5F7FA; --grey-border: #DDE3EC;
       --text: #1A1A2E; --text-muted: #6B7A99; --white: #FFFFFF;
       --gold: #C9940A; --gold-light: #FEF9E7;
-      --radius: 10px; --shadow: 0 2px 16px rgba(27,58,92,0.08);
+      --radius: 10px; --shadow: 0 2px 16px rgba(27,58,79,0.08);
     }
     html { scroll-behavior: smooth; }
     body { font-family: 'Inter', sans-serif; font-size: 16px; color: var(--text); background: var(--white); line-height: 1.6; }
@@ -57,11 +58,11 @@
     nav a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.875rem; font-weight: 500; padding: 8px 14px; border-radius: 6px; transition: background 0.2s, color 0.2s; }
     nav a:hover { background: rgba(255,255,255,0.12); color: var(--white); }
     nav a.cta { background: var(--teal); color: var(--white); margin-left: 8px; }
-    nav a.cta:hover { background: #238a7e; }
+    nav a.cta:hover { background: #1E8571; }
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
     .hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; }
 
-    .hero { background: linear-gradient(135deg, #1B3A5C 0%, #2A4A73 60%, #2A6A5C 100%); color: var(--white); padding: 72px 24px 0; text-align: center; position: relative; }
+    .hero { background: linear-gradient(160deg, var(--teal) 0%, #3D9E7A 45%, var(--blauw) 100%); color: var(--white); padding: 72px 24px 0; text-align: center; position: relative; }
     .hero-inner { max-width: 640px; margin: 0 auto; position: relative; padding-bottom: 72px; }
     .hero-wave { display: block; width: 100%; height: 60px; }
     .hero-badge { display: inline-block; background: rgba(201,148,10,0.25); border: 1px solid rgba(201,148,10,0.5); color: #F5C842; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 14px; border-radius: 999px; margin-bottom: 20px; }
@@ -168,13 +169,13 @@
     .spinner { width: 20px; height: 20px; border: 2px solid var(--grey-border); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 40px auto; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    .cta-section { background: linear-gradient(135deg, var(--navy) 0%, #2A4A73 100%); color: var(--white); text-align: center; padding: 72px 24px; }
+    .cta-section { background: linear-gradient(160deg, var(--teal) 0%, #3D9E7A 45%, var(--blauw) 100%); color: var(--white); text-align: center; padding: 72px 24px; }
     .cta-section h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; margin-bottom: 14px; }
     .cta-section p { opacity: 0.8; max-width: 480px; margin: 0 auto 32px; font-size: 0.95rem; }
     .btn-primary { display: inline-block; background: var(--gold); color: var(--white); padding: 14px 32px; border-radius: 8px; font-weight: 700; font-size: 0.95rem; text-decoration: none; transition: background 0.2s, transform 0.15s; }
     .btn-primary:hover { background: #a87808; transform: translateY(-1px); }
 
-    footer { background: #0F2340; color: rgba(255,255,255,0.5); text-align: center; padding: 28px 24px; font-size: 0.82rem; }
+    footer { background: #10232F; color: rgba(255,255,255,0.5); text-align: center; padding: 28px 24px; font-size: 0.82rem; }
     footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
     footer a:hover { color: var(--white); }
 
@@ -234,7 +235,7 @@
       <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:16px">Wilt u ook als organisatie samenwerken met het Knie Onderbeen Netwerk?</p>
       <a href="contact.html"
         style="display:inline-block;background:var(--teal);color:var(--white);padding:12px 28px;border-radius:8px;font-weight:700;font-size:0.9rem;text-decoration:none;transition:background 0.2s,transform 0.15s"
-        onmouseover="this.style.background='#238a7e';this.style.transform='translateY(-1px)'"
+        onmouseover="this.style.background='#1E8571';this.style.transform='translateY(-1px)'"
         onmouseout="this.style.background='var(--teal)';this.style.transform='none'">
         ✉ Neem contact op
       </a>

@@ -38,7 +38,8 @@
 }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --navy: #1B3A5C; --teal: #2A9D8F; --teal-light: #E8F5F4;
+      --navy: #1B3A4F; --navy-dark: #10232F; --teal: #2AA88F; --teal-light: #E6F5F1; --teal-dark: #1E8571;
+      --blauw: #2E7DB8; --accent: #F5921E;
       --grey-bg: #F5F7FA; --grey-border: #DDE3EC;
       --text: #1A1A2E; --text-muted: #6B7A99; --white: #FFFFFF;
       --red: #E74C3C; --red-light: #FDEDEC;
@@ -67,12 +68,12 @@
       .form-section { padding: 20px; }
     }
 
-    .hero { background: linear-gradient(135deg, var(--navy) 0%, #2A4A73 100%); color: var(--white); padding: 72px 24px 0; text-align: center; }
+    .hero { background: linear-gradient(160deg, var(--teal) 0%, #3D9E7A 45%, var(--blauw) 100%); color: var(--white); padding: 72px 24px 0; text-align: center; }
     .hero-inner { max-width: 640px; margin: 0 auto; padding-bottom: 72px; }
     .hero-wave { display: block; width: 100%; height: 60px; }
-    .hero-badge { display: inline-block; background: rgba(42,157,143,0.25); border: 1px solid rgba(42,157,143,0.5); color: #7FDED5; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 14px; border-radius: 999px; margin-bottom: 20px; }
+    .hero-badge { display: inline-block; background: rgba(42,168,143,0.25); border: 1px solid rgba(42,168,143,0.5); color: #7EE8CE; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 14px; border-radius: 999px; margin-bottom: 20px; }
     .hero h1 { font-size: clamp(1.8rem, 4.5vw, 2.6rem); font-weight: 700; line-height: 1.15; margin-bottom: 16px; letter-spacing: -0.02em; }
-    .hero h1 em { font-style: normal; color: #7FDED5; }
+    .hero h1 em { font-style: normal; color: #7EE8CE; }
     .hero p { font-size: 1rem; opacity: 0.85; max-width: 520px; margin: 0 auto; line-height: 1.7; }
 
     section { padding: 64px 24px; }
@@ -91,7 +92,7 @@
     .form-group label { display: block; font-size: 0.83rem; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
     .form-group label .req { color: var(--teal); margin-left: 2px; }
     .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 11px 14px; border: 1.5px solid var(--grey-border); border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 0.9rem; color: var(--text); background: var(--white); transition: border-color 0.2s, box-shadow 0.2s; outline: none; }
-    .form-group input:focus, .form-group textarea:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(42,157,143,0.12); }
+    .form-group input:focus, .form-group textarea:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(42,168,143,0.12); }
     .form-group textarea { resize: vertical; min-height: 100px; }
 
     .foto-preview { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid var(--grey-border); margin-top: 12px; display: none; }
@@ -105,7 +106,7 @@
     .code-verified span { font-size: 0.88rem; font-weight: 600; color: #1E8449; }
     .code-fout { background: var(--red-light); border: 1.5px solid var(--red); border-radius: 8px; padding: 10px 14px; font-size: 0.85rem; color: var(--red); margin-top: 8px; display: none; }
     .btn-verificeer { padding: 11px 20px; background: var(--navy); color: white; border: none; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 700; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
-    .btn-verificeer:hover { background: #2A4A73; }
+    .btn-verificeer:hover { background: var(--blauw); }
     .btn-verificeer:disabled { opacity: 0.5; cursor: not-allowed; }
 
     .checkbox-group { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 24px; }
@@ -113,7 +114,7 @@
     .checkbox-group label { font-size: 0.85rem; color: var(--text-muted); cursor: pointer; }
 
     .btn-submit { width: 100%; padding: 14px; background: var(--teal); color: var(--white); border: none; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; transition: background 0.2s; }
-    .btn-submit:hover { background: #238a7e; }
+    .btn-submit:hover { background: #1E8571; }
     .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
 
     .form-success { display: none; text-align: center; padding: 40px 20px; }
@@ -121,7 +122,7 @@
     .form-success h3 { font-size: 1.3rem; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
     .form-success p { color: var(--text-muted); font-size: 0.9rem; }
 
-    footer { background: #0F2340; color: rgba(255,255,255,0.5); text-align: center; padding: 28px 24px; font-size: 0.82rem; }
+    footer { background: #10232F; color: rgba(255,255,255,0.5); text-align: center; padding: 28px 24px; font-size: 0.82rem; }
     footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
   </style>
 </head>

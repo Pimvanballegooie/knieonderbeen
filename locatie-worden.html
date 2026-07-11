@@ -14,8 +14,9 @@
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --navy: #1B3A5C; --navy-dark: #0F2340;
-      --teal: #2A9D8F; --teal-light: #E8F5F4;
+      --navy: #1B3A4F; --navy-dark: #10232F;
+      --teal: #2AA88F; --teal-light: #E6F5F1; --teal-dark: #1E8571;
+      --blauw: #2E7DB8; --accent: #F5921E;
       --grey-bg: #F5F7FA; --grey-border: #DDE3EC;
       --text: #1A1A2E; --text-muted: #6B7A99; --white: #FFFFFF;
       --gold: #C9940A; --gold-light: #FEF9E7;
@@ -31,23 +32,23 @@
     nav a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.875rem; font-weight: 500; padding: 8px 14px; border-radius: 6px; transition: all 0.2s; }
     nav a:hover { background: rgba(255,255,255,0.12); color: var(--white); }
     nav a.cta { background: var(--teal); color: var(--white); margin-left: 8px; }
-    nav a.cta:hover { background: #238a7e; }
+    nav a.cta:hover { background: #1E8571; }
 
     /* HERO */
-    .hero { background: linear-gradient(135deg, var(--navy) 0%, #2A4A73 100%); color: var(--white); padding: 72px 24px 64px; text-align: center; }
-    .hero-badge { display: inline-block; background: rgba(42,157,143,0.25); border: 1px solid rgba(42,157,143,0.5); color: #7FDED5; font-size: 0.75rem; font-weight: 700; padding: 5px 14px; border-radius: 999px; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.08em; }
+    .hero { background: linear-gradient(160deg, var(--teal) 0%, #3D9E7A 45%, var(--blauw) 100%); color: var(--white); padding: 72px 24px 64px; text-align: center; }
+    .hero-badge { display: inline-block; background: rgba(42,168,143,0.25); border: 1px solid rgba(42,168,143,0.5); color: #7EE8CE; font-size: 0.75rem; font-weight: 700; padding: 5px 14px; border-radius: 999px; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.08em; }
     .hero h1 { font-size: clamp(1.8rem,4vw,2.6rem); font-weight: 700; margin-bottom: 14px; letter-spacing: -0.02em; }
-    .hero h1 em { font-style: normal; color: #7FDED5; }
+    .hero h1 em { font-style: normal; color: #7EE8CE; }
     .hero p { opacity: 0.85; max-width: 560px; margin: 0 auto; font-size: 1rem; line-height: 1.7; }
 
     /* CONTENT */
     .content { max-width: 860px; margin: 0 auto; padding: 56px 24px 80px; }
 
     /* NETWERK UITLEG */
-    .netwerk-uitleg { background: var(--teal-light); border: 1px solid rgba(42,157,143,0.3); border-radius: 16px; padding: 28px 32px; margin-bottom: 48px; display: flex; gap: 20px; align-items: flex-start; }
+    .netwerk-uitleg { background: var(--teal-light); border: 1px solid rgba(42,168,143,0.3); border-radius: 16px; padding: 28px 32px; margin-bottom: 48px; display: flex; gap: 20px; align-items: flex-start; }
     .netwerk-uitleg .icon { font-size: 2.5rem; flex-shrink: 0; }
     .netwerk-uitleg h2 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
-    .netwerk-uitleg p { font-size: 0.88rem; color: #1a6b62; line-height: 1.7; }
+    .netwerk-uitleg p { font-size: 0.88rem; color: #1E8571; line-height: 1.7; }
     .netwerk-links { display: flex; gap: 12px; margin-top: 14px; flex-wrap: wrap; }
     .netwerk-link { display: inline-flex; align-items: center; gap: 6px; font-size: 0.82rem; font-weight: 700; color: var(--teal); background: var(--white); border: 1.5px solid var(--teal); border-radius: 8px; padding: 6px 14px; text-decoration: none; transition: all 0.2s; }
     .netwerk-link:hover { background: var(--teal); color: var(--white); }
@@ -64,7 +65,7 @@
     .stap-body .tip { background: var(--grey-bg); border-left: 3px solid var(--teal); border-radius: 0 8px 8px 0; padding: 10px 14px; font-size: 0.82rem; color: var(--text-muted); margin-top: 10px; }
 
     /* CTA BLOK */
-    .cta-blok { background: linear-gradient(135deg, var(--teal) 0%, #238a7e 100%); border-radius: 20px; padding: 48px 40px; text-align: center; color: var(--white); }
+    .cta-blok { background: linear-gradient(135deg, var(--teal) 0%, #1E8571 100%); border-radius: 20px; padding: 48px 40px; text-align: center; color: var(--white); }
     .cta-blok h2 { font-size: 1.4rem; font-weight: 700; margin-bottom: 12px; }
     .cta-blok p { opacity: 0.9; font-size: 0.95rem; margin-bottom: 28px; max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.7; }
     .btn-aanmelden { display: inline-block; background: var(--white); color: var(--teal); padding: 14px 36px; border-radius: 10px; font-size: 1rem; font-weight: 700; text-decoration: none; transition: all 0.2s; box-shadow: 0 4px 16px rgba(0,0,0,0.15); }

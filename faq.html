@@ -39,7 +39,8 @@
 }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --navy: #1B3A5C; --teal: #2A9D8F; --teal-light: #E8F5F4;
+      --navy: #1B3A4F; --navy-dark: #10232F; --teal: #2AA88F; --teal-light: #E6F5F1; --teal-dark: #1E8571;
+      --blauw: #2E7DB8; --accent: #F5921E;
       --grey-bg: #F5F7FA; --grey-border: #DDE3EC;
       --text: #1A1A2E; --text-muted: #6B7A99; --white: #FFFFFF;
     }
@@ -55,7 +56,7 @@
     nav a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.875rem; font-weight: 500; padding: 8px 14px; border-radius: 6px; transition: background 0.2s, color 0.2s; }
     nav a:hover { background: rgba(255,255,255,0.12); color: var(--white); }
     nav a.cta { background: var(--teal); color: var(--white); margin-left: 8px; }
-    nav a.cta:hover { background: #238a7e; }
+    nav a.cta:hover { background: #1E8571; }
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
     .hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; }
     @media (max-width: 700px) {
@@ -66,11 +67,11 @@
       nav a.cta { margin-left: 0; margin-top: 8px; text-align: center; }
     }
 
-    .hero { background: linear-gradient(135deg, var(--navy) 0%, #2A4A73 100%); color: var(--white); padding: 64px 24px 0; text-align: center; }
+    .hero { background: linear-gradient(160deg, var(--teal) 0%, #3D9E7A 45%, var(--blauw) 100%); color: var(--white); padding: 64px 24px 0; text-align: center; }
     .hero-inner { max-width: 640px; margin: 0 auto; padding-bottom: 64px; }
-    .hero-badge { display: inline-block; background: rgba(42,157,143,0.25); border: 1px solid rgba(42,157,143,0.5); color: #7FDED5; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 14px; border-radius: 999px; margin-bottom: 20px; }
+    .hero-badge { display: inline-block; background: rgba(42,168,143,0.25); border: 1px solid rgba(42,168,143,0.5); color: #7EE8CE; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 14px; border-radius: 999px; margin-bottom: 20px; }
     .hero h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 700; margin-bottom: 12px; letter-spacing: -0.02em; }
-    .hero h1 em { font-style: normal; color: #7FDED5; }
+    .hero h1 em { font-style: normal; color: #7EE8CE; }
     .hero p { opacity: 0.85; font-size: 0.95rem; max-width: 480px; margin: 0 auto; }
     .hero-wave { display: block; width: 100%; height: 60px; }
 
@@ -88,7 +89,7 @@
     .faq-sectie.verborgen { display: none; }
 
     .faq-item { border: 1px solid var(--grey-border); border-radius: 12px; margin-bottom: 8px; overflow: hidden; transition: box-shadow 0.2s; }
-    .faq-item:hover { box-shadow: 0 2px 12px rgba(27,58,92,0.07); }
+    .faq-item:hover { box-shadow: 0 2px 12px rgba(27,58,79,0.07); }
     .faq-vraag { display: flex; justify-content: space-between; align-items: center; padding: 18px 20px; cursor: pointer; font-weight: 600; font-size: 0.95rem; color: var(--navy); gap: 16px; user-select: none; background: var(--white); }
     .faq-vraag:hover { background: var(--grey-bg); }
     .faq-icoon { font-size: 1.1rem; flex-shrink: 0; transition: transform 0.2s; color: var(--teal); }
@@ -103,9 +104,9 @@
     .contact-blok h2 { font-size: 1.2rem; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
     .contact-blok p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px; }
     .btn-mail { display: inline-block; background: var(--teal); color: var(--white); padding: 12px 28px; border-radius: 8px; font-weight: 700; font-size: 0.9rem; text-decoration: none; transition: background 0.2s; }
-    .btn-mail:hover { background: #238a7e; }
+    .btn-mail:hover { background: #1E8571; }
 
-    footer { background: #0F2340; color: rgba(255,255,255,0.5); text-align: center; padding: 28px 24px; font-size: 0.82rem; }
+    footer { background: #10232F; color: rgba(255,255,255,0.5); text-align: center; padding: 28px 24px; font-size: 0.82rem; }
     footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
     footer a:hover { color: var(--white); }
   </style>

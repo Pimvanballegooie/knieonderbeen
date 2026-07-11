@@ -39,16 +39,18 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --navy:   #1B3A5C;
-      --teal:   #2A9D8F;
-      --teal-light: #E8F5F4;
+      --navy:   #1B3A4F;
+      --navy-dark: #10232F;
+      --teal:   #2AA88F;
+      --teal-light: #E6F5F1; --teal-dark: #1E8571;
+      --blauw: #2E7DB8; --accent: #F5921E;
       --grey-bg: #F5F7FA;
       --grey-border: #DDE3EC;
       --text:   #1A1A2E;
       --text-muted: #6B7A99;
       --white:  #FFFFFF;
       --radius: 10px;
-      --shadow: 0 2px 16px rgba(27,58,92,0.08);
+      --shadow: 0 2px 16px rgba(27,58,79,0.08);
     }
 
     html { scroll-behavior: smooth; }
@@ -63,18 +65,18 @@
     nav a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.875rem; font-weight: 500; padding: 8px 14px; border-radius: 6px; transition: background 0.2s, color 0.2s; }
     nav a:hover { background: rgba(255,255,255,0.12); color: var(--white); }
     nav a.cta { background: var(--teal); color: var(--white); margin-left: 8px; }
-    nav a.cta:hover { background: #238a7e; }
+    nav a.cta:hover { background: #1E8571; }
 
-    .hero { background: linear-gradient(135deg, var(--navy) 0%, #2A4A73 100%); color: var(--white); padding: 72px 24px 0; text-align: center; position: relative; }
+    .hero { background: linear-gradient(160deg, var(--teal) 0%, #3D9E7A 45%, var(--blauw) 100%); color: var(--white); padding: 72px 24px 0; text-align: center; position: relative; }
     .hero-inner { max-width: 680px; margin: 0 auto; position: relative; padding-bottom: 72px; }
     .hero-wave { display: block; width: 100%; height: 60px; margin-top: 0; }
-    .hero-badge { display: inline-block; background: rgba(42,157,143,0.25); border: 1px solid rgba(42,157,143,0.5); color: #7FDED5; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 14px; border-radius: 999px; margin-bottom: 20px; }
+    .hero-badge { display: inline-block; background: rgba(42,168,143,0.25); border: 1px solid rgba(42,168,143,0.5); color: #7EE8CE; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 14px; border-radius: 999px; margin-bottom: 20px; }
     .hero h1 { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 700; line-height: 1.15; margin-bottom: 18px; letter-spacing: -0.02em; }
-    .hero h1 em { font-style: normal; color: #7FDED5; }
+    .hero h1 em { font-style: normal; color: #7EE8CE; }
     .hero p { font-size: 1.05rem; opacity: 0.85; max-width: 560px; margin: 0 auto 32px; line-height: 1.7; }
     .hero-stats { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
     .stat { text-align: center; }
-    .stat-num { font-size: 1.8rem; font-weight: 700; color: #7FDED5; line-height: 1; }
+    .stat-num { font-size: 1.8rem; font-weight: 700; color: #7EE8CE; line-height: 1; }
     .stat-label { font-size: 0.78rem; opacity: 0.7; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
 
     section { padding: 64px 24px; }
@@ -108,15 +110,15 @@
     .locatie-contact a { font-size: 0.83rem; color: var(--teal); text-decoration: none; display: flex; align-items: center; gap: 6px; }
     .locatie-contact a:hover { text-decoration: underline; }
     .btn-therapeuten { display: inline-flex; align-items: center; justify-content: center; gap: 6px; margin-top: 14px; padding: 8px 16px; background: var(--teal); color: white; border-radius: 6px; font-size: 0.8rem; font-weight: 600; text-decoration: none; transition: background 0.2s; width: 100%; }
-    .btn-therapeuten:hover { background: #238a7e; }
+    .btn-therapeuten:hover { background: #1E8571; }
 
-    .cta-section { background: linear-gradient(135deg, var(--navy) 0%, #2A4A73 100%); color: var(--white); text-align: center; padding: 72px 24px; }
+    .cta-section { background: linear-gradient(160deg, var(--teal) 0%, #3D9E7A 45%, var(--blauw) 100%); color: var(--white); text-align: center; padding: 72px 24px; }
     .cta-section h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; margin-bottom: 14px; letter-spacing: -0.02em; }
     .cta-section p { opacity: 0.8; max-width: 480px; margin: 0 auto 32px; font-size: 0.95rem; }
     .btn-primary { display: inline-block; background: var(--teal); color: var(--white); padding: 14px 32px; border-radius: 8px; font-weight: 700; font-size: 0.95rem; text-decoration: none; transition: background 0.2s, transform 0.15s; }
-    .btn-primary:hover { background: #238a7e; transform: translateY(-1px); }
+    .btn-primary:hover { background: #1E8571; transform: translateY(-1px); }
 
-    footer { background: #0F2340; color: rgba(255,255,255,0.5); text-align: center; padding: 28px 24px; font-size: 0.82rem; }
+    footer { background: #10232F; color: rgba(255,255,255,0.5); text-align: center; padding: 28px 24px; font-size: 0.82rem; }
     footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
     footer a:hover { color: var(--white); }
 
@@ -256,7 +258,7 @@
           onkeydown="if(event.key==='Enter') zoekLocatie()" />
         <button onclick="zoekLocatie()"
           style="padding:10px 16px;background:var(--teal);color:#fff;border:none;cursor:pointer;font-weight:600;font-size:0.85rem;white-space:nowrap;transition:background 0.2s"
-          onmouseover="this.style.background='#238a7e'" onmouseout="this.style.background='var(--teal)'">
+          onmouseover="this.style.background='#1E8571'" onmouseout="this.style.background='var(--teal)'">
           🔍 Zoek
         </button>
       </div>
@@ -530,7 +532,7 @@
       pos => {
         kaart.setView([pos.coords.latitude, pos.coords.longitude], 13);
         if (window._gebruikerMarker) window._gebruikerMarker.remove();
-        window._gebruikerMarker = L.circleMarker([pos.coords.latitude, pos.coords.longitude], { radius: 8, fillColor: '#2A9D8F', color: '#fff', weight: 2, fillOpacity: 1 }).addTo(kaart).bindPopup('📍 Uw locatie').openPopup();
+        window._gebruikerMarker = L.circleMarker([pos.coords.latitude, pos.coords.longitude], { radius: 8, fillColor: '#2AA88F', color: '#fff', weight: 2, fillOpacity: 1 }).addTo(kaart).bindPopup('📍 Uw locatie').openPopup();
         status.textContent = '📍 Uw locatie gevonden';
       },
       () => { status.textContent = 'Locatie niet beschikbaar.'; }

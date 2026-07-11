@@ -38,11 +38,12 @@
 }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --navy: #1B3A5C; --teal: #2A9D8F; --teal-light: #E8F5F4;
+      --navy: #1B3A4F; --navy-dark: #10232F; --teal: #2AA88F; --teal-light: #E6F5F1; --teal-dark: #1E8571;
+      --blauw: #2E7DB8; --accent: #F5921E;
       --grey-bg: #F5F7FA; --grey-border: #DDE3EC;
       --text: #1A1A2E; --text-muted: #6B7A99; --white: #FFFFFF;
       --gold: #C9940A; --gold-light: #FEF9E7;
-      --radius: 10px; --shadow: 0 2px 16px rgba(27,58,92,0.08);
+      --radius: 10px; --shadow: 0 2px 16px rgba(27,58,79,0.08);
     }
     body { font-family: 'Inter', sans-serif; font-size: 16px; color: var(--text); background: var(--grey-bg); line-height: 1.6; }
 
@@ -125,9 +126,9 @@
     .aanmelden-cta h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
     .aanmelden-cta p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px; }
     .btn-aanmelden { display: inline-block; background: var(--teal); color: var(--white); padding: 10px 24px; border-radius: 8px; font-weight: 700; font-size: 0.875rem; text-decoration: none; transition: background 0.2s; }
-    .btn-aanmelden:hover { background: #238a7e; }
+    .btn-aanmelden:hover { background: #1E8571; }
 
-    footer { background: #0F2340; color: rgba(255,255,255,0.5); text-align: center; padding: 28px 24px; font-size: 0.82rem; margin-top: 64px; }
+    footer { background: #10232F; color: rgba(255,255,255,0.5); text-align: center; padding: 28px 24px; font-size: 0.82rem; margin-top: 64px; }
     footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
 
     @media (max-width: 600px) { .therapeuten-grid { grid-template-columns: 1fr; } }
@@ -277,7 +278,7 @@
         : `<div class="therapeut-avatar">👤</div>`;
 
       const disciplinesHtml = (t.disciplines || []).length > 0
-        ? `<div class="spec-tags" style="margin-bottom:8px">${(t.disciplines || []).map(d => `<span class="spec-tag" style="background:#E8F5F4;color:#2A9D8F">${d}</span>`).join('')}</div>`
+        ? `<div class="spec-tags" style="margin-bottom:8px">${(t.disciplines || []).map(d => `<span class="spec-tag" style="background:#E6F5F1;color:#2AA88F">${d}</span>`).join('')}</div>`
         : '';
 
       const tagsHtml = specialisaties.length > 0

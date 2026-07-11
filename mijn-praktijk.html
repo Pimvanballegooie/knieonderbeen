@@ -39,7 +39,8 @@
 }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --navy: #1B3A5C; --teal: #2A9D8F; --teal-light: #E8F5F4;
+      --navy: #1B3A4F; --navy-dark: #10232F; --teal: #2AA88F; --teal-light: #E6F5F1; --teal-dark: #1E8571;
+      --blauw: #2E7DB8; --accent: #F5921E;
       --grey-bg: #F5F7FA; --grey-border: #DDE3EC;
       --text: #1A1A2E; --text-muted: #6B7A99; --white: #FFFFFF;
       --green: #1E8449; --green-light: #EAF7F0; --green-border: rgba(30,132,73,0.3);
@@ -72,11 +73,11 @@
     .form-group { margin-bottom: 16px; }
     .form-group label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
     .form-group input, .form-group textarea { width: 100%; padding: 11px 14px; border: 1.5px solid var(--grey-border); border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 0.9rem; color: var(--text); outline: none; transition: border-color 0.2s; background: var(--white); }
-    .form-group input:focus, .form-group textarea:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(42,157,143,0.12); }
+    .form-group input:focus, .form-group textarea:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(42,168,143,0.12); }
     .form-group input[readonly] { background: var(--grey-bg); color: var(--text-muted); cursor: default; }
     .form-group textarea { resize: vertical; min-height: 90px; }
     .btn-primary { width: 100%; padding: 12px; background: var(--teal); color: white; border: none; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: background 0.2s; }
-    .btn-primary:hover { background: #238a7e; }
+    .btn-primary:hover { background: #1E8571; }
     .inlog-fout { background: var(--red-light); color: var(--red); border-radius: 8px; padding: 10px 14px; font-size: 0.84rem; margin-bottom: 14px; display: none; }
     .inlog-fout.zichtbaar { display: block; }
     .wachtwoord-wrap { position: relative; }
@@ -86,11 +87,11 @@
     /* PRAKTIJKSCHERM */
     #scherm-praktijk { display: none; }
 
-    .praktijk-hero { background: linear-gradient(135deg, var(--navy) 0%, #2A4A73 100%); border-radius: 16px; padding: 28px 32px; margin-bottom: 28px; display: flex; align-items: center; gap: 24px; }
+    .praktijk-hero { background: linear-gradient(160deg, var(--teal) 0%, #3D9E7A 45%, var(--blauw) 100%); border-radius: 16px; padding: 28px 32px; margin-bottom: 28px; display: flex; align-items: center; gap: 24px; }
     .praktijk-hero-tekst { flex: 1; }
     .praktijk-hero-naam { font-size: 1.4rem; font-weight: 700; color: var(--white); margin-bottom: 4px; }
     .praktijk-hero-adres { font-size: 0.88rem; color: rgba(255,255,255,0.65); }
-    .praktijk-code-badge { display: inline-block; background: rgba(42,157,143,0.25); border: 1px solid rgba(42,157,143,0.5); color: #7FDED5; font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; margin-top: 8px; font-family: monospace; letter-spacing: 0.1em; }
+    .praktijk-code-badge { display: inline-block; background: rgba(42,168,143,0.25); border: 1px solid rgba(42,168,143,0.5); color: #7EE8CE; font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; margin-top: 8px; font-family: monospace; letter-spacing: 0.1em; }
 
     /* TABS */
     .praktijk-tabs { display: flex; gap: 4px; background: var(--white); border: 1px solid var(--grey-border); border-radius: 12px; padding: 6px; margin-bottom: 24px; }
@@ -107,7 +108,7 @@
     @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
 
     .btn-opslaan { background: var(--teal); color: white; border: none; border-radius: 8px; padding: 11px 24px; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 700; cursor: pointer; transition: background 0.2s; }
-    .btn-opslaan:hover { background: #238a7e; }
+    .btn-opslaan:hover { background: #1E8571; }
 
     .melding { border-radius: 8px; padding: 12px 16px; font-size: 0.85rem; margin-top: 16px; display: none; }
     .melding.success { background: var(--green-light); color: var(--green); border: 1px solid var(--green-border); display: block; }
@@ -123,7 +124,7 @@
     .therapeut-item-meta { font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; }
     .specialist-badge-small { display: inline-block; background: var(--gold-light); color: var(--gold); font-size: 0.68rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; margin-left: 6px; }
 
-    footer { background: #0F2340; color: rgba(255,255,255,0.4); text-align: center; padding: 24px; font-size: 0.78rem; margin-top: 48px; }
+    footer { background: #10232F; color: rgba(255,255,255,0.4); text-align: center; padding: 24px; font-size: 0.78rem; margin-top: 48px; }
     footer a { color: rgba(255,255,255,0.6); text-decoration: none; }
   </style>
 </head>

@@ -39,7 +39,8 @@
 }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --navy: #1B3A5C; --teal: #2A9D8F; --teal-light: #E8F5F4;
+      --navy: #1B3A4F; --navy-dark: #10232F; --teal: #2AA88F; --teal-light: #E6F5F1; --teal-dark: #1E8571;
+      --blauw: #2E7DB8; --accent: #F5921E;
       --grey-bg: #F5F7FA; --grey-border: #DDE3EC;
       --text: #1A1A2E; --text-muted: #6B7A99; --white: #FFFFFF;
       --green: #1E8449; --green-light: #EAF7F0; --green-border: rgba(30,132,73,0.3);
@@ -60,7 +61,7 @@
     nav a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.875rem; font-weight: 500; padding: 8px 14px; border-radius: 6px; transition: background 0.2s, color 0.2s; }
     nav a:hover { background: rgba(255,255,255,0.12); color: var(--white); }
     nav a.cta { background: var(--teal); color: var(--white); margin-left: 8px; }
-    nav a.cta:hover { background: #238a7e; }
+    nav a.cta:hover { background: #1E8571; }
     .header-right { display: flex; align-items: center; gap: 12px; }
     .therapeut-info { text-align: right; display: none; }
     .therapeut-info.zichtbaar { display: block; }
@@ -89,11 +90,11 @@
     .form-group { margin-bottom: 16px; }
     .form-group label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
     .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 11px 14px; border: 1.5px solid var(--grey-border); border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 0.9rem; color: var(--text); outline: none; transition: border-color 0.2s; background: var(--white); }
-    .form-group input:focus, .form-group textarea:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(42,157,143,0.12); }
+    .form-group input:focus, .form-group textarea:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(42,168,143,0.12); }
     .form-group textarea { resize: vertical; min-height: 90px; }
     .form-group input[readonly] { background: var(--grey-bg); color: var(--text-muted); cursor: default; }
     .btn-primary { width: 100%; padding: 12px; background: var(--teal); color: white; border: none; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: background 0.2s; }
-    .btn-primary:hover { background: #238a7e; }
+    .btn-primary:hover { background: #1E8571; }
     .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
     .inlog-fout { background: var(--red-light); color: var(--red); border-radius: 8px; padding: 10px 14px; font-size: 0.84rem; margin-bottom: 14px; display: none; }
     .inlog-fout.zichtbaar { display: block; }
@@ -109,13 +110,13 @@
     /* PROFIELSCHERM */
     #scherm-profiel { display: none; }
 
-    .profiel-hero { background: linear-gradient(135deg, var(--navy) 0%, #2A4A73 100%); border-radius: 16px; padding: 28px 32px; margin-bottom: 28px; display: flex; align-items: center; gap: 24px; }
+    .profiel-hero { background: linear-gradient(160deg, var(--teal) 0%, #3D9E7A 45%, var(--blauw) 100%); border-radius: 16px; padding: 28px 32px; margin-bottom: 28px; display: flex; align-items: center; gap: 24px; }
     .profiel-foto { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; border: 3px solid rgba(255,255,255,0.3); flex-shrink: 0; }
     .profiel-avatar { width: 72px; height: 72px; border-radius: 50%; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 2rem; flex-shrink: 0; }
     .profiel-tekst { flex: 1; }
     .profiel-naam { font-size: 1.4rem; font-weight: 700; color: var(--white); margin-bottom: 4px; }
     .profiel-praktijk { font-size: 0.88rem; color: rgba(255,255,255,0.65); }
-    .profiel-status { display: inline-block; background: rgba(30,132,73,0.3); border: 1px solid rgba(30,132,73,0.5); color: #7FDED5; font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; margin-top: 8px; }
+    .profiel-status { display: inline-block; background: rgba(30,132,73,0.3); border: 1px solid rgba(30,132,73,0.5); color: #7EE8CE; font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; margin-top: 8px; }
 
     /* TABS */
     .profiel-tabs { display: flex; gap: 4px; background: var(--white); border: 1px solid var(--grey-border); border-radius: 12px; padding: 6px; margin-bottom: 24px; }
@@ -134,7 +135,7 @@
     @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
 
     .btn-opslaan { background: var(--teal); color: white; border: none; border-radius: 8px; padding: 11px 24px; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 700; cursor: pointer; transition: background 0.2s; }
-    .btn-opslaan:hover { background: #238a7e; }
+    .btn-opslaan:hover { background: #1E8571; }
     .btn-opslaan:disabled { opacity: 0.5; cursor: not-allowed; }
 
     .melding { border-radius: 8px; padding: 12px 16px; font-size: 0.85rem; margin-top: 16px; display: none; }
@@ -157,7 +158,7 @@
 
     /* CURSUSSEN */
     .cursus-tegel { border-radius: 12px; padding: 18px 20px; border: 2px solid var(--grey-border); background: var(--white); display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 10px; text-decoration: none; color: inherit; transition: box-shadow 0.2s; }
-    .cursus-tegel:hover:not(.vergrendeld) { box-shadow: 0 4px 16px rgba(27,58,92,0.1); }
+    .cursus-tegel:hover:not(.vergrendeld) { box-shadow: 0 4px 16px rgba(27,58,79,0.1); }
     .cursus-tegel.behaald { border-color: var(--green); background: var(--green-light); }
     .cursus-tegel.niet-behaald { border-color: var(--red); background: var(--red-light); }
     .cursus-tegel.binnenkort { opacity: 0.5; cursor: default; }
@@ -185,7 +186,7 @@
     .oogje { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 1.1rem; color: var(--text-muted); padding: 4px; line-height: 1; }
     .oogje:hover { color: var(--navy); }
 
-    footer { background: #0F2340; color: rgba(255,255,255,0.4); text-align: center; padding: 24px; font-size: 0.78rem; margin-top: 48px; }
+    footer { background: #10232F; color: rgba(255,255,255,0.4); text-align: center; padding: 24px; font-size: 0.78rem; margin-top: 48px; }
     footer a { color: rgba(255,255,255,0.6); text-decoration: none; }
   </style>
 </head>

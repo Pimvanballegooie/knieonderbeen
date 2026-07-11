@@ -61,7 +61,7 @@ def opschonen_html(body):
         return (
             '<a href="' + url + '" target="_blank" rel="noopener" '
             'style="display:inline-flex;align-items:center;gap:8px;margin:6px 0;padding:10px 18px;'
-            'background:#E8F5F4;color:#2A9D8F;border:2px solid #2A9D8F;border-radius:8px;'
+            'background:#E6F5F1;color:#2AA88F;border:2px solid #2AA88F;border-radius:8px;'
             'font-size:0.875rem;font-weight:600;text-decoration:none;">&#128249; ' + naam + '</a>'
         )
 
@@ -83,7 +83,7 @@ def opschonen_html(body):
         return (
             '<a href="' + url + '" target="_blank" rel="noopener" '
             'style="display:inline-flex;align-items:center;gap:6px;margin:4px 0;padding:6px 14px;'
-            'background:#E8F5F4;color:#2A9D8F;border:1.5px solid #2A9D8F;border-radius:6px;'
+            'background:#E6F5F1;color:#2AA88F;border:1.5px solid #2AA88F;border-radius:6px;'
             'font-size:0.8rem;font-weight:600;text-decoration:none;">📹 ' + naam + '</a>'
         )
     body = re.sub(r'\[VIDEO:\s*([^|\]]+)\|\s*(https?://[^\]]+)\]', maak_video_knop, body)
@@ -161,12 +161,12 @@ def maak_cta_blok():
   .cta-sectie { border-radius: 14px; padding: 2rem; }
   .cta-titel { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
   .cta-sub { font-size: 0.88rem; margin-bottom: 1.5rem; }
-  .cta-afspraak { background: #1B3A5C; }
+  .cta-afspraak { background: #1B3A4F; }
   .cta-afspraak .cta-titel { color: white; }
   .cta-afspraak .cta-sub { color: rgba(255,255,255,0.7); }
   .cta-knoppen { display: flex; gap: 10px; flex-wrap: wrap; }
   .btn-primary { background: var(--teal); color: white; padding: 11px 22px; border-radius: 8px; font-size: 0.9rem; font-weight: 700; text-decoration: none; transition: background 0.2s; }
-  .btn-primary:hover { background: #238a7e; }
+  .btn-primary:hover { background: #1E8571; }
   .btn-outline { background: transparent; color: rgba(255,255,255,0.8); border: 1.5px solid rgba(255,255,255,0.3); padding: 11px 22px; border-radius: 8px; font-size: 0.9rem; font-weight: 600; text-decoration: none; transition: all 0.2s; }
   .btn-outline:hover { border-color: white; color: white; }
 </style>'''
@@ -240,7 +240,7 @@ def maak_html_pagina(protocol_naam, protocol_id, niveau, body_schoon, zone_naam)
       font-display: swap;
     }}
     *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
-    :root {{ --navy: #1B3A5C; --teal: #2A9D8F; --teal-light: #E8F5F4; --grey-bg: #F5F7FA; --grey-border: #DDE3EC; --text: #1A1A2E; --text-muted: #6B7A99; --white: #FFFFFF; }}
+    :root {{ --navy: #1B3A4F; --teal: #2AA88F; --teal-light: #E6F5F1; --grey-bg: #F5F7FA; --grey-border: #DDE3EC; --text: #1A1A2E; --text-muted: #6B7A99; --white: #FFFFFF; }}
     body {{ font-family: "Inter", sans-serif; font-size: 16px; color: var(--text); background: var(--grey-bg); line-height: 1.6; }}
     header {{ background: var(--navy); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.15); }}
     .header-inner {{ max-width: 1200px; margin: 0 auto; padding: 0 clamp(1rem, 4vw, 3rem); display: flex; align-items: center; justify-content: space-between; height: 68px; }}
@@ -276,7 +276,7 @@ def maak_html_pagina(protocol_naam, protocol_id, niveau, body_schoon, zone_naam)
     .content table {{ width: 100%; border-collapse: collapse; margin: 1em 0; font-size: 0.85rem; }}
     .content td, .content th {{ border: 1px solid var(--grey-border); padding: 8px 12px; text-align: left; }}
     .content th {{ background: var(--grey-bg); font-weight: 600; }}
-    footer {{ background: #0F2340; color: rgba(255,255,255,0.5); text-align: center; padding: 28px 24px; font-size: 0.82rem; }}
+    footer {{ background: #10232F; color: rgba(255,255,255,0.5); text-align: center; padding: 28px 24px; font-size: 0.82rem; }}
     footer a {{ color: rgba(255,255,255,0.7); text-decoration: none; }}
     @media (max-width: 700px) {{ nav {{ display: none; }} }}
   </style>
@@ -502,7 +502,7 @@ html_pagina = '''<!DOCTYPE html>
       font-display: swap;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root { --navy: #1B3A5C; --teal: #2A9D8F; --teal-light: #E8F5F4; --grey-bg: #F5F7FA; --grey-border: #DDE3EC; --text: #1A1A2E; --text-muted: #6B7A99; --white: #FFFFFF; }
+    :root { --navy: #1B3A4F; --teal: #2AA88F; --teal-light: #E6F5F1; --grey-bg: #F5F7FA; --grey-border: #DDE3EC; --text: #1A1A2E; --text-muted: #6B7A99; --white: #FFFFFF; }
     html { scroll-behavior: smooth; }
     body { font-family: "Inter", sans-serif; font-size: 16px; color: var(--text); background: var(--grey-bg); line-height: 1.6; }
     header { background: var(--navy); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.15); }
@@ -514,15 +514,15 @@ html_pagina = '''<!DOCTYPE html>
     nav a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.875rem; font-weight: 500; padding: 8px 14px; border-radius: 6px; transition: background 0.2s; }
     nav a:hover { background: rgba(255,255,255,0.12); color: var(--white); }
     nav a.cta { background: var(--teal); color: var(--white); margin-left: 8px; }
-    .hero { background: linear-gradient(135deg, var(--navy) 0%, #2A4A73 100%); color: var(--white); padding: 56px 24px 48px; text-align: center; }
+    .hero { background: linear-gradient(160deg, var(--teal) 0%, #3D9E7A 45%, var(--blauw) 100%); color: var(--white); padding: 56px 24px 48px; text-align: center; }
     .hero h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 700; margin-bottom: 12px; letter-spacing: -0.02em; }
-    .hero h1 em { font-style: normal; color: #7FDED5; }
+    .hero h1 em { font-style: normal; color: #7EE8CE; }
     .hero p { opacity: 0.85; max-width: 560px; margin: 0 auto 28px; font-size: 0.95rem; }
     .zoekbalk-wrap { max-width: 600px; margin: 0 auto; }
     .zoekbalk { display: flex; background: var(--white); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
     .zoekbalk input { flex: 1; padding: 14px 20px; border: none; outline: none; font-family: inherit; font-size: 1rem; color: var(--text); }
     .zoekbalk button { padding: 14px 24px; background: var(--teal); color: white; border: none; cursor: pointer; font-weight: 700; font-size: 0.9rem; transition: background 0.2s; }
-    .zoekbalk button:hover { background: #238a7e; }
+    .zoekbalk button:hover { background: #1E8571; }
     .filter-wrap { max-width: 1200px; margin: 32px auto 0; padding: 0 clamp(1rem, 4vw, 3rem); display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
     .filter-label { font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-right: 4px; }
     .zone-btn { padding: 6px 16px; border-radius: 999px; border: 2px solid var(--grey-border); background: var(--white); color: var(--text-muted); font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
@@ -531,7 +531,7 @@ html_pagina = '''<!DOCTYPE html>
     .resultaat-info { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px; }
     .protocollen-grid { display: flex; flex-direction: column; gap: 16px; }
     .protocol-kaart { background: var(--white); border: 1px solid var(--grey-border); border-radius: 14px; padding: 28px 32px; transition: box-shadow 0.2s; display: flex; flex-direction: column; }
-    .protocol-kaart:hover { box-shadow: 0 4px 20px rgba(27,58,92,0.10); }
+    .protocol-kaart:hover { box-shadow: 0 4px 20px rgba(27,58,79,0.10); }
     .protocol-kaart.verborgen { display: none; }
     .kaart-top { display: flex; gap: 24px; align-items: flex-start; }
     .kaart-links { flex: 1; }
@@ -571,7 +571,7 @@ html_pagina = '''<!DOCTYPE html>
     .viewer-inhoud td, .viewer-inhoud th { border: 1px solid var(--grey-border); padding: 6px 10px; text-align: left; }
     .viewer-inhoud th { background: var(--grey-bg); font-weight: 600; }
     .geen-resultaten { text-align: center; padding: 64px 24px; color: var(--text-muted); display: none; }
-    footer { background: #0F2340; color: rgba(255,255,255,0.5); text-align: center; padding: 28px 24px; font-size: 0.82rem; }
+    footer { background: #10232F; color: rgba(255,255,255,0.5); text-align: center; padding: 28px 24px; font-size: 0.82rem; }
     footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
     @media (max-width: 700px) { nav { display: none; } .protocollen-grid { grid-template-columns: 1fr; } }
   </style>
