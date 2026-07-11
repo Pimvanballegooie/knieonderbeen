@@ -1,0 +1,31 @@
+name: Sync protocollen vanuit Google Docs
+
+on:
+  schedule:
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Protocollen ophalen en pagina genereren
+        run: python3 sync_protocollen.py
+
+      - name: Structured data genereren
+        run: python3 genereer_structured_data.py
+
+      - name: Wijzigingen committen en pushen
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add protocollen/ protocollen.html sitemap.xml robots.txt index.html
+          if git diff --cached --quiet; then
+            echo "Geen wijzigingen."
+          else
+            git commit -m "Protocollen bijgewerkt vanuit Google Docs"
+            git push
+          fi

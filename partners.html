@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Partners – Knie Onderbeen Netwerk</title>
+  
+  <style>
+    @font-face {
+  font-family: 'Inter';
+  src: url('fonts/inter-v20-latin-300.woff2') format('woff2');
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/inter-v20-latin-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/inter-v20-latin-500.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/inter-v20-latin-600.woff2') format('woff2');
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/inter-v20-latin-700.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #1B3A5C; --teal: #2A9D8F; --teal-light: #E8F5F4;
+      --grey-bg: #F5F7FA; --grey-border: #DDE3EC;
+      --text: #1A1A2E; --text-muted: #6B7A99; --white: #FFFFFF;
+      --gold: #C9940A; --gold-light: #FEF9E7;
+      --radius: 10px; --shadow: 0 2px 16px rgba(27,58,92,0.08);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; font-size: 16px; color: var(--text); background: var(--white); line-height: 1.6; }
+
+    header { background: var(--navy); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.15); }
+    .header-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-icon { width: 40px; height: 40px; }
+    .logo-text { color: var(--white); font-weight: 700; font-size: 1.05rem; line-height: 1.2; }
+    .logo-text span { display: block; font-weight: 300; font-size: 0.75rem; opacity: 0.7; letter-spacing: 0.04em; }
+    nav { display: flex; gap: 6px; }
+    nav a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.875rem; font-weight: 500; padding: 8px 14px; border-radius: 6px; transition: background 0.2s, color 0.2s; }
+    nav a:hover { background: rgba(255,255,255,0.12); color: var(--white); }
+    nav a.cta { background: var(--teal); color: var(--white); margin-left: 8px; }
+    nav a.cta:hover { background: #238a7e; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; }
+
+    .hero { background: linear-gradient(135deg, #1B3A5C 0%, #2A4A73 60%, #2A6A5C 100%); color: var(--white); padding: 72px 24px 0; text-align: center; position: relative; }
+    .hero-inner { max-width: 640px; margin: 0 auto; position: relative; padding-bottom: 72px; }
+    .hero-wave { display: block; width: 100%; height: 60px; }
+    .hero-badge { display: inline-block; background: rgba(201,148,10,0.25); border: 1px solid rgba(201,148,10,0.5); color: #F5C842; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 14px; border-radius: 999px; margin-bottom: 20px; }
+    .hero h1 { font-size: clamp(1.8rem, 4.5vw, 2.6rem); font-weight: 700; line-height: 1.15; margin-bottom: 16px; letter-spacing: -0.02em; }
+    .hero h1 em { font-style: normal; color: #F5C842; }
+    .hero p { font-size: 1rem; opacity: 0.85; max-width: 520px; margin: 0 auto; line-height: 1.7; }
+
+    section { padding: 72px 24px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .section-header { margin-bottom: 48px; }
+    .section-header h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; color: var(--navy); letter-spacing: -0.02em; }
+    .section-header p { margin-top: 10px; color: var(--text-muted); max-width: 520px; font-size: 0.95rem; }
+
+    /* Partner kaarten */
+    .partners-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
+
+    .partner-card {
+      background: var(--white);
+      border: 2px solid var(--gold);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 4px 20px rgba(201,148,10,0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+    }
+
+    .partner-card:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(201,148,10,0.15); }
+
+    .partner-badge {
+      position: absolute;
+      top: -12px; left: 20px;
+      background: linear-gradient(135deg, var(--gold), #E8A800);
+      color: var(--white);
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 3px 12px;
+      border-radius: 999px;
+      letter-spacing: 0.06em;
+    }
+
+    .partner-card-header { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
+
+    .partner-logo {
+      width: 64px; height: 64px;
+      border-radius: 10px;
+      object-fit: contain;
+      background: var(--navy);
+      padding: 8px;
+      flex-shrink: 0;
+    }
+
+    .partner-logo-placeholder {
+      width: 64px; height: 64px;
+      border-radius: 10px;
+      background: var(--gold-light);
+      border: 1px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .partner-naam { font-weight: 700; font-size: 1rem; color: var(--navy); }
+    .partner-disc { font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; }
+
+    .partner-beschrijving { font-size: 0.875rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 16px; }
+
+    .partner-adres { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 12px; }
+
+    .partner-contact { display: flex; flex-direction: column; gap: 4px; }
+    .partner-contact a { font-size: 0.82rem; color: var(--teal); text-decoration: none; display: flex; align-items: center; gap: 6px; }
+    .partner-contact a:hover { text-decoration: underline; }
+
+    .partner-website-btn {
+      display: inline-block;
+      margin-top: 14px;
+      padding: 8px 18px;
+      background: var(--gold-light);
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+
+    .partner-website-btn:hover { background: var(--gold); color: var(--white); }
+
+    .lees-meer {
+      display: inline-block;
+      margin-left: 6px;
+      color: var(--teal);
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .lees-meer:hover { text-decoration: underline; }
+
+    .geen-partners { text-align: center; padding: 60px 24px; color: var(--text-muted); }
+    .geen-partners .icon { font-size: 3rem; margin-bottom: 16px; }
+
+    .spinner { width: 20px; height: 20px; border: 2px solid var(--grey-border); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 40px auto; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .cta-section { background: linear-gradient(135deg, var(--navy) 0%, #2A4A73 100%); color: var(--white); text-align: center; padding: 72px 24px; }
+    .cta-section h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; margin-bottom: 14px; }
+    .cta-section p { opacity: 0.8; max-width: 480px; margin: 0 auto 32px; font-size: 0.95rem; }
+    .btn-primary { display: inline-block; background: var(--gold); color: var(--white); padding: 14px 32px; border-radius: 8px; font-weight: 700; font-size: 0.95rem; text-decoration: none; transition: background 0.2s, transform 0.15s; }
+    .btn-primary:hover { background: #a87808; transform: translateY(-1px); }
+
+    footer { background: #0F2340; color: rgba(255,255,255,0.5); text-align: center; padding: 28px 24px; font-size: 0.82rem; }
+    footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
+    footer a:hover { color: var(--white); }
+
+    @media (max-width: 700px) {
+      .hamburger { display: flex; }
+      nav { display: none; position: absolute; top: 68px; left: 0; right: 0; background: var(--navy); flex-direction: column; padding: 12px 16px 20px; gap: 4px; box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+      nav.open { display: flex; }
+      nav a { padding: 10px 16px; border-radius: 8px; }
+      nav a.cta { margin-left: 0; margin-top: 8px; text-align: center; }
+      .partners-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <img class="logo-icon" src="BKN_Logo.png" alt="Knie Onderbeen Netwerk logo" />
+      <div class="logo-text">Knie Onderbeen Netwerk</div>
+    </a>
+    <div class="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
+    <nav id="main-nav">
+      <a href="index.html#protocollen">Protocollen</a>
+      <a href="mijn-profiel.html">Mijn profiel</a>
+      <a href="index.html#locaties">Locaties</a>
+      <a href="partners.html">Partners</a>
+      <a href="therapeut-worden.html">Aanmelden als therapeut</a>
+      <a href="locatie-worden.html" class="cta">Locatie worden</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">⭐ Partners & Organisaties</div>
+    <h1>Onze <em>partners</em></h1>
+    <p>Samen met zorgorganisaties en aangesloten praktijken werken wij aan hoogwaardige, geïntegreerde knie- en onderbeenzorg door heel Nederland.</p>
+  </div>
+  <svg class="hero-wave" viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#F5F7FA"/>
+  </svg>
+</section>
+
+<!-- ── SAMENWERKINGSORGANISATIES ── -->
+<section style="background:var(--white);padding:64px 24px;">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">Samenwerking</div>
+      <h2>Samenwerkingsorganisaties</h2>
+      <p>Deze organisaties werken samen met het Knie Onderbeen Netwerk aan geïntegreerde zorg in de regio.</p>
+    </div>
+
+    <div id="organisaties-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;"></div>
+
+    <div style="text-align:center;margin-top:36px">
+      <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:16px">Wilt u ook als organisatie samenwerken met het Knie Onderbeen Netwerk?</p>
+      <a href="contact.html"
+        style="display:inline-block;background:var(--teal);color:var(--white);padding:12px 28px;border-radius:8px;font-weight:700;font-size:0.9rem;text-decoration:none;transition:background 0.2s,transform 0.15s"
+        onmouseover="this.style.background='#238a7e';this.style.transform='translateY(-1px)'"
+        onmouseout="this.style.background='var(--teal)';this.style.transform='none'">
+        ✉ Neem contact op
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── PARTNERPRAKTIJKEN ── -->
+<section style="background:var(--grey-bg)">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">Aangesloten praktijken</div>
+      <h2>Onze partnerpraktijken</h2>
+      <p>Deze praktijken zijn officieel partner van het Knie Onderbeen Netwerk.</p>
+    </div>
+
+    <div id="partners-container">
+      <div class="spinner"></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <h2>Ook partner worden?</h2>
+  <p>Sluit u aan als partner en profiteer van de meest prominente positie in het Knie Onderbeen Netwerk.</p>
+  <a href="locatie-worden.html" class="btn-primary">Aanmelden als partner →</a>
+</section>
+
+<footer>
+  <p>© 2026 Knie Onderbeen Netwerk &nbsp;·&nbsp; <a href="index.html">Terug naar home</a> &nbsp;·&nbsp; <a href="faq.html">FAQ</a> &nbsp;·&nbsp; <a href="privacy.html">Privacyverklaring</a></p>
+</footer>
+
+<script>
+  function toggleNav() { document.getElementById('main-nav').classList.toggle('open'); }
+
+  // ════════════════════════════════════════════════════════
+  //  SAMENWERKINGSORGANISATIES
+  //  ▶ Voeg hier organisaties toe zodra toestemming is verkregen
+  //  ▶ logo: URL naar afbeelding, of '' voor naamweergave
+  // ════════════════════════════════════════════════════════
+  const ORGANISATIES = [
+    // Nog geen partnerorganisaties aangesloten bij het Knie Onderbeen Netwerk.
+  ];
+
+  function bouwOrganisatiesGrid() {
+    const grid = document.getElementById('organisaties-grid');
+    if (!grid) return;
+
+    if (ORGANISATIES.length === 0) {
+      grid.innerHTML = `
+        <div style="text-align:center;color:var(--text-muted);padding:32px;font-size:0.9rem;width:100%">
+          <div style="font-size:2rem;margin-bottom:12px">🤝</div>
+          <p>Samenwerkingsorganisaties worden hier vermeld zodra toestemming is verkregen.</p>
+        </div>`;
+      return;
+    }
+
+    grid.innerHTML = ORGANISATIES.map(o => {
+      const logo = o.logo
+        ? `<img src="${o.logo}" alt="${o.naam}"
+             style="max-width:140px;max-height:48px;object-fit:contain;margin-bottom:14px">`
+        : `<div style="font-weight:700;font-size:1rem;color:var(--navy);margin-bottom:14px">${o.naam}</div>`;
+
+      return `
+        <div style="background:var(--white);border:1px solid var(--grey-border);border-radius:12px;padding:24px;
+                    display:flex;flex-direction:column;transition:box-shadow 0.2s,transform 0.2s"
+          onmouseover="this.style.boxShadow='var(--shadow)';this.style.transform='translateY(-2px)'"
+          onmouseout="this.style.boxShadow='none';this.style.transform='none'">
+          ${logo}
+          <div style="font-weight:700;font-size:0.9rem;color:var(--navy);margin-bottom:8px">${o.naam}</div>
+          ${o.beschrijving ? `<p style="font-size:0.83rem;color:var(--text-muted);line-height:1.6;flex:1;margin-bottom:14px">${o.beschrijving}</p>` : ''}
+          <a href="${o.url}" target="_blank" rel="noopener"
+            style="display:inline-block;font-size:0.82rem;font-weight:600;color:var(--teal);text-decoration:none"
+            onmouseover="this.style.textDecoration='underline'"
+            onmouseout="this.style.textDecoration='none'">
+            🌐 Bezoek website →
+          </a>
+        </div>`;
+    }).join('');
+  }
+
+  bouwOrganisatiesGrid();
+
+  const MAX_TEKENS = 200;
+
+  async function laadPartners() {
+    const container = document.getElementById('partners-container');
+    try {
+      const resp = await fetch('locaties.json?t=' + Date.now());
+      if (!resp.ok) throw new Error('Niet gevonden');
+      const locaties = await resp.json();
+      const partners = locaties.filter(l => (l.tier || '').toLowerCase() === 'partner');
+
+      if (partners.length === 0) {
+        container.innerHTML = `
+          <div class="geen-partners">
+            <div class="icon">⭐</div>
+            <p>Nog geen partners aangesloten.<br>Word de eerste partner van het Knie Onderbeen Netwerk!</p>
+          </div>`;
+        return;
+      }
+
+      // Groepeer per praktijknaam — eerste locatie met beschrijving/logo is de hoofdlocatie
+      const gegroepeerd = {};
+      partners.forEach(loc => {
+        if (!gegroepeerd[loc.naam]) {
+          gegroepeerd[loc.naam] = loc; // Eerste locatie = hoofdlocatie
+        } else {
+          // Overschrijf alleen als hoofdlocatie geen beschrijving heeft maar deze wel
+          if (!gegroepeerd[loc.naam].beschrijving && loc.beschrijving) {
+            gegroepeerd[loc.naam].beschrijving = loc.beschrijving;
+          }
+          if (!gegroepeerd[loc.naam].logo_url && loc.logo_url) {
+            gegroepeerd[loc.naam].logo_url = loc.logo_url;
+          }
+        }
+      });
+
+      const uniekePartners = Object.values(gegroepeerd);
+      container.innerHTML = `<div class="partners-grid">${uniekePartners.map(maakPartnerKaart).join('')}</div>`;
+    } catch(e) {
+      container.innerHTML = `
+        <div class="geen-partners">
+          <div class="icon">⭐</div>
+          <p>Nog geen partners aangesloten.</p>
+        </div>`;
+    }
+  }
+
+  function maakPartnerKaart(loc) {
+    const logo = loc.logo_url
+      ? `<img class="partner-logo" src="${loc.logo_url}" alt="${loc.naam} logo" onerror="this.style.display='none'">`
+      : `<div class="partner-logo-placeholder">🏥</div>`;
+
+    // Beschrijving met lees meer
+    let beschrijvingHTML = '';
+    if (loc.beschrijving) {
+      const kort = loc.beschrijving.length > MAX_TEKENS;
+      const tekst = kort ? loc.beschrijving.slice(0, MAX_TEKENS) + '…' : loc.beschrijving;
+      const id = 'beschr-' + loc.naam.replace(/\s+/g, '-').toLowerCase();
+      beschrijvingHTML = `
+        <p class="partner-beschrijving">
+          <span id="${id}-kort">${tekst}</span>
+          <span id="${id}-lang" style="display:none">${loc.beschrijving}</span>
+          ${kort ? `<a href="#" class="lees-meer" onclick="toggleBeschr(event,'${id}')">Lees meer</a>` : ''}
+        </p>`;
+    }
+
+    return `
+      <div class="partner-card">
+        <div class="partner-badge">⭐ Partner</div>
+        <div class="partner-card-header">
+          ${logo}
+          <div>
+            <div class="partner-naam">${loc.naam}</div>
+            <div class="partner-disc">${loc.disciplines.join(', ')}</div>
+          </div>
+        </div>
+        ${beschrijvingHTML}
+        <div class="partner-adres">📍 ${loc.partner_adres || loc.adres}</div>
+        <div class="partner-contact">
+          ${(loc.partner_email || loc.email)    ? `<a href="mailto:${loc.partner_email || loc.email}">✉ ${loc.partner_email || loc.email}</a>` : ''}
+          ${(loc.partner_telefoon || loc.telefoon) ? `<a href="tel:${(loc.partner_telefoon || loc.telefoon).replace(/[^+\d]/g,'')}">📞 ${loc.partner_telefoon || loc.telefoon}</a>` : ''}
+        </div>
+        ${loc.website ? `<a href="${loc.website}" class="partner-website-btn" target="_blank" rel="noopener">🌐 Bezoek website →</a>` : ''}
+      </div>`;
+  }
+
+  function toggleBeschr(e, id) {
+    e.preventDefault();
+    const kort = document.getElementById(id + '-kort');
+    const lang = document.getElementById(id + '-lang');
+    const link = e.target;
+    if (lang.style.display === 'none') {
+      kort.style.display = 'none';
+      lang.style.display = 'inline';
+      link.textContent = 'Lees minder';
+    } else {
+      kort.style.display = 'inline';
+      lang.style.display = 'none';
+      link.textContent = 'Lees meer';
+    }
+  }
+
+  laadPartners();
+</script>
+</body>
+</html>

@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Knie Onderbeen Netwerk</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+  <style>
+    @font-face {
+  font-family: 'Inter';
+  src: url('fonts/inter-v20-latin-300.woff2') format('woff2');
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/inter-v20-latin-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/inter-v20-latin-500.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/inter-v20-latin-600.woff2') format('woff2');
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/inter-v20-latin-700.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #1B3A5C;
+      --teal:   #2A9D8F;
+      --teal-light: #E8F5F4;
+      --grey-bg: #F5F7FA;
+      --grey-border: #DDE3EC;
+      --text:   #1A1A2E;
+      --text-muted: #6B7A99;
+      --white:  #FFFFFF;
+      --radius: 10px;
+      --shadow: 0 2px 16px rgba(27,58,92,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; font-size: 16px; color: var(--text); background: var(--white); line-height: 1.6; }
+
+    header { background: var(--navy); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.15); }
+    .header-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-icon { width: 40px; height: 40px; border-radius: 6px; object-fit: cover; }
+    .logo-text { color: var(--white); font-weight: 700; font-size: 1.05rem; line-height: 1.2; }
+    nav { display: flex; gap: 6px; }
+    nav a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.875rem; font-weight: 500; padding: 8px 14px; border-radius: 6px; transition: background 0.2s, color 0.2s; }
+    nav a:hover { background: rgba(255,255,255,0.12); color: var(--white); }
+    nav a.cta { background: var(--teal); color: var(--white); margin-left: 8px; }
+    nav a.cta:hover { background: #238a7e; }
+
+    .hero { background: linear-gradient(135deg, var(--navy) 0%, #2A4A73 100%); color: var(--white); padding: 72px 24px 0; text-align: center; position: relative; }
+    .hero-inner { max-width: 680px; margin: 0 auto; position: relative; padding-bottom: 72px; }
+    .hero-wave { display: block; width: 100%; height: 60px; margin-top: 0; }
+    .hero-badge { display: inline-block; background: rgba(42,157,143,0.25); border: 1px solid rgba(42,157,143,0.5); color: #7FDED5; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 14px; border-radius: 999px; margin-bottom: 20px; }
+    .hero h1 { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 700; line-height: 1.15; margin-bottom: 18px; letter-spacing: -0.02em; }
+    .hero h1 em { font-style: normal; color: #7FDED5; }
+    .hero p { font-size: 1.05rem; opacity: 0.85; max-width: 560px; margin: 0 auto 32px; line-height: 1.7; }
+    .hero-stats { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
+    .stat { text-align: center; }
+    .stat-num { font-size: 1.8rem; font-weight: 700; color: #7FDED5; line-height: 1; }
+    .stat-label { font-size: 0.78rem; opacity: 0.7; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+    section { padding: 64px 24px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-header { margin-bottom: 40px; }
+    .section-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); margin-bottom: 10px; }
+    .section-header h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; color: var(--navy); letter-spacing: -0.02em; line-height: 1.2; }
+    .section-header p { margin-top: 10px; color: var(--text-muted); max-width: 540px; font-size: 0.95rem; }
+
+    .spinner { width: 20px; height: 20px; border: 2px solid var(--grey-border); border-top-color: var(--teal); border-radius: 50%; animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    #locaties { background: var(--white); }
+    .disciplines-filter { display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
+    .disc-btn { padding: 7px 16px; border-radius: 999px; border: 2px solid var(--grey-border); background: var(--white); color: var(--text-muted); font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+    .disc-btn:hover { border-color: var(--navy); color: var(--navy); }
+    .disc-btn.active[onclick*="'all'"] { background: var(--navy); border-color: var(--navy); color: var(--white); }
+    .disc-btn.active[onclick*="'fysiotherapeut'"] { background: #1A5276; border-color: #1A5276; color: var(--white); }
+    .disc-btn.active[onclick*="'manueel therapeut'"] { background: #8E44AD; border-color: #8E44AD; color: var(--white); }
+    .disc-btn.active[onclick*="'sportfysiotherapeut'"] { background: #C0392B; border-color: #C0392B; color: var(--white); }
+    .disc-btn.active[onclick*="'oefentherapeut'"] { background: #1E8449; border-color: #1E8449; color: var(--white); }
+    .locaties-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+    .locatie-card { background: var(--grey-bg); border: 1px solid var(--grey-border); border-radius: var(--radius); padding: 20px; transition: box-shadow 0.2s, transform 0.2s; }
+    .locatie-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+    .locatie-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+    .locatie-naam { font-weight: 700; font-size: 0.95rem; color: var(--navy); text-decoration: none; }
+    .locatie-naam:hover { text-decoration: underline; }
+    .discipline-tag { font-size: 0.7rem; font-weight: 700; padding: 3px 9px; border-radius: 999px; background: var(--teal-light); color: var(--teal); white-space: nowrap; margin-left: 8px; flex-shrink: 0; }
+    .locatie-adres { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; line-height: 1.5; }
+    .locatie-contact { display: flex; flex-direction: column; gap: 4px; }
+    .locatie-contact a { font-size: 0.83rem; color: var(--teal); text-decoration: none; display: flex; align-items: center; gap: 6px; }
+    .locatie-contact a:hover { text-decoration: underline; }
+    .btn-therapeuten { display: inline-flex; align-items: center; justify-content: center; gap: 6px; margin-top: 14px; padding: 8px 16px; background: var(--teal); color: white; border-radius: 6px; font-size: 0.8rem; font-weight: 600; text-decoration: none; transition: background 0.2s; width: 100%; }
+    .btn-therapeuten:hover { background: #238a7e; }
+
+    .cta-section { background: linear-gradient(135deg, var(--navy) 0%, #2A4A73 100%); color: var(--white); text-align: center; padding: 72px 24px; }
+    .cta-section h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; margin-bottom: 14px; letter-spacing: -0.02em; }
+    .cta-section p { opacity: 0.8; max-width: 480px; margin: 0 auto 32px; font-size: 0.95rem; }
+    .btn-primary { display: inline-block; background: var(--teal); color: var(--white); padding: 14px 32px; border-radius: 8px; font-weight: 700; font-size: 0.95rem; text-decoration: none; transition: background 0.2s, transform 0.15s; }
+    .btn-primary:hover { background: #238a7e; transform: translateY(-1px); }
+
+    footer { background: #0F2340; color: rgba(255,255,255,0.5); text-align: center; padding: 28px 24px; font-size: 0.82rem; }
+    footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
+    footer a:hover { color: var(--white); }
+
+    #kaart { height: 420px; border-radius: var(--radius); border: 1px solid var(--grey-border); margin-bottom: 36px; z-index: 1; }
+    .disc-marker { display: flex; gap: 3px; align-items: center; }
+    .disc-pill { display: inline-flex; align-items: center; justify-content: center; height: 26px; min-width: 26px; padding: 0 7px; border-radius: 13px; font-size: 0.68rem; font-weight: 800; color: #fff; letter-spacing: 0.02em; box-shadow: 0 2px 6px rgba(0,0,0,0.25); white-space: nowrap; border: 2px solid rgba(255,255,255,0.7); }
+    .disc-pill.f   { background: #1A5276; }
+    .disc-pill.mt  { background: #8E44AD; }
+    .disc-pill.sf  { background: #C0392B; }
+    .disc-pill.ot  { background: #1E8449; }
+    .leaflet-popup-content-wrapper { border-radius: 10px !important; box-shadow: 0 4px 20px rgba(0,0,0,0.15) !important; }
+    .popup-adres { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 10px; }
+    .popup-praktijken { display: flex; flex-direction: column; gap: 8px; }
+    .popup-praktijk-naam { font-size: 0.83rem; font-weight: 600; color: var(--navy); }
+    .popup-praktijk-naam a { color: inherit; text-decoration: none; }
+    .popup-praktijk-naam a:hover { text-decoration: underline; }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: all 0.3s; }
+
+    @media (max-width: 700px) {
+      .hamburger { display: flex; }
+      nav { display: none; position: absolute; top: 68px; left: 0; right: 0; background: var(--navy); flex-direction: column; padding: 12px 16px 20px; gap: 4px; box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+      nav.open { display: flex; }
+      nav a { padding: 10px 16px; border-radius: 8px; }
+      nav a.cta { margin-left: 0; margin-top: 8px; text-align: center; }
+      .hero-stats { gap: 24px; }
+      .protocol-row { grid-template-columns: 1fr; }
+    }
+  </style>
+<!-- STRUCTURED_DATA_START -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@context": "https://schema.org",
+      "@type": "MedicalOrganization",
+      "name": "Knie Onderbeen Netwerk",
+      "url": "https://knieonderbeen.net",
+      "logo": "https://knieonderbeen.net/BKN_Logo.png",
+      "description": "Het Knie Onderbeen Netwerk is een landelijk samenwerkingsverband van fysiotherapeuten en zorgverleners gespecialiseerd in knie- en onderbeenklachten.",
+      "areaServed": {
+        "@type": "Country",
+        "name": "Nederland"
+      },
+      "medicalSpecialty": "Physiotherapy",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer service",
+        "url": "https://knieonderbeen.net/contact.html",
+        "areaServed": "NL",
+        "availableLanguage": "Dutch"
+      },
+      "sameAs": [
+        "https://knieonderbeen.net"
+      ]
+    }
+  ]
+}
+</script>
+<!-- STRUCTURED_DATA_END -->
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="#top" class="logo">
+      <img class="logo-icon" src="BKN_Logo.png" alt="Knie Onderbeen Netwerk logo" />
+      <div class="logo-text">Knie Onderbeen Netwerk</div>
+    </a>
+    <div class="hamburger" onclick="toggleNav()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </div>
+    <nav id="main-nav">
+      <a href="protocollen.html">Protocollen</a>
+      <a href="mijn-profiel.html">Mijn profiel</a>
+      <a href="#locaties">Locaties</a>
+      <a href="partners.html">Partners</a>
+      <a href="therapeut-worden.html">Aanmelden als therapeut</a>
+      <a href="locatie-worden.html" class="cta">Locatie worden</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="hero-inner">
+    <div class="hero-badge">Landelijk netwerk</div>
+    <h1>Hoogwaardige zorg voor<br><em>knie & onderbeen</em></h1>
+    <p>Behandelprotocollen die continu worden bijgehouden door een team van experts. Transparant, eenduidig en beschikbaar op drie leesniveaus. Let op: er wordt momenteel nog aan deze site gewerkt, waardoor nog niet alle protocollen bijgewerkt en correct zijn.</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">3</div><div class="stat-label">Leesniveaus</div></div>
+      <div class="stat"><div class="stat-num" id="stat-protocollen">–</div><div class="stat-label">Protocollen</div></div>
+      <div class="stat"><div class="stat-num" id="stat-praktijken">–</div><div class="stat-label">Locaties</div></div>
+      <div class="stat"><div class="stat-num" id="stat-therapeuten">–</div><div class="stat-label">Therapeuten</div></div>
+    </div>
+  </div>
+  <svg class="hero-wave" viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#F5F7FA"/>
+  </svg>
+</section>
+
+<section id="protocollen" style="background:var(--grey-bg)">
+  <div class="section-inner">
+    <div>
+      <div class="section-eyebrow">Fysiotherapie</div>
+      <h2 style="font-size:clamp(1.5rem,3vw,2rem);font-weight:700;color:var(--navy);letter-spacing:-0.02em;margin-bottom:12px">Behandelprotocollen</h2>
+      <p style="color:var(--text-muted);font-size:0.95rem;max-width:520px;line-height:1.7">Onze behandelprotocollen worden continu bijgehouden door een team van experts. Beschikbaar op drie leesniveaus — voor patiënten, verwijzers en professionals. Zoek op aandoening, klacht of behandeling.</p>
+      <div style="display:flex;gap:12px;margin-top:24px;flex-wrap:wrap">
+        <a href="protocollen.html" class="btn-primary" style="display:inline-flex;align-items:center;gap:8px">📋 Bekijk alle protocollen →</a>
+        <a href="protocollen.html" style="display:inline-flex;align-items:center;gap:6px;padding:12px 20px;border:2px solid var(--grey-border);border-radius:8px;color:var(--text-muted);text-decoration:none;font-size:0.875rem;font-weight:600;transition:all 0.2s" onmouseover="this.style.borderColor='var(--teal)';this.style.color='var(--teal)'" onmouseout="this.style.borderColor='var(--grey-border)';this.style.color='var(--text-muted)'">🔍 Zoek op klacht</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="locaties">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">Netwerk</div>
+      <h2>Deelnemende praktijken</h2>
+      <p>Vind een aangesloten praktijk bij jou in de buurt, overal in Nederland.</p>
+    </div>
+
+    <div class="disciplines-filter">
+      <button class="disc-btn active" onclick="filterDisc(this, 'all')">Alle disciplines</button>
+      <button class="disc-btn active" onclick="filterDisc(this, 'fysiotherapeut')">Fysiotherapeut</button>
+      <button class="disc-btn active" onclick="filterDisc(this, 'manueel therapeut')">Manueel therapeut</button>
+      <button class="disc-btn active" onclick="filterDisc(this, 'sportfysiotherapeut')">Sportfysiotherapeut</button>
+      <button class="disc-btn active" onclick="filterDisc(this, 'oefentherapeut')">Oefentherapeut</button>
+    </div>
+
+    <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;">
+      <div style="display:flex;flex:1;min-width:220px;max-width:400px;border:1.5px solid var(--grey-border);border-radius:8px;overflow:hidden;background:var(--white);">
+        <input type="text" id="locatie-zoek" placeholder="Postcode of plaats…"
+          style="flex:1;padding:10px 14px;border:none;outline:none;font-family:inherit;font-size:0.9rem;color:var(--text);"
+          onkeydown="if(event.key==='Enter') zoekLocatie()" />
+        <button onclick="zoekLocatie()"
+          style="padding:10px 16px;background:var(--teal);color:#fff;border:none;cursor:pointer;font-weight:600;font-size:0.85rem;white-space:nowrap;transition:background 0.2s"
+          onmouseover="this.style.background='#238a7e'" onmouseout="this.style.background='var(--teal)'">
+          🔍 Zoek
+        </button>
+      </div>
+      <button onclick="gebruikMijnLocatie()"
+        style="padding:10px 16px;border:1.5px solid var(--grey-border);border-radius:8px;background:var(--white);color:var(--text-muted);font-family:inherit;font-size:0.85rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:all 0.2s"
+        onmouseover="this.style.borderColor='var(--teal)';this.style.color='var(--teal)'"
+        onmouseout="this.style.borderColor='var(--grey-border)';this.style.color='var(--text-muted)'">
+        📍 Gebruik mijn locatie
+      </button>
+      <div id="zoek-status" style="font-size:0.82rem;color:var(--text-muted);align-self:center;display:none"></div>
+    </div>
+
+    <div id="kaart"></div>
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px;align-items:center;">
+      <span style="font-size:0.78rem;font-weight:600;color:var(--text-muted);margin-right:4px;">Legenda:</span>
+      <span class="disc-pill f">F</span><span style="font-size:0.78rem;color:var(--text-muted)">Fysiotherapeut</span>
+      <span class="disc-pill mt">MT</span><span style="font-size:0.78rem;color:var(--text-muted)">Manueel therapeut</span>
+      <span class="disc-pill sf">SF</span><span style="font-size:0.78rem;color:var(--text-muted)">Sportfysiotherapeut</span>
+      <span class="disc-pill ot">OT</span><span style="font-size:0.78rem;color:var(--text-muted)">Oefentherapeut</span>
+    </div>
+
+    <div class="locaties-grid" id="locaties-grid">
+      <div style="padding:32px;text-align:center;color:var(--text-muted);grid-column:1/-1">
+        <div class="spinner" style="margin:0 auto 12px"></div>
+        Praktijken laden…
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <h2>Aansluiten bij het netwerk?</h2>
+  <p>Sluit jouw praktijk aan of meld je aan als therapeut en word zichtbaar voor patiënten en verwijzers, waar in Nederland dan ook.</p>
+  <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+    <a href="locatie-worden.html" class="btn-primary">🏥 Locatie worden →</a>
+    <a href="therapeut-worden.html" class="btn-primary" style="background:transparent;border:2px solid rgba(255,255,255,0.6);color:white">👤 Aanmelden als therapeut →</a>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Knie Onderbeen Netwerk &nbsp;·&nbsp; <a href="index.html">Terug naar home</a> &nbsp;·&nbsp; <a href="faq.html">FAQ</a> &nbsp;·&nbsp; <a href="privacy.html">Privacyverklaring</a></p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+
+  function toggleNav() { document.getElementById('main-nav').classList.toggle('open'); }
+
+  const SUPABASE_URL = 'https://islujznszevdynguhjdc.supabase.co';
+  const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlzbHVqem5zemV2ZHluZ3VoamRjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE2NDYzMDAsImV4cCI6MjA5NzIyMjMwMH0.wh3RXZRKfpfArr3YBYu8ktE7xv1inwDD72Vq3LJl3QQ';
+  const HEADERS = { 'apikey': ANON_KEY, 'Authorization': `Bearer ${ANON_KEY}` };
+
+  const DISC_CONFIG = {
+    'fysiotherapeut':       { label: 'F',  cls: 'f',  color: '#1A5276' },
+    'manueel therapeut':    { label: 'MT', cls: 'mt', color: '#8E44AD' },
+    'sportfysiotherapeut':  { label: 'SF', cls: 'sf', color: '#C0392B' },
+    'oefentherapeut':       { label: 'OT', cls: 'ot', color: '#1E8449' },
+  };
+
+  const TIER_STIJL = {
+    partner: { label: '⭐ Partner', bg: '#FEF9E7', kleur: '#C9940A', rand: '#C9940A' },
+    plus:    { label: '✚ Plus',    bg: '#EAF0FB', kleur: '#1A5276', rand: '#1A5276' },
+    basis:   { label: '',          bg: '',         kleur: '',        rand: '' },
+  };
+
+  const actieveDisc = new Set(Object.keys(DISC_CONFIG));
+  let alleLocaties = [];
+  let kaartMarkers = [];
+
+  const kaart = L.map('kaart').setView([52.2, 5.3], 7);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© <a href="https://www.openstreetmap.org/">OpenStreetMap</a>', maxZoom: 18
+  }).addTo(kaart);
+
+  async function laadLocaties() {
+    try {
+      // 1. Haal locaties op uit locaties.json
+      const resp = await fetch('locaties.json?t=' + Date.now());
+      if (!resp.ok) throw new Error('Niet gevonden');
+      alleLocaties = await resp.json();
+
+      // 2. Haal live disciplines op via therapeut_praktijken (alleen actieve therapeuten)
+      const koppelResp = await fetch(
+        `${SUPABASE_URL}/rest/v1/therapeut_praktijken?select=praktijk_id,therapeuten(disciplines,actief)`,
+        { headers: HEADERS }
+      );
+      const koppelingen = await koppelResp.json();
+
+      // 3. Bouw map: praktijk_id -> unieke disciplines van actieve therapeuten
+      const liveDisc = {};
+      koppelingen.forEach(k => {
+        if (!k.therapeuten || !k.therapeuten.actief) return;
+        const pid = String(k.praktijk_id);
+        if (!liveDisc[pid]) liveDisc[pid] = new Set();
+        (k.therapeuten.disciplines || []).forEach(d => liveDisc[pid].add(d));
+      });
+
+      // 4. Overschrijf disciplines per locatie met live data
+      alleLocaties = alleLocaties.map(loc => {
+        const live = liveDisc[String(loc.id)];
+        if (live && live.size > 0) {
+          return { ...loc, disciplines: [...live] };
+        }
+        return loc; // geen actieve therapeuten: houd originele disciplines
+      });
+
+    } catch(e) {
+      console.warn('Fout bij laden locaties/disciplines:', e);
+      alleLocaties = [];
+    }
+
+    updateStats(alleLocaties.length);
+    bouwKaartEnLijst();
+  }
+
+  function bouwKaartEnLijst() {
+    kaartMarkers.forEach(m => m.remove());
+    kaartMarkers = [];
+    const grid = document.getElementById('locaties-grid');
+    if (alleLocaties.length === 0) {
+      grid.innerHTML = '<p style="padding:24px;color:var(--text-muted);grid-column:1/-1">Nog geen aangesloten praktijken gevonden.</p>';
+    } else {
+      grid.innerHTML = alleLocaties.map(loc => maakLocatieKaart(loc)).join('');
+    }
+    alleLocaties.forEach(loc => {
+      const disc = loc.disciplines.map(d => d.toLowerCase());
+      const pillsHTML = disc.map(d => { const cfg = DISC_CONFIG[d]; return cfg ? `<span class="disc-pill ${cfg.cls}">${cfg.label}</span>` : ''; }).join('');
+      if (!pillsHTML) return;
+      const icon = L.divIcon({ className: '', html: `<div class="disc-marker">${pillsHTML}</div>`, iconAnchor: [0,13], popupAnchor: [13,-13] });
+      const popupHTML = `
+        <div class="popup-adres">📍 <strong>${loc.adres}</strong></div>
+        <div class="popup-praktijken">
+          <div class="popup-praktijk">
+            <div class="popup-praktijk-naam">
+              ${loc.website ? `<a href="${loc.website}" target="_blank" rel="noopener">${loc.naam}</a>` : loc.naam}
+            </div>
+          </div>
+          <a href="therapeuten.html?praktijk=${loc.id}" style="display:inline-block;margin-top:8px;font-size:0.78rem;color:var(--teal);font-weight:600;text-decoration:none">👥 Bekijk therapeuten →</a>
+        </div>`;
+      const marker = L.marker([loc.lat, loc.lng], { icon }).addTo(kaart).bindPopup(popupHTML, { maxWidth: 260 });
+      kaartMarkers.push(marker);
+      marker._locData = loc;
+    });
+    updateFilter();
+  }
+
+  function maakLocatieKaart(loc) {
+    const disc = loc.disciplines.map(d => d.toLowerCase());
+    const tier = (loc.tier || 'basis').toLowerCase();
+    const tierStijl = TIER_STIJL[tier] || TIER_STIJL.basis;
+    const discStr = disc[0] || '';
+    const tierBadge = tierStijl.label
+      ? `<span style="font-size:0.68rem;font-weight:700;padding:2px 8px;border-radius:999px;background:${tierStijl.bg};color:${tierStijl.kleur};border:1px solid ${tierStijl.rand};margin-bottom:8px;display:inline-block">${tierStijl.label}</span>`
+      : '';
+    const randStijl = tier !== 'basis' ? `border-color:${tierStijl.rand};border-width:2px;` : '';
+    const MAX_TEKENS = 70;
+    let beschrijving = '';
+    if (loc.beschrijving) {
+      const tekst = loc.beschrijving;
+      const kort = tekst.length > MAX_TEKENS;
+      const id = 'loc-' + Math.random().toString(36).slice(2);
+      beschrijving = `
+        <div style="font-size:0.83rem;color:var(--text-muted);margin-top:10px;line-height:1.55;padding-top:10px;border-top:1px solid var(--grey-border)">
+          <span id="${id}-kort">${kort ? tekst.slice(0, MAX_TEKENS) + '…' : tekst}</span>
+          ${kort ? `<span id="${id}-lang" style="display:none">${tekst}</span>
+          <a href="#" style="color:var(--teal);font-size:0.78rem;font-weight:600;margin-left:4px;text-decoration:none;white-space:nowrap"
+            onclick="event.preventDefault();
+              document.getElementById('${id}-kort').style.display=document.getElementById('${id}-kort').style.display==='none'?'inline':'none';
+              document.getElementById('${id}-lang').style.display=document.getElementById('${id}-lang').style.display==='none'?'inline':'none';
+              this.textContent=this.textContent==='Lees meer'?'Lees minder':'Lees meer'">Lees meer</a>` : ''}
+        </div>`;
+    }
+    const cfg = DISC_CONFIG[discStr];
+    const tagStijl = cfg ? `background:${cfg.color};color:#fff` : 'background:var(--teal-light);color:var(--teal)';
+    return `
+      <div class="locatie-card" data-discipline="${discStr}" data-disciplines="${disc.join(',')}" data-id="${loc.id}" style="${randStijl}">
+        ${tierBadge}
+        <div class="locatie-card-header">
+          ${loc.website ? `<a href="${loc.website}" class="locatie-naam" target="_blank" rel="noopener">${loc.naam}</a>` : `<span class="locatie-naam">${loc.naam}</span>`}
+          <span class="discipline-tag" style="${tagStijl}">${loc.disciplines[0] || ''}</span>
+        </div>
+        <div class="locatie-adres">📍 ${loc.adres}</div>
+        <div class="locatie-contact">
+          ${loc.email    ? `<a href="mailto:${loc.email}">✉ ${loc.email}</a>` : ''}
+          ${loc.telefoon ? `<a href="tel:${loc.telefoon.replace(/[^+\d]/g,'')}">📞 ${loc.telefoon}</a>` : ''}
+          ${loc.website  ? `<a href="${loc.website}" target="_blank" rel="noopener">🌐 Website</a>` : ''}
+        </div>
+        ${beschrijving}
+        <a href="therapeuten.html?praktijk=${loc.id}" class="btn-therapeuten">
+          👥 Bekijk therapeuten
+        </a>
+      </div>`;
+  }
+
+  function updateFilter() {
+    document.querySelectorAll('.locatie-card').forEach(card => {
+      // Check alle disciplines van de kaart, niet alleen de eerste
+      const disc = (card.dataset.disciplines || card.dataset.discipline || '').split(',').map(d => d.trim().toLowerCase());
+      const alleActief = actieveDisc.size === Object.keys(DISC_CONFIG).length;
+      const match = alleActief || disc.some(d => actieveDisc.has(d));
+      card.style.display = match ? '' : 'none';
+    });
+    kaartMarkers.forEach(marker => {
+      const loc = marker._locData;
+      const disc = (loc.disciplines || []).map(d => d.toLowerCase());
+      const alleActief = actieveDisc.size === Object.keys(DISC_CONFIG).length;
+      const zichtbaar = alleActief || disc.some(d => actieveDisc.has(d));
+      if (zichtbaar) {
+        marker.addTo(kaart);
+        const pillsHTML = disc.filter(d => alleActief || actieveDisc.has(d)).map(d => { const cfg = DISC_CONFIG[d]; return cfg ? `<span class="disc-pill ${cfg.cls}">${cfg.label}</span>` : ''; }).join('');
+        marker.setIcon(L.divIcon({ className: '', html: `<div class="disc-marker">${pillsHTML}</div>`, iconAnchor: [0,13], popupAnchor: [13,-13] }));
+      } else { marker.remove(); }
+    });
+  }
+
+  function filterDisc(btn, disc) {
+    if (disc === 'all') {
+      Object.keys(DISC_CONFIG).forEach(d => actieveDisc.add(d));
+      document.querySelectorAll('.disc-btn').forEach(b => b.classList.add('active'));
+    } else {
+      document.querySelector('.disc-btn[onclick*="\'all\'"]').classList.remove('active');
+      if (actieveDisc.has(disc) && actieveDisc.size > 1) { actieveDisc.delete(disc); btn.classList.remove('active'); }
+      else { actieveDisc.add(disc); btn.classList.add('active'); }
+      if (actieveDisc.size === Object.keys(DISC_CONFIG).length) document.querySelector('.disc-btn[onclick*="\'all\'"]').classList.add('active');
+    }
+    updateFilter();
+  }
+
+  laadLocaties();
+
+  async function updateStats(aantalLocaties) {
+    document.getElementById('stat-protocollen').textContent = '–';
+    document.getElementById('stat-praktijken').textContent = aantalLocaties > 0 ? aantalLocaties + '+' : '–';
+
+    try {
+      const resp = await fetch(
+        `${SUPABASE_URL}/rest/v1/therapeuten?actief=eq.true&select=id`,
+        { headers: { ...HEADERS, 'Prefer': 'count=exact', 'Range': '0-0' } }
+      );
+      const count = resp.headers.get('Content-Range')?.split('/')[1];
+      document.getElementById('stat-therapeuten').textContent = count > 0 ? count + '+' : '–';
+    } catch(e) {
+      document.getElementById('stat-therapeuten').textContent = '–';
+    }
+  }
+
+  async function zoekLocatie() {
+    const zoekterm = document.getElementById('locatie-zoek').value.trim();
+    if (!zoekterm) return;
+    const status = document.getElementById('zoek-status');
+    status.style.display = 'block';
+    status.textContent = 'Zoeken…';
+    try {
+      const query = encodeURIComponent(zoekterm + ', Nederland');
+      const url = `https://nominatim.openstreetmap.org/search?q=${query}&format=json&limit=1&countrycodes=nl`;
+      const resp = await fetch(url, { headers: { 'User-Agent': 'KnieOnderbeenNetwerk-Website/1.0' } });
+      const data = await resp.json();
+      if (data.length === 0) { status.textContent = 'Locatie niet gevonden.'; return; }
+      kaart.setView([parseFloat(data[0].lat), parseFloat(data[0].lon)], 13);
+      status.textContent = `📍 ${data[0].display_name.split(',').slice(0,2).join(',')}`;
+    } catch(e) { status.textContent = 'Zoeken mislukt.'; }
+  }
+
+  function gebruikMijnLocatie() {
+    const status = document.getElementById('zoek-status');
+    status.style.display = 'block';
+    status.textContent = 'Locatie ophalen…';
+    if (!navigator.geolocation) { status.textContent = 'Geolocatie niet ondersteund.'; return; }
+    navigator.geolocation.getCurrentPosition(
+      pos => {
+        kaart.setView([pos.coords.latitude, pos.coords.longitude], 13);
+        if (window._gebruikerMarker) window._gebruikerMarker.remove();
+        window._gebruikerMarker = L.circleMarker([pos.coords.latitude, pos.coords.longitude], { radius: 8, fillColor: '#2A9D8F', color: '#fff', weight: 2, fillOpacity: 1 }).addTo(kaart).bindPopup('📍 Uw locatie').openPopup();
+        status.textContent = '📍 Uw locatie gevonden';
+      },
+      () => { status.textContent = 'Locatie niet beschikbaar.'; }
+    );
+  }
+
+</script>
+  <script>
+  // Stuur auth tokens door naar mijn-profiel.html
+  if (window.location.hash && window.location.hash.includes('access_token')) {
+    window.location.href = 'mijn-profiel.html' + window.location.hash;
+  }
+</script>
+</body>
+</html>

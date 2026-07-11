@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beheer — Aanmeldingen</title>
+  <style>
+    @font-face { font-family: 'Inter'; src: url('fonts/inter-v20-latin-300.woff2') format('woff2'); font-weight: 300; font-display: swap; }
+    @font-face { font-family: 'Inter'; src: url('fonts/inter-v20-latin-regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+    @font-face { font-family: 'Inter'; src: url('fonts/inter-v20-latin-500.woff2') format('woff2'); font-weight: 500; font-display: swap; }
+    @font-face { font-family: 'Inter'; src: url('fonts/inter-v20-latin-600.woff2') format('woff2'); font-weight: 600; font-display: swap; }
+    @font-face { font-family: 'Inter'; src: url('fonts/inter-v20-latin-700.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #1B3A5C; --teal: #2A9D8F; --teal-light: #E8F5F4;
+      --oranje: #E8735A;
+      --grey-bg: #F5F7FA; --grey-border: #DDE3EC;
+      --text: #1A1A2E; --text-muted: #6B7A99; --white: #FFFFFF;
+      --green: #27AE60; --red: #E74C3C; --gold: #C9940A;
+    }
+    body { font-family: 'Inter', sans-serif; background: var(--grey-bg); color: var(--text); min-height: 100vh; }
+    .login-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+    .login-box { background: white; border-radius: 16px; padding: 40px; width: 100%; max-width: 400px; box-shadow: 0 4px 32px rgba(27,58,92,0.12); border: 1px solid var(--grey-border); }
+    .login-logo { text-align: center; margin-bottom: 28px; }
+    .login-logo .icon { font-size: 2.5rem; }
+    .login-logo h1 { font-size: 1.3rem; font-weight: 700; color: var(--navy); margin-top: 8px; }
+    .login-logo p { font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 0.83rem; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
+    .form-group input { width: 100%; padding: 11px 14px; border: 1.5px solid var(--grey-border); border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 0.9rem; outline: none; transition: border-color 0.2s; }
+    .form-group input:focus { border-color: var(--teal); }
+    .btn-login { width: 100%; padding: 12px; background: var(--teal); color: white; border: none; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 700; cursor: pointer; margin-top: 8px; }
+    .btn-login:hover { background: #238a7e; }
+    .login-fout { background: #FDE8E8; border: 1px solid var(--red); color: var(--red); border-radius: 8px; padding: 10px 14px; font-size: 0.85rem; margin-top: 12px; display: none; }
+    .beheer-wrap { display: none; }
+    header { background: var(--navy); padding: 16px 32px; display: flex; align-items: center; justify-content: space-between; }
+    header h1 { color: white; font-size: 1.2rem; font-weight: 700; }
+    .header-rechts { display: flex; align-items: center; gap: 16px; }
+    .header-email { color: rgba(255,255,255,0.7); font-size: 0.85rem; }
+    .btn-uitloggen { background: rgba(255,255,255,0.15); color: white; border: none; border-radius: 6px; padding: 6px 14px; font-family: 'Inter', sans-serif; font-size: 0.82rem; font-weight: 600; cursor: pointer; }
+    .tabs { background: white; border-bottom: 1px solid var(--grey-border); padding: 0 32px; display: flex; }
+    .tab { padding: 16px 24px; font-size: 0.875rem; font-weight: 600; color: var(--text-muted); cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.2s; }
+    .tab:hover { color: var(--navy); }
+    .tab.actief { color: var(--teal); border-bottom-color: var(--teal); }
+    .tab-badge { display: inline-block; background: #FEF3CD; color: #856404; font-size: 0.68rem; font-weight: 700; padding: 1px 6px; border-radius: 999px; margin-left: 6px; }
+    .container { max-width: 1000px; margin: 32px auto; padding: 0 24px; }
+    .tab-content { display: none; }
+    .tab-content.actief { display: block; }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
+    .stat-card { background: white; border-radius: 12px; padding: 20px 24px; border: 1px solid var(--grey-border); }
+    .stat-card .num { font-size: 2rem; font-weight: 700; color: var(--navy); }
+    .stat-card .label { font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; }
+    .sectie-titel { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .badge { display: inline-block; background: #FEF3CD; color: #856404; font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; }
+    .kaart { background: white; border: 1px solid var(--grey-border); border-radius: 16px; padding: 24px; margin-bottom: 16px; }
+    .kaart-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+    .kaart-naam { font-size: 1.1rem; font-weight: 700; color: var(--navy); }
+    .kaart-tier { display: inline-block; font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; margin-left: 8px; }
+    .tier-basis { background: var(--teal-light); color: var(--teal); }
+    .tier-plus { background: #EAF0FB; color: #1A5276; }
+    .tier-partner { background: #FEF9E7; color: var(--gold); }
+    .kaart-info { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+    .info-item { font-size: 0.85rem; }
+    .info-label { color: var(--text-muted); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px; }
+    .kaart-acties { display: flex; gap: 12px; padding-top: 16px; border-top: 1px solid var(--grey-border); flex-wrap: wrap; }
+    .btn { padding: 10px 20px; border-radius: 8px; border: none; font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+    .btn-goedkeuren { background: var(--green); color: white; }
+    .btn-goedkeuren:hover { background: #219A52; }
+    .btn-afwijzen { background: none; border: 1.5px solid var(--red); color: var(--red); }
+    .btn-afwijzen:hover { background: var(--red); color: white; }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .leeg { text-align: center; padding: 48px; color: var(--text-muted); }
+    .leeg .icon { font-size: 3rem; margin-bottom: 12px; }
+    .beschrijving { background: var(--grey-bg); border-radius: 8px; padding: 12px 14px; font-size: 0.875rem; color: var(--text-muted); margin-bottom: 16px; font-style: italic; }
+    .datum { font-size: 0.78rem; color: var(--text-muted); }
+    .therapeut-foto { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 2px solid var(--grey-border); flex-shrink: 0; }
+    .therapeut-avatar { width: 64px; height: 64px; border-radius: 50%; background: var(--teal-light); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; }
+    .therapeut-header { display: flex; gap: 16px; align-items: center; margin-bottom: 16px; }
+    /* Toggle knoppen (specialisaties + disciplines) */
+    .subcat-toggle { background: none; border: 1.5px solid var(--grey-border); border-radius: 8px; padding: 8px 16px; font-family: 'Inter', sans-serif; font-size: 0.82rem; font-weight: 600; color: var(--text-muted); cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+    .subcat-toggle:hover { border-color: var(--teal); color: var(--teal); }
+    .subcat-toggle.open { border-color: var(--teal); color: var(--teal); background: var(--teal-light); }
+    .subcat-toggle.disc { border-color: var(--grey-border); }
+    .subcat-toggle.disc:hover { border-color: var(--oranje); color: var(--oranje); }
+    .subcat-toggle.disc.open { border-color: var(--oranje); color: var(--oranje); background: #FDF0ED; }
+    .subcat-beheer { background: var(--grey-bg); border-radius: 10px; padding: 16px; margin-top: 12px; display: none; }
+    .subcat-beheer.open { display: block; }
+    .subcat-groep { margin-bottom: 14px; }
+    .subcat-groep-naam { font-size: 0.72rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+    .subcat-checkboxen { display: flex; flex-wrap: wrap; gap: 8px; }
+    .subcat-check { display: flex; align-items: center; gap: 6px; background: white; border: 1.5px solid var(--grey-border); border-radius: 8px; padding: 6px 12px; cursor: pointer; transition: all 0.2s; font-size: 0.8rem; }
+    .subcat-check:hover { border-color: var(--teal); }
+    .subcat-check.aangevinkt { background: var(--teal-light); border-color: var(--teal); color: var(--teal); font-weight: 600; }
+    .subcat-check.disc-check:hover { border-color: var(--oranje); }
+    .subcat-check.disc-check.aangevinkt { background: #FDF0ED; border-color: var(--oranje); color: var(--oranje); font-weight: 600; }
+    .subcat-check input { display: none; }
+    .subcat-opslaan-melding { font-size: 0.78rem; color: var(--green); margin-top: 8px; display: none; }
+  </style>
+</head>
+<body>
+
+<div class="login-wrap" id="login-scherm">
+  <div class="login-box">
+    <div class="login-logo"><div class="icon">🔐</div><h1>Beheer aanmeldingen</h1><p>Log in met uw account</p></div>
+    <div class="form-group"><label>E-mailadres</label><input type="email" id="login-email" placeholder="jouw@email.nl" /></div>
+    <div class="form-group"><label>Wachtwoord</label><input type="password" id="login-wachtwoord" placeholder="••••••••" onkeydown="if(event.key==='Enter') inloggen()" /></div>
+    <button class="btn-login" onclick="inloggen()" id="login-knop">Inloggen →</button>
+    <div class="login-fout" id="login-fout">Ongeldig e-mailadres of wachtwoord.</div>
+  </div>
+</div>
+
+<div class="beheer-wrap" id="beheer-scherm">
+  <header>
+    <h1>🗂 Beheer — Aanmeldingen</h1>
+    <div class="header-rechts">
+      <span class="header-email" id="header-email"></span>
+      <button class="btn-uitloggen" onclick="uitloggen()">Uitloggen</button>
+    </div>
+  </header>
+  <div class="tabs">
+    <div class="tab actief" onclick="toonTab('praktijken')">Praktijken <span class="tab-badge" id="badge-praktijken">0</span></div>
+    <div class="tab" onclick="toonTab('therapeuten')">Therapeuten <span class="tab-badge" id="badge-therapeuten">0</span></div>
+    <div class="tab" onclick="toonTab('wijzigingen')">Wijzigingen <span class="tab-badge" id="badge-wijzigingen">0</span></div>
+  </div>
+
+  <div class="container">
+    <div class="tab-content actief" id="tab-praktijken">
+      <div class="stats">
+        <div class="stat-card"><div class="num" id="stat-wachtend-p">—</div><div class="label">Wachtend op goedkeuring</div></div>
+        <div class="stat-card"><div class="num" id="stat-actief-p">—</div><div class="label">Actieve praktijken</div></div>
+        <div class="stat-card"><div class="num" id="stat-totaal-p">—</div><div class="label">Totaal aanmeldingen</div></div>
+      </div>
+      <div class="sectie-titel">Wachtend op goedkeuring <span class="badge" id="badge-p-aantal">0</span></div>
+      <div id="praktijken-lijst"><div class="leeg"><div class="icon">⏳</div>Laden...</div></div>
+      <div class="sectie-titel" style="margin-top:40px">Actieve praktijken & codes</div>
+      <div id="praktijken-actief-lijst"><div class="leeg"><div class="icon">⏳</div>Laden...</div></div>
+    </div>
+
+    <div class="tab-content" id="tab-therapeuten">
+      <div class="stats">
+        <div class="stat-card"><div class="num" id="stat-wachtend-t">—</div><div class="label">Wachtend op goedkeuring</div></div>
+        <div class="stat-card"><div class="num" id="stat-actief-t">—</div><div class="label">Actieve therapeuten</div></div>
+        <div class="stat-card"><div class="num" id="stat-totaal-t">—</div><div class="label">Totaal aanmeldingen</div></div>
+      </div>
+      <div class="sectie-titel">Wachtend op goedkeuring <span class="badge" id="badge-t-aantal">0</span></div>
+      <div id="therapeuten-lijst"><div class="leeg"><div class="icon">⏳</div>Laden...</div></div>
+      <div class="sectie-titel" style="margin-top:40px">Actieve therapeuten</div>
+      <div id="therapeuten-actief-lijst"><div class="leeg"><div class="icon">⏳</div>Laden...</div></div>
+    </div>
+
+    <div class="tab-content" id="tab-wijzigingen">
+      <div class="sectie-titel">Openstaande profielwijzigingen <span class="badge" id="badge-w-aantal">0</span></div>
+      <div id="wijzigingen-lijst"><div class="leeg"><div class="icon">⏳</div>Laden...</div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL = 'https://islujznszevdynguhjdc.supabase.co';
+const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlzbHVqem5zemV2ZHluZ3VoamRjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE2NDYzMDAsImV4cCI6MjA5NzIyMjMwMH0.wh3RXZRKfpfArr3YBYu8ktE7xv1inwDD72Vq3LJl3QQ';
+const WORKER_URL = 'https://islujznszevdynguhjdc.supabase.co/functions/v1/smart-worker';
+
+let toegangsToken = null;
+
+const DISCIPLINES_LIJST = [
+  'Fysiotherapeut','Kinderfysiotherapeut','Ergotherapeut','Logopedist',
+  'Diëtist','Oefentherapeut','Psycholoog','Manueel therapeut',
+  'Sportfysiotherapeut','Bekkenfysiotherapeut'
+];
+
+// SUBCATEGORIEEN wordt dynamisch geladen uit Supabase (categorieen + subcategorieen tabellen)
+let SUBCATEGORIEEN = [];
+
+async function laadSubcategorieen() {
+  try {
+    const [catResp, subResp] = await Promise.all([
+      fetch(`${SUPABASE_URL}/rest/v1/categorieen?select=id,naam&order=id`, { headers: getHeaders() }),
+      fetch(`${SUPABASE_URL}/rest/v1/subcategorieen?select=id,naam,categorie_id&order=id`, { headers: getHeaders() })
+    ]);
+    const categorieen = await catResp.json();
+    const subcategorieen = await subResp.json();
+
+    if (Array.isArray(categorieen) && Array.isArray(subcategorieen)) {
+      SUBCATEGORIEEN = categorieen.map(cat => ({
+        naam: cat.naam,
+        subcats: subcategorieen.filter(s => s.categorie_id === cat.id).map(s => ({ id: s.id, naam: s.naam }))
+      })).filter(g => g.subcats.length > 0);
+    }
+  } catch(e) {
+    console.error('Kon categorieën niet laden:', e);
+  }
+}
+
+// Lokale cache disciplines per therapeut
+const discCache = {};
+
+function getHeaders(extra = {}) {
+  return { 'apikey': ANON_KEY, 'Authorization': `Bearer ${toegangsToken}`, 'Content-Type': 'application/json', 'Prefer': 'return=representation', ...extra };
+}
+
+async function inloggen() {
+  const email = document.getElementById('login-email').value.trim();
+  const wachtwoord = document.getElementById('login-wachtwoord').value;
+  const knop = document.getElementById('login-knop');
+  const fout = document.getElementById('login-fout');
+  if (!email || !wachtwoord) { fout.style.display = 'block'; fout.textContent = 'Vul e-mail en wachtwoord in.'; return; }
+  knop.textContent = 'Inloggen...'; knop.disabled = true; fout.style.display = 'none';
+  const resp = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
+    method: 'POST', headers: { 'apikey': ANON_KEY, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password: wachtwoord })
+  });
+  const data = await resp.json();
+  if (!resp.ok || !data.access_token) {
+    fout.style.display = 'block'; fout.textContent = 'Ongeldig e-mailadres of wachtwoord.';
+    knop.textContent = 'Inloggen →'; knop.disabled = false; return;
+  }
+  toegangsToken = data.access_token;
+  document.getElementById('header-email').textContent = data.user.email;
+  document.getElementById('login-scherm').style.display = 'none';
+  document.getElementById('beheer-scherm').style.display = 'block';
+  laadAlles();
+}
+
+function uitloggen() {
+  toegangsToken = null;
+  document.getElementById('login-scherm').style.display = 'flex';
+  document.getElementById('beheer-scherm').style.display = 'none';
+  document.getElementById('login-email').value = '';
+  document.getElementById('login-wachtwoord').value = '';
+}
+
+function toonTab(naam) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('actief'));
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('actief'));
+  document.querySelector(`.tab[onclick*="${naam}"]`).classList.add('actief');
+  document.getElementById(`tab-${naam}`).classList.add('actief');
+}
+
+async function laadAlles() {
+  await laadSubcategorieen();
+  await laadPraktijken();
+  await laadTherapeutenBeheer();
+  await laadProfielWijzigingen();
+}
+
+async function laadPraktijken() {
+  const resp = await fetch(`${SUPABASE_URL}/rest/v1/praktijken?select=*&order=aangemeld_op.desc`, { headers: getHeaders() });
+  const praktijken = await resp.json();
+  const wachtend = praktijken.filter(p => !p.actief);
+  const actief = praktijken.filter(p => p.actief);
+  document.getElementById('stat-wachtend-p').textContent = wachtend.length;
+  document.getElementById('stat-actief-p').textContent = actief.length;
+  document.getElementById('stat-totaal-p').textContent = praktijken.length;
+  document.getElementById('badge-p-aantal').textContent = wachtend.length;
+  document.getElementById('badge-praktijken').textContent = wachtend.length;
+
+  const actiefLijst = document.getElementById('praktijken-actief-lijst');
+  if (actief.length === 0) {
+    actiefLijst.innerHTML = `<div class="leeg"><div class="icon">🏥</div><div>Geen actieve praktijken</div></div>`;
+  } else {
+    actiefLijst.innerHTML = `
+      <table style="width:100%;border-collapse:collapse;background:white;border-radius:12px;overflow:hidden;border:1px solid var(--grey-border)">
+        <thead><tr style="background:var(--grey-bg)">
+          <th style="text-align:left;padding:12px 16px;font-size:0.75rem;font-weight:700;text-transform:uppercase;color:var(--text-muted)">Praktijk</th>
+          <th style="text-align:left;padding:12px 16px;font-size:0.75rem;font-weight:700;text-transform:uppercase;color:var(--text-muted)">Adres</th>
+          <th style="text-align:left;padding:12px 16px;font-size:0.75rem;font-weight:700;text-transform:uppercase;color:var(--text-muted)">Pakket</th>
+          <th style="text-align:left;padding:12px 16px;font-size:0.75rem;font-weight:700;text-transform:uppercase;color:var(--text-muted)">Praktijkcode</th>
+          <th style="text-align:left;padding:12px 16px;font-size:0.75rem;font-weight:700;text-transform:uppercase;color:var(--text-muted)">Contact</th>
+          <th style="text-align:left;padding:12px 16px;font-size:0.75rem;font-weight:700;text-transform:uppercase;color:var(--text-muted)">Acties</th>
+        </tr></thead>
+        <tbody>
+          ${actief.map((p, i) => `
+            <tr style="border-top:1px solid var(--grey-border);${i%2===1?'background:var(--grey-bg)':''}">
+              <td style="padding:12px 16px;font-size:0.875rem;font-weight:600;color:var(--navy)">${p.naam}</td>
+              <td style="padding:12px 16px;font-size:0.875rem;color:var(--text-muted)">${p.straat||'—'}, ${p.stad||'—'}</td>
+              <td style="padding:12px 16px"><span class="kaart-tier tier-${p.tier||'basis'}">${p.tier||'basis'}</span></td>
+              <td style="padding:12px 16px;font-family:monospace;font-weight:700;color:var(--teal);font-size:0.95rem;letter-spacing:0.1em">${p.praktijk_code||'—'}</td>
+              <td <td style="padding:12px 16px;font-size:0.82rem;color:var(--text-muted)">${p.contact_voornaam||''} ${p.contact_achternaam||''}<br><span style="font-size:0.75rem">${p.contact_email||''}</span></td>
+              <td style="padding:12px 16px;white-space:nowrap">
+                <button onclick="deactiverenPraktijk(${p.id})" style="background:none;border:1px solid var(--grey-border);border-radius:6px;padding:4px 10px;font-size:0.72rem;color:var(--text-muted);cursor:pointer;font-family:Inter,sans-serif;margin-right:6px">⏸ Deactiveren</button>
+                <button onclick="verwijderenPraktijkDefinitief(${p.id}, '${(p.naam||'').replace(/'/g, '')}')" style="background:none;border:1px solid var(--red);border-radius:6px;padding:4px 10px;font-size:0.72rem;color:var(--red);cursor:pointer;font-family:Inter,sans-serif">🗑 Verwijderen</button>
+              </td>
+            </tr>`).join('')}
+        </tbody>
+      </table>`;
+  }
+
+  const lijst = document.getElementById('praktijken-lijst');
+  if (wachtend.length === 0) { lijst.innerHTML = `<div class="leeg"><div class="icon">✅</div><div>Geen praktijken wachtend</div></div>`; return; }
+  lijst.innerHTML = wachtend.map(p => `
+    <div class="kaart" id="kaart-p-${p.id}">
+      <div class="kaart-header">
+        <div><span class="kaart-naam">${p.naam}</span><span class="kaart-tier tier-${p.tier||'basis'}">${p.tier||'basis'}</span></div>
+        <span class="datum">${new Date(p.aangemeld_op).toLocaleDateString('nl-NL',{day:'numeric',month:'long',year:'numeric'})}</span>
+      </div>
+      <div class="kaart-info">
+        <div class="info-item"><div class="info-label">Adres</div><div>${p.straat||'—'}, ${p.stad||'—'}</div></div>
+        <div class="info-item"><div class="info-label">Website</div><div>${p.website?`<a href="${p.website}" target="_blank">${p.website}</a>`:'—'}</div></div>
+        <div class="info-item"><div class="info-label">Contact</div><div>${p.contact_voornaam||''} ${p.contact_achternaam||''}</div></div>
+        <div class="info-item"><div class="info-label">E-mail</div><div>${p.contact_email||'—'}</div></div>
+        <div class="info-item"><div class="info-label">Telefoon</div><div>${p.telefoon||'—'}</div></div>
+        <div class="info-item"><div class="info-label">Praktijkcode</div><div style="font-family:monospace;font-weight:700;color:var(--teal)">${p.praktijk_code||'—'}</div></div>
+      </div>
+      ${p.beschrijving?`<div class="beschrijving">"${p.beschrijving}"</div>`:''}
+      <div class="kaart-acties">
+        <button class="btn btn-goedkeuren" onclick="goedkeurenPraktijk(${p.id})">✓ Goedkeuren</button>
+        <button class="btn btn-afwijzen" onclick="afwijzenPraktijk(${p.id})">✕ Afwijzen</button>
+      </div>
+    </div>`).join('');
+}
+
+async function goedkeurenPraktijk(id) {
+  if (!confirm('Praktijk goedkeuren en bevestigingsmail sturen?')) return;
+  const kaart = document.getElementById(`kaart-p-${id}`);
+  kaart.querySelectorAll('.btn').forEach(b => b.disabled = true);
+  const resp = await fetch(`${SUPABASE_URL}/rest/v1/praktijken?id=eq.${id}&select=*`, { headers: getHeaders() });
+  const [praktijk] = await resp.json();
+  await fetch(`${SUPABASE_URL}/rest/v1/praktijken?id=eq.${id}`, { method: 'PATCH', headers: getHeaders(), body: JSON.stringify({ actief: true }) });
+  const ontvangerEmail = praktijk.contact_email || praktijk.email;
+  const ontvangerNaam = praktijk.contact_voornaam ? `${praktijk.contact_voornaam} ${praktijk.contact_achternaam||''}`.trim() : praktijk.naam;
+  if (ontvangerEmail) {
+    try {
+      const mailResp = await fetch(WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${toegangsToken}` },
+        body: JSON.stringify({ action: 'praktijk_goedkeuring', email: ontvangerEmail, naam: ontvangerNaam, praktijk_naam: praktijk.naam, praktijk_code: praktijk.praktijk_code, aangemeld_via: praktijk.aangemeld_via || 'knieonderbeen.net' })
+      });
+      alert(mailResp.ok ? `✓ Praktijk goedgekeurd. Mail verstuurd naar ${ontvangerEmail}.` : `Praktijk goedgekeurd, maar mail mislukt. Code: ${praktijk.praktijk_code}`);
+    } catch(e) { alert(`Praktijk goedgekeurd. Code: ${praktijk.praktijk_code}`); }
+  } else { alert(`✓ Praktijk goedgekeurd. Code: ${praktijk.praktijk_code}`); }
+  kaart.style.opacity = '0'; kaart.style.transition = 'opacity 0.3s';
+  setTimeout(() => { kaart.remove(); laadPraktijken(); }, 400);
+}
+async function deactiverenPraktijk(id) {
+  if (!confirm('Praktijk deactiveren? De praktijk verdwijnt van de sites, maar blijft in de database (inclusief praktijkcode en gekoppelde therapeuten).')) return;
+  await fetch(`${SUPABASE_URL}/rest/v1/praktijken?id=eq.${id}`, { method: 'PATCH', headers: getHeaders(), body: JSON.stringify({ actief: false }) });
+  laadPraktijken();
+}
+
+async function verwijderenPraktijkDefinitief(id, naam) {
+  if (!confirm(`Praktijk "${naam}" PERMANENT verwijderen?\n\nDit verwijdert ook de koppelingen met therapeuten (de therapeuten zelf blijven bestaan). Dit kan niet ongedaan gemaakt worden.`)) return;
+  // Eerst koppelingen met therapeuten opruimen
+  await fetch(`${SUPABASE_URL}/rest/v1/therapeut_praktijken?praktijk_id=eq.${id}`, { method: 'DELETE', headers: getHeaders() });
+  // Dan de praktijk zelf
+  await fetch(`${SUPABASE_URL}/rest/v1/praktijken?id=eq.${id}`, { method: 'DELETE', headers: getHeaders() });
+  laadPraktijken();
+}
+async function afwijzenPraktijk(id) {
+  if (!confirm('Praktijk afwijzen en verwijderen?')) return;
+  const kaart = document.getElementById(`kaart-p-${id}`);
+  kaart.querySelectorAll('.btn').forEach(b => b.disabled = true);
+  await fetch(`${SUPABASE_URL}/rest/v1/praktijken?id=eq.${id}`, { method: 'DELETE', headers: getHeaders() });
+  kaart.style.opacity = '0'; kaart.style.transition = 'opacity 0.3s';
+  setTimeout(() => { kaart.remove(); laadPraktijken(); }, 400);
+}
+
+async function laadTherapeutenBeheer() {
+  const [tResp, scResp] = await Promise.all([
+    fetch(`${SUPABASE_URL}/rest/v1/therapeuten?select=*&order=aangemeld_op.desc`, { headers: getHeaders() }),
+    fetch(`${SUPABASE_URL}/rest/v1/therapeut_subcategorieen?select=therapeut_id,subcategorie_id`, { headers: getHeaders() })
+  ]);
+  const therapeuten = await tResp.json();
+  const allekoppelingen = await scResp.json();
+  const wachtend = therapeuten.filter(t => !t.actief);
+  const actief = therapeuten.filter(t => t.actief);
+  document.getElementById('stat-wachtend-t').textContent = wachtend.length;
+  document.getElementById('stat-actief-t').textContent = actief.length;
+  document.getElementById('stat-totaal-t').textContent = therapeuten.length;
+  document.getElementById('badge-t-aantal').textContent = wachtend.length;
+  document.getElementById('badge-therapeuten').textContent = wachtend.length;
+
+  const actiefLijst = document.getElementById('therapeuten-actief-lijst');
+  if (actief.length === 0) {
+    actiefLijst.innerHTML = `<div class="leeg"><div class="icon">👤</div><div>Geen actieve therapeuten</div></div>`;
+  } else {
+    actiefLijst.innerHTML = actief.map(t => {
+      const naam = `${t.voornaam} ${t.achternaam}`;
+      const huidigeSubcats = allekoppelingen.filter(k => k.therapeut_id === t.id).map(k => k.subcategorie_id);
+      const huidigeDiscs = t.disciplines || [];
+      // Sla op in cache
+      discCache[t.id] = new Set(huidigeDiscs);
+
+      const fotoHtml = t.foto_url
+        ? `<img class="therapeut-foto" src="${t.foto_url}" alt="${naam}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="therapeut-avatar" style="display:none">👤</div>`
+        : `<div class="therapeut-avatar">👤</div>`;
+
+      const subcatHTML = SUBCATEGORIEEN.map(groep => `
+        <div class="subcat-groep">
+          <div class="subcat-groep-naam">${groep.naam}</div>
+          <div class="subcat-checkboxen">
+            ${groep.subcats.map(sc => `
+              <label class="subcat-check ${huidigeSubcats.includes(sc.id)?'aangevinkt':''}" id="sc-label-${t.id}-${sc.id}">
+                <input type="checkbox" ${huidigeSubcats.includes(sc.id)?'checked':''} onchange="toggleSubcatCheck(${t.id},${sc.id},this)" />
+                ${huidigeSubcats.includes(sc.id)?'✓ ':''}${sc.naam}
+              </label>`).join('')}
+          </div>
+        </div>`).join('');
+
+      const discHTML = `
+        <div class="subcat-checkboxen">
+          ${DISCIPLINES_LIJST.map(d => `
+            <label class="subcat-check disc-check ${huidigeDiscs.includes(d)?'aangevinkt':''}" id="disc-label-${t.id}-${d.replace(/[^a-zA-Z]/g,'')}">
+              <input type="checkbox" ${huidigeDiscs.includes(d)?'checked':''} onchange="toggleDiscCheck(${t.id},'${d}',this)" />
+              ${huidigeDiscs.includes(d)?'✓ ':''}${d}
+            </label>`).join('')}
+        </div>`;
+
+      return `
+        <div class="kaart" id="kaart-ta-${t.id}" style="border-left:3px solid var(--green)">
+          <div class="therapeut-header">
+            ${fotoHtml}
+            <div style="flex:1">
+              <div class="kaart-naam">${naam}</div>
+              <div style="font-size:0.82rem;color:var(--text-muted)">${t.email||''}</div>
+              ${huidigeDiscs.length>0?`<div style="margin-top:4px">${huidigeDiscs.map(d=>`<span style="display:inline-block;font-size:0.7rem;font-weight:700;padding:2px 8px;border-radius:999px;background:#FDF0ED;color:var(--oranje);margin-right:4px">${d}</span>`).join('')}</div>`:''}
+            </div>
+            <span class="datum">${new Date(t.aangemeld_op).toLocaleDateString('nl-NL',{day:'numeric',month:'long',year:'numeric'})}</span>
+          </div>
+          ${t.bio?`<div class="beschrijving">"${t.bio}"</div>`:''}
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="subcat-toggle" id="subcat-toggle-${t.id}" onclick="toggleSubcatBeheer(${t.id})">
+              🏷 Specialisaties <span id="subcat-count-${t.id}">(${huidigeSubcats.length})</span> ▼
+            </button>
+            <button class="subcat-toggle disc" id="disc-toggle-${t.id}" onclick="toggleDiscBeheer(${t.id})">
+              💼 Disciplines <span id="disc-count-${t.id}">(${huidigeDiscs.length})</span> ▼
+            </button>
+          </div>
+          <div class="subcat-beheer" id="subcat-beheer-${t.id}">
+            ${subcatHTML}
+            <div class="subcat-opslaan-melding" id="subcat-melding-${t.id}">✓ Specialisatie opgeslagen</div>
+          </div>
+          <div class="subcat-beheer" id="disc-beheer-${t.id}">
+            <div class="subcat-groep-naam" style="margin-bottom:8px">Disciplines</div>
+            ${discHTML}
+            <div class="subcat-opslaan-melding" id="disc-melding-${t.id}" style="color:var(--oranje)">✓ Disciplines opgeslagen</div>
+          </div>
+          <div class="kaart-acties">
+            <button class="btn btn-afwijzen" onclick="deactiverenTherapeut(${t.id})">⏸ Deactiveren</button>
+            <button class="btn" style="background:var(--red);color:white" onclick="verwijderenTherapeut(${t.id})">🗑 Verwijderen</button>
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  const lijst = document.getElementById('therapeuten-lijst');
+  if (wachtend.length === 0) { lijst.innerHTML = `<div class="leeg"><div class="icon">✅</div><div>Geen therapeuten wachtend</div></div>`; return; }
+  lijst.innerHTML = wachtend.map(t => {
+    const naam = `${t.voornaam} ${t.achternaam}`;
+    const fotoHtml = t.foto_url
+      ? `<img class="therapeut-foto" src="${t.foto_url}" alt="${naam}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="therapeut-avatar" style="display:none">👤</div>`
+      : `<div class="therapeut-avatar">👤</div>`;
+    return `
+      <div class="kaart" id="kaart-t-${t.id}">
+        <div class="therapeut-header">
+          ${fotoHtml}
+          <div><div class="kaart-naam">${naam}</div><div style="font-size:0.82rem;color:var(--text-muted)">${t.email||''}</div></div>
+          <span class="datum">${new Date(t.aangemeld_op).toLocaleDateString('nl-NL',{day:'numeric',month:'long',year:'numeric'})}</span>
+        </div>
+        ${t.bio?`<div class="beschrijving">"${t.bio}"</div>`:''}
+        <div class="kaart-acties">
+          <button class="btn btn-goedkeuren" onclick="goedkeurenTherapeut(${t.id},'${t.email}')">✓ Goedkeuren</button>
+          <button class="btn btn-afwijzen" onclick="afwijzenTherapeut(${t.id})">✕ Afwijzen</button>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+// ── SPECIALISATIE TOGGLE ──
+function toggleSubcatBeheer(id) {
+  const beheer = document.getElementById(`subcat-beheer-${id}`);
+  const toggle = document.getElementById(`subcat-toggle-${id}`);
+  const open = beheer.classList.toggle('open');
+  toggle.classList.toggle('open', open);
+  toggle.innerHTML = toggle.innerHTML.replace(open?'▼':'▲', open?'▲':'▼');
+}
+
+async function toggleSubcatCheck(therapeutId, subcatId, checkbox) {
+  const label = document.getElementById(`sc-label-${therapeutId}-${subcatId}`);
+  const sc = SUBCATEGORIEEN.flatMap(g=>g.subcats).find(s=>s.id===subcatId);
+  if (checkbox.checked) {
+    await fetch(`${SUPABASE_URL}/rest/v1/therapeut_subcategorieen`, {
+      method: 'POST', headers: { ...getHeaders(), 'Prefer': 'return=minimal' },
+      body: JSON.stringify({ therapeut_id: therapeutId, subcategorie_id: subcatId, niveau: 'basis' })
+    });
+    if (label) { label.classList.add('aangevinkt'); label.innerHTML = `<input type="checkbox" checked onchange="toggleSubcatCheck(${therapeutId},${subcatId},this)" /> ✓ ${sc?.naam||subcatId}`; }
+  } else {
+    await fetch(`${SUPABASE_URL}/rest/v1/therapeut_subcategorieen?therapeut_id=eq.${therapeutId}&subcategorie_id=eq.${subcatId}`, { method: 'DELETE', headers: getHeaders() });
+    if (label) { label.classList.remove('aangevinkt'); label.innerHTML = `<input type="checkbox" onchange="toggleSubcatCheck(${therapeutId},${subcatId},this)" /> ${sc?.naam||subcatId}`; }
+  }
+  const melding = document.getElementById(`subcat-melding-${therapeutId}`);
+  if (melding) { melding.style.display = 'block'; setTimeout(()=>melding.style.display='none', 2000); }
+}
+
+// ── DISCIPLINE TOGGLE ──
+function toggleDiscBeheer(id) {
+  const beheer = document.getElementById(`disc-beheer-${id}`);
+  const toggle = document.getElementById(`disc-toggle-${id}`);
+  const open = beheer.classList.toggle('open');
+  toggle.classList.toggle('open', open);
+  toggle.innerHTML = toggle.innerHTML.replace(open?'▼':'▲', open?'▲':'▼');
+}
+
+async function toggleDiscCheck(therapeutId, discipline, checkbox) {
+  if (!discCache[therapeutId]) discCache[therapeutId] = new Set();
+  const set = discCache[therapeutId];
+  const safeKey = discipline.replace(/[^a-zA-Z]/g,'');
+  const label = document.getElementById(`disc-label-${therapeutId}-${safeKey}`);
+
+  if (checkbox.checked) {
+    set.add(discipline);
+    if (label) { label.classList.add('aangevinkt'); label.innerHTML = `<input type="checkbox" checked onchange="toggleDiscCheck(${therapeutId},'${discipline}',this)" /> ✓ ${discipline}`; }
+  } else {
+    set.delete(discipline);
+    if (label) { label.classList.remove('aangevinkt'); label.innerHTML = `<input type="checkbox" onchange="toggleDiscCheck(${therapeutId},'${discipline}',this)" /> ${discipline}`; }
+  }
+
+  const nieuweDiscs = [...set];
+  await fetch(`${SUPABASE_URL}/rest/v1/therapeuten?id=eq.${therapeutId}`, {
+    method: 'PATCH',
+    headers: { ...getHeaders(), 'Prefer': 'return=minimal' },
+    body: JSON.stringify({ disciplines: nieuweDiscs })
+  });
+
+  // Update teller en tags in header
+  const count = document.getElementById(`disc-count-${therapeutId}`);
+  if (count) count.textContent = `(${nieuweDiscs.length})`;
+
+  const melding = document.getElementById(`disc-melding-${therapeutId}`);
+  if (melding) { melding.style.display = 'block'; setTimeout(()=>melding.style.display='none', 2000); }
+}
+
+async function goedkeurenTherapeut(id, email) {
+  if (!confirm(`Therapeut goedkeuren en uitnodigingsmail sturen naar ${email}?`)) return;
+  const kaart = document.getElementById(`kaart-t-${id}`);
+  kaart.querySelectorAll('.btn').forEach(b => b.disabled = true);
+  await fetch(`${SUPABASE_URL}/rest/v1/therapeuten?id=eq.${id}`, { method: 'PATCH', headers: getHeaders(), body: JSON.stringify({ actief: true }) });
+  try {
+    const inviteResp = await fetch(WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${toegangsToken}` },
+      body: JSON.stringify({ email, redirect_to: 'https://knieonderbeen.net/mijn-profiel.html' })
+    });
+    alert(inviteResp.ok ? `✓ Therapeut goedgekeurd. Uitnodiging verstuurd naar ${email}.` : `Therapeut goedgekeurd, maar mail mislukt.`);
+  } catch(e) { alert(`Therapeut goedgekeurd, maar mail mislukt.`); }
+  kaart.style.opacity = '0'; kaart.style.transition = 'opacity 0.3s';
+  setTimeout(() => { kaart.remove(); laadTherapeutenBeheer(); }, 400);
+}
+
+async function afwijzenTherapeut(id) {
+  if (!confirm('Therapeut afwijzen en verwijderen?')) return;
+  const kaart = document.getElementById(`kaart-t-${id}`);
+  kaart.querySelectorAll('.btn').forEach(b => b.disabled = true);
+  await fetch(`${SUPABASE_URL}/rest/v1/therapeuten?id=eq.${id}`, { method: 'DELETE', headers: getHeaders() });
+  kaart.style.opacity = '0'; kaart.style.transition = 'opacity 0.3s';
+  setTimeout(() => { kaart.remove(); laadTherapeutenBeheer(); }, 400);
+}
+
+async function deactiverenTherapeut(id) {
+  if (!confirm('Therapeut deactiveren?')) return;
+  const kaart = document.getElementById(`kaart-ta-${id}`);
+  kaart.querySelectorAll('.btn').forEach(b => b.disabled = true);
+  await fetch(`${SUPABASE_URL}/rest/v1/therapeuten?id=eq.${id}`, { method: 'PATCH', headers: getHeaders(), body: JSON.stringify({ actief: false }) });
+  kaart.style.opacity = '0'; kaart.style.transition = 'opacity 0.3s';
+  setTimeout(() => { kaart.remove(); laadTherapeutenBeheer(); }, 400);
+}
+
+async function verwijderenTherapeut(id) {
+  if (!confirm('Therapeut permanent verwijderen?')) return;
+  const kaart = document.getElementById(`kaart-ta-${id}`);
+  kaart.querySelectorAll('.btn').forEach(b => b.disabled = true);
+  await fetch(`${SUPABASE_URL}/rest/v1/therapeuten?id=eq.${id}`, { method: 'DELETE', headers: getHeaders() });
+  kaart.style.opacity = '0'; kaart.style.transition = 'opacity 0.3s';
+  setTimeout(() => { kaart.remove(); laadTherapeutenBeheer(); }, 400);
+}
+
+async function laadProfielWijzigingen() {
+  const resp = await fetch(`${SUPABASE_URL}/rest/v1/profiel_wijzigingen?verwerkt=eq.false&order=ingediend_op.desc`, { headers: getHeaders() });
+  const wijzigingen = await resp.json();
+  document.getElementById('badge-wijzigingen').textContent = wijzigingen.length;
+  document.getElementById('badge-w-aantal').textContent = wijzigingen.length;
+  const lijst = document.getElementById('wijzigingen-lijst');
+  if (wijzigingen.length === 0) { lijst.innerHTML = `<div class="leeg"><div class="icon">✅</div><div>Geen openstaande wijzigingen</div></div>`; return; }
+  lijst.innerHTML = wijzigingen.map(w => `
+    <div class="kaart" id="kaart-w-${w.id}">
+      <div class="kaart-header">
+        <div><span class="kaart-naam">${w.therapeut_naam||'—'}</span> <span style="font-size:0.78rem;color:var(--text-muted)">${w.type||''}</span></div>
+        <span class="datum">${new Date(w.ingediend_op).toLocaleDateString('nl-NL',{day:'numeric',month:'long',year:'numeric'})}</span>
+      </div>
+      <div class="kaart-info">
+        ${w.nieuw_telefoon?`<div class="info-item"><div class="info-label">Nieuw telefoonnummer</div><div>${w.nieuw_telefoon}</div></div>`:''}
+        ${w.nieuw_foto_url?`<div class="info-item"><div class="info-label">Nieuwe foto</div><div><a href="${w.nieuw_foto_url}" target="_blank">Bekijk foto →</a></div></div>`:''}
+        ${w.nieuw_bio?`<div class="info-item" style="grid-column:1/-1"><div class="info-label">Nieuwe bio</div><div>${w.nieuw_bio}</div></div>`:''}
+        ${w.toelichting?`<div class="info-item" style="grid-column:1/-1"><div class="info-label">Toelichting</div><div>${w.toelichting}</div></div>`:''}
+      </div>
+      <div class="kaart-acties">
+        <button class="btn btn-goedkeuren" onclick="verwerkenWijziging(${w.id})">✓ Verwerkt</button>
+        <button class="btn btn-afwijzen" onclick="afwijzenWijziging(${w.id})">✕ Afwijzen</button>
+      </div>
+    </div>`).join('');
+}
+
+async function verwerkenWijziging(id) {
+  if (!confirm('Wijziging markeren als verwerkt?')) return;
+  const kaart = document.getElementById(`kaart-w-${id}`);
+  await fetch(`${SUPABASE_URL}/rest/v1/profiel_wijzigingen?id=eq.${id}`, { method: 'PATCH', headers: getHeaders(), body: JSON.stringify({ verwerkt: true }) });
+  kaart.style.opacity = '0'; kaart.style.transition = 'opacity 0.3s';
+  setTimeout(() => { kaart.remove(); laadProfielWijzigingen(); }, 400);
+}
+
+async function afwijzenWijziging(id) {
+  if (!confirm('Wijziging afwijzen?')) return;
+  const kaart = document.getElementById(`kaart-w-${id}`);
+  await fetch(`${SUPABASE_URL}/rest/v1/profiel_wijzigingen?id=eq.${id}`, { method: 'PATCH', headers: getHeaders(), body: JSON.stringify({ verwerkt: true }) });
+  kaart.style.opacity = '0'; kaart.style.transition = 'opacity 0.3s';
+  setTimeout(() => { kaart.remove(); laadProfielWijzigingen(); }, 400);
+}
+</script>
+</body>
+</html>

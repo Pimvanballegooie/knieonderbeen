@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Therapeuten – Knie Onderbeen Netwerk</title>
+  
+  <style>
+    @font-face {
+  font-family: 'Inter';
+  src: url('fonts/inter-v20-latin-300.woff2') format('woff2');
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/inter-v20-latin-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/inter-v20-latin-500.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/inter-v20-latin-600.woff2') format('woff2');
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/inter-v20-latin-700.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #1B3A5C; --teal: #2A9D8F; --teal-light: #E8F5F4;
+      --grey-bg: #F5F7FA; --grey-border: #DDE3EC;
+      --text: #1A1A2E; --text-muted: #6B7A99; --white: #FFFFFF;
+      --gold: #C9940A; --gold-light: #FEF9E7;
+      --radius: 10px; --shadow: 0 2px 16px rgba(27,58,92,0.08);
+    }
+    body { font-family: 'Inter', sans-serif; font-size: 16px; color: var(--text); background: var(--grey-bg); line-height: 1.6; }
+
+    header { background: var(--navy); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.15); }
+    .header-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-icon { width: 40px; height: 40px; }
+    .logo-text { color: var(--white); font-weight: 700; font-size: 1.05rem; line-height: 1.2; }
+    nav { display: flex; gap: 6px; }
+    nav a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.875rem; font-weight: 500; padding: 8px 14px; border-radius: 6px; transition: background 0.2s; }
+    nav a:hover { background: rgba(255,255,255,0.12); color: var(--white); }
+    nav a.cta { background: var(--teal); color: var(--white); margin-left: 8px; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; }
+    @media (max-width: 700px) {
+      .hamburger { display: flex; }
+      nav { display: none; position: absolute; top: 68px; left: 0; right: 0; background: var(--navy); flex-direction: column; padding: 12px 16px 20px; gap: 4px; box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+      nav.open { display: flex; }
+      nav a { padding: 10px 16px; border-radius: 8px; }
+      nav a.cta { margin-left: 0; margin-top: 8px; text-align: center; }
+    }
+
+    .praktijk-hero { background: var(--navy); color: var(--white); padding: 48px 24px; }
+    .praktijk-hero-inner { max-width: 1100px; margin: 0 auto; }
+    .terug-link { display: inline-flex; align-items: center; gap: 6px; color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.85rem; margin-bottom: 20px; transition: color 0.2s; }
+    .terug-link:hover { color: white; }
+    .praktijk-naam { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; margin-bottom: 8px; }
+    .praktijk-adres { font-size: 0.9rem; opacity: 0.7; }
+
+    .container { max-width: 1100px; margin: 40px auto; padding: 0 24px; }
+    .therapeuten-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+
+    /* THERAPEUT KAART */
+    .therapeut-kaart {
+      background: var(--white);
+      border: 1px solid var(--grey-border);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .therapeut-kaart:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+
+    /* GOUDEN SPECIALIST BADGE */
+    .specialist-banner {
+      width: 100%;
+      background: linear-gradient(135deg, #C9940A, #E8A800);
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .specialist-banner-tekst {
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .therapeut-kaart-body { padding: 24px 24px 28px; display: flex; flex-direction: column; align-items: center; width: 100%; }
+    .therapeut-foto { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; border: 3px solid var(--teal-light); margin-bottom: 16px; background: var(--grey-bg); }
+    .therapeut-avatar { width: 96px; height: 96px; border-radius: 50%; background: var(--teal-light); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin-bottom: 16px; border: 3px solid var(--teal-light); }
+    .therapeut-kaart.is-specialist .therapeut-foto { border-color: var(--gold); }
+    .therapeut-kaart.is-specialist .therapeut-avatar { border-color: var(--gold); background: var(--gold-light); }
+
+    .therapeut-naam { font-size: 1.05rem; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .therapeut-bio { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px; }
+    .spec-tags { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+    .spec-tag { background: var(--teal-light); color: var(--teal); font-size: 0.72rem; font-weight: 600; padding: 3px 10px; border-radius: 999px; }
+
+    .leeg { text-align: center; padding: 64px 24px; color: var(--text-muted); }
+    .leeg .icon { font-size: 3rem; margin-bottom: 12px; }
+
+    .aanmelden-cta { background: var(--white); border: 2px dashed var(--grey-border); border-radius: 16px; padding: 32px 24px; text-align: center; }
+    .aanmelden-cta h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+    .aanmelden-cta p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px; }
+    .btn-aanmelden { display: inline-block; background: var(--teal); color: var(--white); padding: 10px 24px; border-radius: 8px; font-weight: 700; font-size: 0.875rem; text-decoration: none; transition: background 0.2s; }
+    .btn-aanmelden:hover { background: #238a7e; }
+
+    footer { background: #0F2340; color: rgba(255,255,255,0.5); text-align: center; padding: 28px 24px; font-size: 0.82rem; margin-top: 64px; }
+    footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
+
+    @media (max-width: 600px) { .therapeuten-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <img class="logo-icon" src="BKN_Logo.png" alt="Knie Onderbeen Netwerk logo" />
+      <div class="logo-text">Knie Onderbeen Netwerk</div>
+    </a>
+    <div class="hamburger" onclick="document.getElementById('main-nav').classList.toggle('open')" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </div>
+    <nav id="main-nav">
+      <a href="protocollen.html">Protocollen</a>
+      <a href="mijn-profiel.html">Mijn profiel</a>
+      <a href="index.html#locaties">Locaties</a>
+      <a href="partners.html">Partners</a>
+      <a href="therapeut-worden.html">Aanmelden als therapeut</a>
+      <a href="locatie-worden.html" class="cta">Locatie worden</a>
+    </nav>
+  </div>
+</header>
+
+<div class="praktijk-hero">
+  <div class="praktijk-hero-inner">
+    <a href="index.html#locaties" class="terug-link">← Terug naar locaties</a>
+    <div class="praktijk-naam" id="praktijk-naam">Laden…</div>
+    <div class="praktijk-adres" id="praktijk-adres"></div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="therapeuten-grid" id="therapeuten-grid">
+    <div class="leeg"><div class="icon">⏳</div>Therapeuten laden…</div>
+  </div>
+  <div style="margin-top: 32px;">
+    <div class="aanmelden-cta">
+      <h3>Werk jij bij deze praktijk?</h3>
+      <p>Meld je aan en word zichtbaar voor patiënten en verwijzers.</p>
+      <a href="therapeut-worden.html" class="btn-aanmelden">Aanmelden als therapeut →</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 Knie Onderbeen Netwerk &nbsp;·&nbsp; <a href="index.html">Terug naar home</a> &nbsp;·&nbsp; <a href="faq.html">FAQ</a> &nbsp;·&nbsp; <a href="privacy.html">Privacyverklaring</a></p>
+</footer>
+
+<script>
+  const SUPABASE_URL = 'https://islujznszevdynguhjdc.supabase.co';
+  const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlzbHVqem5zemV2ZHluZ3VoamRjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE2NDYzMDAsImV4cCI6MjA5NzIyMjMwMH0.wh3RXZRKfpfArr3YBYu8ktE7xv1inwDD72Vq3LJl3QQ';
+  const HEADERS = { 'apikey': ANON_KEY, 'Authorization': `Bearer ${ANON_KEY}` };
+
+  const params = new URLSearchParams(window.location.search);
+  const praktijkId = params.get('praktijk');
+
+  // Cursussen die vereist zijn voor specialisatie — nog geen cursussen live voor dit netwerk
+  const VEREISTE_CURSUSSEN = [];
+
+  async function laadPagina() {
+    if (!praktijkId) {
+      document.getElementById('praktijk-naam').textContent = 'Praktijk niet gevonden';
+      return;
+    }
+
+    const praktijkResp = await fetch(
+      `${SUPABASE_URL}/rest/v1/praktijken?id=eq.${praktijkId}&select=*`,
+      { headers: HEADERS }
+    );
+    const [praktijk] = await praktijkResp.json();
+    if (!praktijk) { document.getElementById('praktijk-naam').textContent = 'Praktijk niet gevonden'; return; }
+
+    document.title = `${praktijk.naam} – Therapeuten – Knie Onderbeen Netwerk`;
+    document.getElementById('praktijk-naam').textContent = praktijk.naam;
+    document.getElementById('praktijk-adres').textContent = `📍 ${praktijk.straat}, ${praktijk.stad}`;
+
+    const koppelingResp = await fetch(
+      `${SUPABASE_URL}/rest/v1/therapeut_praktijken?praktijk_id=eq.${praktijkId}&select=therapeut_id`,
+      { headers: HEADERS }
+    );
+    const koppelingen = await koppelingResp.json();
+    const grid = document.getElementById('therapeuten-grid');
+
+    if (!koppelingen || koppelingen.length === 0) {
+      grid.innerHTML = `<div class="leeg" style="grid-column:1/-1"><div class="icon">👤</div><div>Nog geen therapeuten aangemeld bij deze praktijk.</div></div>`;
+      return;
+    }
+
+    const therapeutIds = koppelingen.map(k => k.therapeut_id);
+    const idFilter = therapeutIds.map(id => `id.eq.${id}`).join(',');
+
+    const therapeutenResp = await fetch(
+      `${SUPABASE_URL}/rest/v1/therapeuten?or=(${idFilter})&actief=eq.true&select=id,voornaam,achternaam,foto_url,bio,disciplines,code,therapeut_subcategorieen(subcategorieen(naam))`,
+      { headers: HEADERS }
+    );
+    const therapeuten = await therapeutenResp.json();
+
+    if (!therapeuten || therapeuten.length === 0) {
+      grid.innerHTML = `<div class="leeg" style="grid-column:1/-1"><div class="icon">👤</div><div>Nog geen therapeuten aangemeld bij deze praktijk.</div></div>`;
+      return;
+    }
+
+    // Haal voortgang op voor alle therapeuten
+    const codes = therapeuten.map(t => t.code).filter(Boolean);
+    let specialisten = new Set();
+
+    if (codes.length > 0) {
+      const codeFilter = codes.map(c => `therapeut_code.eq.${c}`).join(',');
+      const voortgangResp = await fetch(
+        `${SUPABASE_URL}/rest/v1/cursus_voortgang?or=(${codeFilter})&geslaagd=eq.true&select=therapeut_code,cursus_id`,
+        { headers: HEADERS }
+      );
+      const voortgang = await voortgangResp.json();
+
+      // Bepaal wie alle vereiste cursussen heeft behaald
+      const behaaldPerTherapeut = {};
+      (voortgang || []).forEach(v => {
+        if (!behaaldPerTherapeut[v.therapeut_code]) behaaldPerTherapeut[v.therapeut_code] = new Set();
+        behaaldPerTherapeut[v.therapeut_code].add(v.cursus_id);
+      });
+
+      codes.forEach(code => {
+        const behaald = behaaldPerTherapeut[code] || new Set();
+        const isSpecialist = VEREISTE_CURSUSSEN.length > 0 && VEREISTE_CURSUSSEN.every(c => behaald.has(c));
+        if (isSpecialist) specialisten.add(code);
+      });
+    }
+
+    // Sorteer: specialisten eerst
+    therapeuten.sort((a, b) => {
+      const aSpec = specialisten.has(a.code) ? 0 : 1;
+      const bSpec = specialisten.has(b.code) ? 0 : 1;
+      return aSpec - bSpec;
+    });
+
+    grid.innerHTML = therapeuten.map(t => {
+      const naam = `${t.voornaam} ${t.achternaam}`;
+      const isSpecialist = specialisten.has(t.code);
+      const specialisaties = (t.therapeut_subcategorieen || []).map(ts => ts.subcategorieen?.naam).filter(Boolean);
+
+      const fotoHtml = t.foto_url
+        ? `<img class="therapeut-foto" src="${t.foto_url}" alt="${naam}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="therapeut-avatar" style="display:none">👤</div>`
+        : `<div class="therapeut-avatar">👤</div>`;
+
+      const disciplinesHtml = (t.disciplines || []).length > 0
+        ? `<div class="spec-tags" style="margin-bottom:8px">${(t.disciplines || []).map(d => `<span class="spec-tag" style="background:#E8F5F4;color:#2A9D8F">${d}</span>`).join('')}</div>`
+        : '';
+
+      const tagsHtml = specialisaties.length > 0
+        ? `<div class="spec-tags">${specialisaties.map(s => `<span class="spec-tag">${s}</span>`).join('')}</div>`
+        : '';
+
+      const specialistBanner = isSpecialist ? `
+        <div class="specialist-banner">
+          <span style="font-size:1rem">⭐</span>
+          <span class="specialist-banner-tekst">Knie Onderbeen Specialist</span>
+          <span style="font-size:1rem">⭐</span>
+        </div>` : '';
+
+      return `
+        <div class="therapeut-kaart${isSpecialist ? ' is-specialist' : ''}">
+          ${specialistBanner}
+          <div class="therapeut-kaart-body">
+            ${fotoHtml}
+            <div class="therapeut-naam">${naam}</div>
+            ${disciplinesHtml}
+            ${t.bio ? `<div class="therapeut-bio">${t.bio}</div>` : ''}
+            ${tagsHtml}
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  laadPagina();
+</script>
+</body>
+</html>

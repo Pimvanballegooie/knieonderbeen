@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aanmelden als therapeut – Knie Onderbeen Netwerk</title>
+  
+  <style>
+    @font-face {
+  font-family: 'Inter';
+  src: url('fonts/inter-v20-latin-300.woff2') format('woff2');
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/inter-v20-latin-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/inter-v20-latin-500.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/inter-v20-latin-600.woff2') format('woff2');
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/inter-v20-latin-700.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #1B3A5C; --teal: #2A9D8F; --teal-light: #E8F5F4;
+      --grey-bg: #F5F7FA; --grey-border: #DDE3EC;
+      --text: #1A1A2E; --text-muted: #6B7A99; --white: #FFFFFF;
+      --red: #E74C3C; --red-light: #FDEDEC;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; font-size: 16px; color: var(--text); background: var(--white); line-height: 1.6; }
+
+    header { background: var(--navy); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.15); }
+    .header-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-icon { width: 40px; height: 40px; }
+    .logo-text { color: var(--white); font-weight: 700; font-size: 1.05rem; line-height: 1.2; }
+    nav { display: flex; gap: 6px; }
+    nav a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.875rem; font-weight: 500; padding: 8px 14px; border-radius: 6px; transition: background 0.2s; }
+    nav a:hover { background: rgba(255,255,255,0.12); color: var(--white); }
+    nav a.cta { background: var(--teal); color: var(--white); margin-left: 8px; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; }
+    @media (max-width: 700px) {
+      .hamburger { display: flex; }
+      nav { display: none; position: absolute; top: 68px; left: 0; right: 0; background: var(--navy); flex-direction: column; padding: 12px 16px 20px; gap: 4px; box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+      nav.open { display: flex; }
+      nav a { padding: 10px 16px; border-radius: 8px; }
+      nav a.cta { margin-left: 0; margin-top: 8px; text-align: center; }
+      .form-row { grid-template-columns: 1fr; }
+      .form-section { padding: 20px; }
+    }
+
+    .hero { background: linear-gradient(135deg, var(--navy) 0%, #2A4A73 100%); color: var(--white); padding: 72px 24px 0; text-align: center; }
+    .hero-inner { max-width: 640px; margin: 0 auto; padding-bottom: 72px; }
+    .hero-wave { display: block; width: 100%; height: 60px; }
+    .hero-badge { display: inline-block; background: rgba(42,157,143,0.25); border: 1px solid rgba(42,157,143,0.5); color: #7FDED5; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 14px; border-radius: 999px; margin-bottom: 20px; }
+    .hero h1 { font-size: clamp(1.8rem, 4.5vw, 2.6rem); font-weight: 700; line-height: 1.15; margin-bottom: 16px; letter-spacing: -0.02em; }
+    .hero h1 em { font-style: normal; color: #7FDED5; }
+    .hero p { font-size: 1rem; opacity: 0.85; max-width: 520px; margin: 0 auto; line-height: 1.7; }
+
+    section { padding: 64px 24px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); margin-bottom: 10px; }
+    .section-header { margin-bottom: 40px; }
+    .section-header h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; color: var(--navy); letter-spacing: -0.02em; }
+    .section-header p { margin-top: 10px; color: var(--text-muted); max-width: 520px; font-size: 0.95rem; }
+
+    .form-wrap { max-width: 720px; }
+    .form-section { background: var(--grey-bg); border: 1px solid var(--grey-border); border-radius: 16px; padding: 32px; margin-bottom: 24px; }
+    .form-section-title { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--grey-border); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { margin-bottom: 20px; }
+    .form-group:last-child { margin-bottom: 0; }
+    .form-group label { display: block; font-size: 0.83rem; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
+    .form-group label .req { color: var(--teal); margin-left: 2px; }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 11px 14px; border: 1.5px solid var(--grey-border); border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 0.9rem; color: var(--text); background: var(--white); transition: border-color 0.2s, box-shadow 0.2s; outline: none; }
+    .form-group input:focus, .form-group textarea:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(42,157,143,0.12); }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+
+    .foto-preview { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid var(--grey-border); margin-top: 12px; display: none; }
+    .foto-preview.zichtbaar { display: block; }
+    .foto-placeholder { width: 100px; height: 100px; border-radius: 50%; background: var(--grey-bg); border: 3px solid var(--grey-border); display: flex; align-items: center; justify-content: center; font-size: 2rem; margin-top: 12px; }
+
+    /* PRAKTIJKCODE VERIFICATIE */
+    .code-stap { display: block; }
+    .code-stap.verborgen { display: none; }
+    .code-verified { background: #EAF7F0; border: 1.5px solid #1E8449; border-radius: 8px; padding: 12px 16px; display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+    .code-verified span { font-size: 0.88rem; font-weight: 600; color: #1E8449; }
+    .code-fout { background: var(--red-light); border: 1.5px solid var(--red); border-radius: 8px; padding: 10px 14px; font-size: 0.85rem; color: var(--red); margin-top: 8px; display: none; }
+    .btn-verificeer { padding: 11px 20px; background: var(--navy); color: white; border: none; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 700; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
+    .btn-verificeer:hover { background: #2A4A73; }
+    .btn-verificeer:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .checkbox-group { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 24px; }
+    .checkbox-group input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--teal); margin-top: 2px; flex-shrink: 0; }
+    .checkbox-group label { font-size: 0.85rem; color: var(--text-muted); cursor: pointer; }
+
+    .btn-submit { width: 100%; padding: 14px; background: var(--teal); color: var(--white); border: none; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+    .btn-submit:hover { background: #238a7e; }
+    .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .form-success { display: none; text-align: center; padding: 40px 20px; }
+    .form-success .success-icon { font-size: 3rem; margin-bottom: 16px; }
+    .form-success h3 { font-size: 1.3rem; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+    .form-success p { color: var(--text-muted); font-size: 0.9rem; }
+
+    footer { background: #0F2340; color: rgba(255,255,255,0.5); text-align: center; padding: 28px 24px; font-size: 0.82rem; }
+    footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <img class="logo-icon" src="BKN_Logo.png" alt="Knie Onderbeen Netwerk logo" />
+      <div class="logo-text">Knie Onderbeen Netwerk</div>
+    </a>
+    <div class="hamburger" onclick="document.getElementById('main-nav').classList.toggle('open')" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </div>
+    <nav id="main-nav">
+      <a href="protocollen.html">Protocollen</a>
+      <a href="mijn-profiel.html">Mijn profiel</a>
+      <a href="index.html#locaties">Locaties</a>
+      <a href="partners.html">Partners</a>
+      <a href="therapeut-worden.html">Aanmelden als therapeut</a>
+      <a href="locatie-worden.html" class="cta">Locatie worden</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">Therapeuten</div>
+    <h1>Meld je aan als<br><em>therapeut</em></h1>
+    <p>Sluit je aan bij het Knie Onderbeen Netwerk en word zichtbaar voor patiënten en verwijzers.</p>
+  </div>
+  <svg class="hero-wave" viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#F5F7FA"/>
+  </svg>
+</section>
+
+<section id="aanmelden">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">Aanmelden</div>
+      <h2>Jouw gegevens</h2>
+      <p>Vul het formulier in. Na goedkeuring ben je zichtbaar op de site.</p>
+    </div>
+
+    <div class="form-wrap">
+      <div id="form-content">
+        <input type="text" name="website_url" id="website_url" style="display:none" tabindex="-1" autocomplete="off" />
+
+        <!-- STAP 1: PRAKTIJKCODE VERIFICATIE -->
+        <div class="form-section">
+          <div class="form-section-title">🔑 Verificatie praktijkcode(s)</div>
+          <p style="font-size:0.88rem;color:var(--text-muted);margin-bottom:20px;line-height:1.6">
+            Voeg alle praktijklocaties toe waar je werkt. Elke locatie heeft een eigen code die je ontvangt van de praktijkbeheerder.
+          </p>
+
+          <!-- Toegevoegde locaties -->
+          <div id="toegevoegde-locaties" style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px"></div>
+
+          <!-- Code invoer -->
+          <div class="form-group" style="margin-bottom:12px">
+            <label id="code-label">Praktijkcode <span class="req">*</span></label>
+            <div style="display:flex;gap:10px">
+              <input type="text" id="praktijk-code-input" placeholder="bijv. F19146"
+                style="text-transform:uppercase;letter-spacing:0.1em;font-weight:600"
+                oninput="this.value=this.value.toUpperCase()"
+                onkeydown="if(event.key==='Enter') verificeerCode()" />
+              <button class="btn-verificeer" onclick="verificeerCode()" id="btn-verificeer">Toevoegen →</button>
+            </div>
+            <div class="code-fout" id="code-fout">Ongeldige code. Vraag de code op bij de beheerder van uw praktijk.</div>
+            <div class="code-fout" id="code-dubbel" style="background:#FEF9E7;border-color:#C9940A;color:#7a5800">Deze locatie is al toegevoegd.</div>
+          </div>
+        </div>
+
+        <!-- REST VAN HET FORMULIER — verborgen tot minimaal 1 code geverifieerd -->
+        <div id="formulier-rest" class="verborgen">
+
+          <!-- Persoonsgegevens -->
+          <div class="form-section">
+            <div class="form-section-title">Persoonsgegevens</div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Voornaam <span class="req">*</span></label>
+                <input type="text" id="voornaam" placeholder="Jan" />
+              </div>
+              <div class="form-group">
+                <label>Achternaam <span class="req">*</span></label>
+                <input type="text" id="achternaam" placeholder="Jansen" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>E-mailadres <span class="req">*</span></label>
+                <input type="email" id="email" placeholder="jan@praktijk.nl" />
+              </div>
+              <div class="form-group">
+                <label>Telefoonnummer</label>
+                <input type="tel" id="telefoon" placeholder="06-00000000" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Foto -->
+          <div class="form-section">
+            <div class="form-section-title">Profielfoto</div>
+            <div class="form-group">
+              <label>URL van jouw foto</label>
+              <input type="url" id="foto-url" placeholder="https://www.jouwpraktijk.nl/foto.jpg" oninput="previewFoto(this.value)" />
+              <p style="font-size:0.78rem;color:var(--text-muted);margin-top:6px">Gebruik een foto van je praktijkwebsite of LinkedIn. Geen foto? Dan krijg je een standaard avatar.</p>
+            </div>
+            <div class="foto-placeholder" id="foto-placeholder">👤</div>
+            <img class="foto-preview" id="foto-preview" alt="Profielfoto preview" />
+          </div>
+
+          <!-- Bio -->
+          <div class="form-section">
+            <div class="form-section-title">Over jou</div>
+            <div class="form-group">
+              <label>Korte bio <span class="req">*</span></label>
+              <textarea id="bio" placeholder="Beschrijf jezelf in 2-3 zinnen." maxlength="400" oninput="telTekens(this)"></textarea>
+              <p style="font-size:0.75rem;color:var(--text-muted);margin-top:4px"><span id="tekens-teller">0</span>/400 tekens</p>
+            </div>
+          </div>
+
+          <!-- Disciplines -->
+          <div class="form-section">
+            <div class="form-section-title">Jouw discipline(s) <span class="req">*</span></div>
+            <div id="discipline-checkboxes" style="display:flex;flex-direction:column;gap:8px;"></div>
+          </div>
+
+          <!-- Akkoord -->
+          <div class="checkbox-group">
+            <input type="checkbox" id="akkoord" />
+            <label for="akkoord">Ik ga akkoord met de verwerking van mijn gegevens voor zichtbaarheid binnen het Knie Onderbeen Netwerk, zoals beschreven in onze <a href="privacy.html" style="color:var(--teal)">privacyverklaring</a>.</label>
+          </div>
+
+          <button class="btn-submit" onclick="verstuurFormulier()">Aanmelding versturen →</button>
+        </div>
+      </div>
+
+      <div class="form-success" id="form-success">
+        <div class="success-icon">✅</div>
+        <h3>Aanmelding ontvangen!</h3>
+        <p>Bedankt voor je aanmelding bij <strong id="succes-praktijk"></strong>. Na goedkeuring ben je zichtbaar op de site. We nemen binnen twee werkdagen contact met je op.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Knie Onderbeen Netwerk &nbsp;·&nbsp; <a href="index.html">Terug naar home</a> &nbsp;·&nbsp; <a href="faq.html">FAQ</a> &nbsp;·&nbsp; <a href="privacy.html">Privacyverklaring</a></p>
+</footer>
+
+<script>
+  const SUPABASE_URL = 'https://islujznszevdynguhjdc.supabase.co';
+  const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlzbHVqem5zemV2ZHluZ3VoamRjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE2NDYzMDAsImV4cCI6MjA5NzIyMjMwMH0.wh3RXZRKfpfArr3YBYu8ktE7xv1inwDD72Vq3LJl3QQ';
+  const HEADERS = { 'apikey': ANON_KEY, 'Authorization': `Bearer ${ANON_KEY}`, 'Content-Type': 'application/json' };
+
+  const DISCIPLINES = ['Fysiotherapeut','Manueel therapeut','Sportfysiotherapeut','Oefentherapeut'];
+
+  let geverifieerdePraktijken = []; // meerdere locaties
+
+  // ─── PRAKTIJKCODE VERIFICATIE ───
+  async function verificeerCode() {
+    const code = document.getElementById('praktijk-code-input').value.trim().toUpperCase();
+    const fout = document.getElementById('code-fout');
+    const dubbel = document.getElementById('code-dubbel');
+    const btn = document.getElementById('btn-verificeer');
+    fout.style.display = 'none';
+    dubbel.style.display = 'none';
+    if (!code) return;
+
+    // Check op dubbele code
+    if (geverifieerdePraktijken.some(p => p.praktijk_code === code)) {
+      dubbel.style.display = 'block';
+      return;
+    }
+
+    btn.textContent = 'Controleren…';
+    btn.disabled = true;
+
+    try {
+      const resp = await fetch(
+        `${SUPABASE_URL}/rest/v1/praktijken?praktijk_code=eq.${encodeURIComponent(code)}&actief=eq.true&select=id,naam,straat,stad,praktijk_code`,
+        { headers: HEADERS }
+      );
+      const data = await resp.json();
+
+      if (!data || data.length === 0) {
+        fout.style.display = 'block';
+        btn.textContent = 'Toevoegen →';
+        btn.disabled = false;
+        return;
+      }
+
+      const praktijk = data[0];
+      geverifieerdePraktijken.push(praktijk);
+      document.getElementById('praktijk-code-input').value = '';
+      btn.textContent = 'Toevoegen →';
+      btn.disabled = false;
+
+      renderToegevoemdePraktijken();
+
+      // Toon formulier als nog niet zichtbaar
+      if (document.getElementById('formulier-rest').classList.contains('verborgen')) {
+        document.getElementById('formulier-rest').classList.remove('verborgen');
+        document.getElementById('code-label').textContent = 'Nog een praktijkcode toevoegen';
+        vulDisciplineCheckboxes();
+        setTimeout(() => {
+          document.getElementById('formulier-rest').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 200);
+      }
+
+    } catch(e) {
+      fout.textContent = 'Er ging iets mis. Probeer opnieuw.';
+      fout.style.display = 'block';
+      btn.textContent = 'Toevoegen →';
+      btn.disabled = false;
+    }
+  }
+
+  function renderToegevoemdePraktijken() {
+    const container = document.getElementById('toegevoegde-locaties');
+    container.innerHTML = geverifieerdePraktijken.map((p, i) => `
+      <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:#EAF7F0;border:1.5px solid #1E8449;border-radius:8px">
+        <span style="font-size:1.1rem">✓</span>
+        <div style="flex:1">
+          <div style="font-size:0.88rem;font-weight:700;color:#1E8449">${p.naam}</div>
+          <div style="font-size:0.78rem;color:#1E8449">${p.straat}, ${p.stad} · Code: ${p.praktijk_code}</div>
+        </div>
+        <button onclick="verwijderPraktijk(${i})"
+          style="background:none;border:none;color:#1E8449;cursor:pointer;font-size:0.78rem;text-decoration:underline;white-space:nowrap">
+          Verwijderen
+        </button>
+      </div>`).join('');
+  }
+
+  function verwijderPraktijk(index) {
+    geverifieerdePraktijken.splice(index, 1);
+    renderToegevoemdePraktijken();
+    if (geverifieerdePraktijken.length === 0) {
+      document.getElementById('formulier-rest').classList.add('verborgen');
+      document.getElementById('code-label').innerHTML = 'Praktijkcode <span class="req">*</span>';
+    }
+  }
+
+  // ─── HELPERS ───
+  function telTekens(el) {
+    document.getElementById('tekens-teller').textContent = el.value.length;
+  }
+
+  function previewFoto(url) {
+    const preview = document.getElementById('foto-preview');
+    const placeholder = document.getElementById('foto-placeholder');
+    if (!url) { preview.classList.remove('zichtbaar'); placeholder.style.display = 'flex'; return; }
+    preview.src = url;
+    preview.onload = () => { preview.classList.add('zichtbaar'); placeholder.style.display = 'none'; };
+    preview.onerror = () => { preview.classList.remove('zichtbaar'); placeholder.style.display = 'flex'; };
+  }
+
+  function vulDisciplineCheckboxes() {
+    const container = document.getElementById('discipline-checkboxes');
+    container.innerHTML = DISCIPLINES.map(d => `
+      <label style="display:flex;align-items:center;gap:10px;padding:10px 14px;border:1.5px solid var(--grey-border);border-radius:8px;cursor:pointer;background:var(--white);transition:all 0.15s"
+        onmouseover="if(!this.querySelector('input').checked){this.style.borderColor='var(--teal)';this.style.background='var(--teal-light)'}"
+        onmouseout="if(!this.querySelector('input').checked){this.style.borderColor='var(--grey-border)';this.style.background='var(--white)'}">
+        <input type="checkbox" name="discipline" value="${d}"
+          style="width:16px;height:16px;accent-color:var(--teal);flex-shrink:0;cursor:pointer"
+          onchange="toggleDisciplineStijl(this)" />
+        <span style="font-size:0.875rem;font-weight:500;color:var(--navy)">${d}</span>
+      </label>`).join('');
+  }
+
+  function toggleDisciplineStijl(checkbox) {
+    const label = checkbox.closest('label');
+    if (checkbox.checked) { label.style.borderColor = 'var(--teal)'; label.style.background = 'var(--teal-light)'; }
+    else { label.style.borderColor = 'var(--grey-border)'; label.style.background = 'var(--white)'; }
+  }
+
+  function valideerFotoUrl(url) {
+    if (!url) return '';
+    if (!url.startsWith('https://')) return '';
+    if (['.svg','.html','.js'].some(e => url.toLowerCase().endsWith(e))) return '';
+    return url;
+  }
+
+  // Vul disciplines alvast in bij laden
+  document.addEventListener('DOMContentLoaded', vulDisciplineCheckboxes);
+
+  // ─── VERSTUUR FORMULIER ───
+  async function verstuurFormulier() {
+    if (document.getElementById('website_url').value !== '') return;
+    if (geverifieerdePraktijken.length === 0) { alert('Voeg minimaal één praktijkcode toe.'); return; }
+
+    const voornaam = document.getElementById('voornaam').value.trim();
+    const achternaam = document.getElementById('achternaam').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const bio = document.getElementById('bio').value.trim();
+
+    let geldig = true;
+    [['voornaam', voornaam], ['achternaam', achternaam], ['email', email], ['bio', bio]].forEach(([id, val]) => {
+      const el = document.getElementById(id);
+      if (!val) { el.style.borderColor = '#E74C3C'; geldig = false; }
+      else el.style.borderColor = '';
+    });
+
+    const disciplines = [...document.querySelectorAll('input[name="discipline"]:checked')].map(cb => cb.value);
+    if (disciplines.length === 0) { alert('Selecteer minimaal één discipline.'); return; }
+    if (!document.getElementById('akkoord').checked) { alert('Vink het akkoordvakje aan.'); return; }
+    if (!geldig) { alert('Vul alle verplichte velden in.'); return; }
+
+    const knop = document.querySelector('.btn-submit');
+    knop.textContent = 'Versturen…';
+    knop.disabled = true;
+
+    try {
+      const therapeutResp = await fetch(`${SUPABASE_URL}/rest/v1/therapeuten`, {
+        method: 'POST',
+        headers: { ...HEADERS, 'Prefer': 'return=representation' },
+        body: JSON.stringify({
+          voornaam, achternaam, email,
+          telefoon: document.getElementById('telefoon').value.trim(),
+          foto_url: valideerFotoUrl(document.getElementById('foto-url').value.trim()),
+          bio, disciplines, actief: false
+        })
+      });
+
+      if (!therapeutResp.ok) throw new Error(await therapeutResp.text());
+      const [therapeut] = await therapeutResp.json();
+
+      // Koppel aan alle geverifieerde praktijken
+      await fetch(`${SUPABASE_URL}/rest/v1/therapeut_praktijken`, {
+        method: 'POST',
+        headers: HEADERS,
+        body: JSON.stringify(geverifieerdePraktijken.map(p => ({ therapeut_id: therapeut.id, praktijk_id: p.id })))
+      });
+
+      document.getElementById('succes-praktijk').textContent = geverifieerdePraktijken.map(p => p.naam).join(', ');
+      document.getElementById('form-content').style.display = 'none';
+      document.getElementById('form-success').style.display = 'block';
+
+    } catch(err) {
+      console.error(err);
+      alert('Er ging iets mis. Probeer het opnieuw.');
+      knop.textContent = 'Aanmelding versturen →';
+      knop.disabled = false;
+    }
+  }
+</script>
+</body>
+</html>

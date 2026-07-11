@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact – Knie Onderbeen Netwerk</title>
+  
+  <style>
+    @font-face {
+  font-family: 'Inter';
+  src: url('fonts/inter-v20-latin-300.woff2') format('woff2');
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/inter-v20-latin-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/inter-v20-latin-500.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/inter-v20-latin-600.woff2') format('woff2');
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/inter-v20-latin-700.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #1B3A5C; --teal: #2A9D8F; --teal-light: #E8F5F4;
+      --grey-bg: #F5F7FA; --grey-border: #DDE3EC;
+      --text: #1A1A2E; --text-muted: #6B7A99; --white: #FFFFFF;
+      --radius: 10px; --shadow: 0 2px 16px rgba(27,58,92,0.08);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; font-size: 16px; color: var(--text); background: var(--white); line-height: 1.6; }
+
+    header { background: var(--navy); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.15); }
+    .header-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-icon { width: 40px; height: 40px; }
+    .logo-text { color: var(--white); font-weight: 700; font-size: 1.05rem; line-height: 1.2; }
+    .logo-text span { display: block; font-weight: 300; font-size: 0.75rem; opacity: 0.7; letter-spacing: 0.04em; }
+    nav { display: flex; gap: 6px; }
+    nav a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.875rem; font-weight: 500; padding: 8px 14px; border-radius: 6px; transition: background 0.2s, color 0.2s; }
+    nav a:hover { background: rgba(255,255,255,0.12); color: var(--white); }
+    nav a.cta { background: var(--teal); color: var(--white); margin-left: 8px; }
+    nav a.cta:hover { background: #238a7e; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; }
+
+    .hero { background: linear-gradient(135deg, var(--navy) 0%, #2A4A73 100%); color: var(--white); padding: 72px 24px 0; text-align: center; }
+    .hero-inner { max-width: 640px; margin: 0 auto; padding-bottom: 72px; }
+    .hero-wave { display: block; width: 100%; height: 60px; }
+    .hero-badge { display: inline-block; background: rgba(42,157,143,0.25); border: 1px solid rgba(42,157,143,0.5); color: #7FDED5; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 14px; border-radius: 999px; margin-bottom: 20px; }
+    .hero h1 { font-size: clamp(1.8rem, 4.5vw, 2.6rem); font-weight: 700; line-height: 1.15; margin-bottom: 16px; }
+    .hero h1 em { font-style: normal; color: #7FDED5; }
+    .hero p { font-size: 1rem; opacity: 0.85; max-width: 480px; margin: 0 auto; line-height: 1.7; }
+
+    .contact-sectie { background: var(--grey-bg); padding: 72px 24px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 48px;
+      max-width: 900px;
+    }
+
+    .contact-info h2 { font-size: 1.3rem; font-weight: 700; color: var(--navy); margin-bottom: 16px; }
+    .contact-info p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 24px; }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .contact-item-icon {
+      width: 36px; height: 36px;
+      background: var(--teal-light);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .contact-item-tekst { font-size: 0.875rem; }
+    .contact-item-tekst strong { display: block; color: var(--navy); font-weight: 600; margin-bottom: 2px; }
+    .contact-item-tekst a { color: var(--teal); text-decoration: none; }
+    .contact-item-tekst a:hover { text-decoration: underline; }
+    .contact-item-tekst span { color: var(--text-muted); }
+
+    /* Formulier */
+    .form-wrap {
+      background: var(--white);
+      border: 1px solid var(--grey-border);
+      border-radius: 16px;
+      padding: 36px;
+    }
+
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: 0.83rem; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
+    .form-group label .req { color: var(--teal); margin-left: 2px; }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; padding: 11px 14px;
+      border: 1.5px solid var(--grey-border); border-radius: 8px;
+      font-family: 'Inter', sans-serif; font-size: 0.9rem;
+      color: var(--text); background: var(--white);
+      transition: border-color 0.2s, box-shadow 0.2s; outline: none;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: var(--teal); box-shadow: 0 0 0 3px rgba(42,157,143,0.12);
+    }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .form-group select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B7A99' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+
+    .btn-submit { width: 100%; padding: 14px; background: var(--teal); color: var(--white); border: none; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; transition: background 0.2s, transform 0.15s; }
+    .btn-submit:hover { background: #238a7e; transform: translateY(-1px); }
+
+    .form-success { display: none; text-align: center; padding: 40px 20px; }
+    .form-success .success-icon { font-size: 3rem; margin-bottom: 16px; }
+    .form-success h3 { font-size: 1.3rem; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+    .form-success p { color: var(--text-muted); font-size: 0.9rem; }
+
+    footer { background: #0F2340; color: rgba(255,255,255,0.5); text-align: center; padding: 28px 24px; font-size: 0.82rem; }
+    footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
+    footer a:hover { color: var(--white); }
+
+    @media (max-width: 700px) {
+      .hamburger { display: flex; }
+      nav { display: none; position: absolute; top: 68px; left: 0; right: 0; background: var(--navy); flex-direction: column; padding: 12px 16px 20px; gap: 4px; box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+      nav.open { display: flex; }
+      nav a { padding: 10px 16px; border-radius: 8px; }
+      nav a.cta { margin-left: 0; margin-top: 8px; text-align: center; }
+      .contact-wrap { grid-template-columns: 1fr; gap: 32px; }
+      .form-wrap { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <img class="logo-icon" src="BKN_Logo.png" alt="Knie Onderbeen Netwerk logo" />
+      <div class="logo-text">Knie Onderbeen Netwerk</div>
+    </a>
+    <div class="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
+    <nav id="main-nav">
+      <a href="index.html#protocollen">Protocollen</a>
+      <a href="mijn-profiel.html">Mijn profiel</a>
+      <a href="index.html#locaties">Locaties</a>
+      <a href="partners.html">Partners</a>
+      <a href="locatie-worden.html" class="cta">Locatie worden</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">Contact</div>
+    <h1>Neem <em>contact op</em></h1>
+    <p>Heeft u een vraag over samenwerking, aansluiting of de protocollen? Wij reageren binnen twee werkdagen.</p>
+  </div>
+  <svg class="hero-wave" viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#F5F7FA"/>
+  </svg>
+</section>
+
+<section class="contact-sectie">
+  <div class="section-inner">
+    <div class="contact-wrap">
+
+      <!-- Links: contactinfo -->
+      <div class="contact-info">
+        <h2>Hoe kunnen we helpen?</h2>
+        <p>Vul het formulier in en we nemen zo snel mogelijk contact met u op. U kunt ook direct mailen of bellen.</p>
+
+        <div class="contact-item">
+          <div class="contact-item-icon">✉</div>
+          <div class="contact-item-tekst">
+            <strong>E-mail</strong>
+            <a href="mailto:info@knieonderbeen.net">info@knieonderbeen.net</a>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-item-icon">📍</div>
+          <div class="contact-item-tekst">
+            <strong>Regio</strong>
+            <span>Heel Nederland</span>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-item-icon">⏱</div>
+          <div class="contact-item-tekst">
+            <strong>Reactietijd</strong>
+            <span>Binnen twee werkdagen</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rechts: formulier -->
+      <div class="form-wrap">
+        <div id="form-content">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+            <div class="form-group">
+              <label>Voornaam <span class="req">*</span></label>
+              <input type="text" id="voornaam" placeholder="Jan" />
+            </div>
+            <div class="form-group">
+              <label>Achternaam <span class="req">*</span></label>
+              <input type="text" id="achternaam" placeholder="Jansen" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>E-mailadres <span class="req">*</span></label>
+            <input type="email" id="email" placeholder="jan@praktijk.nl" />
+          </div>
+
+          <div class="form-group">
+            <label>Onderwerp</label>
+            <select id="onderwerp">
+              <option value="" disabled selected>Kies een onderwerp…</option>
+              <option>Samenwerking als organisatie</option>
+              <option>Aansluiten als praktijk</option>
+              <option>Vraag over protocollen</option>
+              <option>Overig</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Bericht <span class="req">*</span></label>
+            <textarea id="bericht" placeholder="Wat wilt u ons laten weten?"></textarea>
+          </div>
+
+          <button class="btn-submit" onclick="verstuurContact()">Versturen →</button>
+        </div>
+
+        <div class="form-success" id="form-success">
+          <div class="success-icon">✅</div>
+          <h3>Bericht ontvangen!</h3>
+          <p>Bedankt voor uw bericht. We nemen binnen twee werkdagen contact met u op.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Knie Onderbeen Netwerk &nbsp;·&nbsp; <a href="index.html">Terug naar home</a> &nbsp;·&nbsp; <a href="faq.html">FAQ</a> &nbsp;·&nbsp; <a href="privacy.html">Privacyverklaring</a></p>
+</footer>
+
+<script>
+  function toggleNav() { document.getElementById('main-nav').classList.toggle('open'); }
+
+  function verstuurContact() {
+    const verplicht = ['voornaam', 'achternaam', 'email', 'bericht'];
+    let geldig = true;
+    verplicht.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) { el.style.borderColor = '#E74C3C'; geldig = false; }
+      else { el.style.borderColor = ''; }
+    });
+    if (!geldig) { alert('Vul alle verplichte velden in.'); return; }
+
+    const payload = {
+      type:      'contact',
+      voornaam:  document.getElementById('voornaam').value,
+      achternaam: document.getElementById('achternaam').value,
+      email:     document.getElementById('email').value,
+      onderwerp: document.getElementById('onderwerp').value || 'Geen onderwerp',
+      bericht:   document.getElementById('bericht').value,
+    };
+
+    const knop = document.querySelector('.btn-submit');
+    knop.textContent = 'Versturen…';
+    knop.disabled = true;
+
+    fetch('https://script.google.com/macros/s/AKfycbzEo5Dt92jvyDlCcpNxVcAq8wSVbfn04NUbeTVhpM8bQhfyYTveOGkOERZLQpkS7GPTbQ/exec', {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(() => {
+      document.getElementById('form-content').style.display = 'none';
+      document.getElementById('form-success').style.display = 'block';
+    })
+    .catch(() => {
+      alert('Er ging iets mis. Probeer het opnieuw of mail naar info@knieonderbeen.net');
+      knop.textContent = 'Versturen →';
+      knop.disabled = false;
+    });
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+name: Sync locaties vanuit Supabase
+
+on:
+  schedule:
+    - cron: '0 4 * * *'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Locaties ophalen uit Supabase en geocoderen
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+        run: python3 sync_locaties.py
+
+      - name: Committen
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add locaties.json
+          if git diff --cached --quiet; then
+            echo "Geen wijzigingen"
+          else
+            git commit -m "Locaties bijgewerkt vanuit Supabase"
+            git push
+          fi

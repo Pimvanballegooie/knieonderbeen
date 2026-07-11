@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Locatie worden – Knie Onderbeen Netwerk</title>
+  <meta name="description" content="Word onderdeel van het Knie Onderbeen Netwerk. Meld uw praktijk aan en word gevonden door patiënten met knie- en onderbeenklachten." />
+  <style>
+    @font-face { font-family: 'Inter'; src: url('fonts/inter-v20-latin-300.woff2') format('woff2'); font-weight: 300; font-display: swap; }
+    @font-face { font-family: 'Inter'; src: url('fonts/inter-v20-latin-regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+    @font-face { font-family: 'Inter'; src: url('fonts/inter-v20-latin-500.woff2') format('woff2'); font-weight: 500; font-display: swap; }
+    @font-face { font-family: 'Inter'; src: url('fonts/inter-v20-latin-600.woff2') format('woff2'); font-weight: 600; font-display: swap; }
+    @font-face { font-family: 'Inter'; src: url('fonts/inter-v20-latin-700.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #1B3A5C; --navy-dark: #0F2340;
+      --teal: #2A9D8F; --teal-light: #E8F5F4;
+      --grey-bg: #F5F7FA; --grey-border: #DDE3EC;
+      --text: #1A1A2E; --text-muted: #6B7A99; --white: #FFFFFF;
+      --gold: #C9940A; --gold-light: #FEF9E7;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; font-size: 16px; color: var(--text); background: var(--white); line-height: 1.6; }
+
+    header { background: var(--navy); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.15); }
+    .header-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-icon { width: 40px; height: 40px; }
+    .logo-text { color: var(--white); font-weight: 700; font-size: 1.05rem; }
+    nav a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.875rem; font-weight: 500; padding: 8px 14px; border-radius: 6px; transition: all 0.2s; }
+    nav a:hover { background: rgba(255,255,255,0.12); color: var(--white); }
+    nav a.cta { background: var(--teal); color: var(--white); margin-left: 8px; }
+    nav a.cta:hover { background: #238a7e; }
+
+    /* HERO */
+    .hero { background: linear-gradient(135deg, var(--navy) 0%, #2A4A73 100%); color: var(--white); padding: 72px 24px 64px; text-align: center; }
+    .hero-badge { display: inline-block; background: rgba(42,157,143,0.25); border: 1px solid rgba(42,157,143,0.5); color: #7FDED5; font-size: 0.75rem; font-weight: 700; padding: 5px 14px; border-radius: 999px; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.08em; }
+    .hero h1 { font-size: clamp(1.8rem,4vw,2.6rem); font-weight: 700; margin-bottom: 14px; letter-spacing: -0.02em; }
+    .hero h1 em { font-style: normal; color: #7FDED5; }
+    .hero p { opacity: 0.85; max-width: 560px; margin: 0 auto; font-size: 1rem; line-height: 1.7; }
+
+    /* CONTENT */
+    .content { max-width: 860px; margin: 0 auto; padding: 56px 24px 80px; }
+
+    /* NETWERK UITLEG */
+    .netwerk-uitleg { background: var(--teal-light); border: 1px solid rgba(42,157,143,0.3); border-radius: 16px; padding: 28px 32px; margin-bottom: 48px; display: flex; gap: 20px; align-items: flex-start; }
+    .netwerk-uitleg .icon { font-size: 2.5rem; flex-shrink: 0; }
+    .netwerk-uitleg h2 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+    .netwerk-uitleg p { font-size: 0.88rem; color: #1a6b62; line-height: 1.7; }
+    .netwerk-links { display: flex; gap: 12px; margin-top: 14px; flex-wrap: wrap; }
+    .netwerk-link { display: inline-flex; align-items: center; gap: 6px; font-size: 0.82rem; font-weight: 700; color: var(--teal); background: var(--white); border: 1.5px solid var(--teal); border-radius: 8px; padding: 6px 14px; text-decoration: none; transition: all 0.2s; }
+    .netwerk-link:hover { background: var(--teal); color: var(--white); }
+
+    /* STAPPEN */
+    .stappen-titel { font-size: 1.2rem; font-weight: 700; color: var(--navy); margin-bottom: 24px; }
+    .stappen { display: flex; flex-direction: column; gap: 0; margin-bottom: 48px; }
+    .stap { display: flex; gap: 20px; padding: 24px 0; border-bottom: 1px solid var(--grey-border); align-items: flex-start; }
+    .stap:last-child { border-bottom: none; }
+    .stap-nr { width: 44px; height: 44px; border-radius: 50%; background: var(--navy); color: var(--white); font-size: 1.1rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .stap-nr.actief { background: var(--teal); }
+    .stap-body h3 { font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+    .stap-body p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; }
+    .stap-body .tip { background: var(--grey-bg); border-left: 3px solid var(--teal); border-radius: 0 8px 8px 0; padding: 10px 14px; font-size: 0.82rem; color: var(--text-muted); margin-top: 10px; }
+
+    /* CTA BLOK */
+    .cta-blok { background: linear-gradient(135deg, var(--teal) 0%, #238a7e 100%); border-radius: 20px; padding: 48px 40px; text-align: center; color: var(--white); }
+    .cta-blok h2 { font-size: 1.4rem; font-weight: 700; margin-bottom: 12px; }
+    .cta-blok p { opacity: 0.9; font-size: 0.95rem; margin-bottom: 28px; max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.7; }
+    .btn-aanmelden { display: inline-block; background: var(--white); color: var(--teal); padding: 14px 36px; border-radius: 10px; font-size: 1rem; font-weight: 700; text-decoration: none; transition: all 0.2s; box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+    .btn-aanmelden:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+    .cta-sub { margin-top: 16px; font-size: 0.82rem; opacity: 0.75; }
+    .cta-sub a { color: rgba(255,255,255,0.9); }
+
+    /* VOORDELEN */
+    .voordelen { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 48px; }
+    .voordeel { background: var(--grey-bg); border: 1px solid var(--grey-border); border-radius: 12px; padding: 20px; }
+    .voordeel .icon { font-size: 1.5rem; margin-bottom: 10px; }
+    .voordeel h3 { font-size: 0.88rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+    .voordeel p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.55; }
+
+    footer { background: var(--navy-dark); color: rgba(255,255,255,0.5); text-align: center; padding: 28px 24px; font-size: 0.82rem; }
+    footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
+    @media (max-width: 600px) { .netwerk-uitleg { flex-direction: column; } .cta-blok { padding: 32px 20px; } }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <img class="logo-icon" src="BKN_Logo.png" alt="Knie Onderbeen Netwerk logo" />
+      <div class="logo-text">Knie Onderbeen Netwerk</div>
+    </a>
+    <nav>
+      <a href="protocollen.html">Protocollen</a>
+      <a href="mijn-profiel.html">Mijn profiel</a>
+      <a href="therapeut-worden.html">Therapeut worden</a>
+      <a href="locatie-worden.html" class="cta">Locatie worden</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-badge">Voor praktijkhouders & beheerders</div>
+  <h1>Word onderdeel van het<br><em>Knie Onderbeen Netwerk</em></h1>
+  <p>Uw praktijk zichtbaar voor patiënten met knie- en onderbeenklachten — via knieonderbeen.net én vindjefysio.net. Aanmelden duurt minder dan 5 minuten.</p>
+</div>
+
+<div class="content">
+
+  <!-- NETWERK UITLEG -->
+  <div class="netwerk-uitleg">
+    <div class="icon">🌐</div>
+    <div>
+      <h2>Eén aanmelding, zichtbaar op meerdere platforms</h2>
+      <p>Het Knie Onderbeen Netwerk maakt deel uit van het bredere <strong>VindJeFysio Netwerk</strong>. Als u zich aanmeldt via deze pagina, wordt uw praktijk automatisch zichtbaar op <strong>knieonderbeen.net</strong> (voor patiënten met specifieke knie- en onderbeenklachten) én op <strong>vindjefysio.net</strong> (het overkoepelende zoekplatform voor alle fysiotherapiespecialisaties).</p>
+      <div class="netwerk-links">
+        <a class="netwerk-link" href="https://vindjefysio.net" target="_blank">🔗 vindjefysio.net</a>
+        <a class="netwerk-link" href="https://knieonderbeen.net">🦵 knieonderbeen.net</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- VOORDELEN -->
+  <div class="stappen-titel">Wat levert het u op?</div>
+  <div class="voordelen">
+    <div class="voordeel">
+      <div class="icon">🗺️</div>
+      <h3>Zichtbaar op de kaart</h3>
+      <p>Patiënten vinden uw locatie direct via de interactieve kaart op enkelvot.net en vindjefysio.net.</p>
+    </div>
+    <div class="voordeel">
+      <div class="icon">🎓</div>
+      <h3>Specialisme aantonen</h3>
+      <p>Uw therapeuten kunnen via het cursusplatform specialisme aantonen en een badge verdienen.</p>
+    </div>
+    <div class="voordeel">
+      <div class="icon">🔍</div>
+      <h3>Gevonden op klacht</h3>
+      <p>Patiënten zoeken op "enkelverzwikking" of "hielspoor" en vinden direct uw praktijk.</p>
+    </div>
+    <div class="voordeel">
+      <div class="icon">📋</div>
+      <h3>Behandelprotocollen</h3>
+      <p>Toegang tot wetenschappelijk onderbouwde protocollen en cursusmateriaal voor uw team.</p>
+    </div>
+  </div>
+
+  <!-- STAPPEN -->
+  <div class="stappen-titel">Hoe werkt aanmelden?</div>
+  <div class="stappen">
+    <div class="stap">
+      <div class="stap-nr actief">1</div>
+      <div class="stap-body">
+        <h3>Meld uw praktijk aan via VindJeFysio</h3>
+        <p>U wordt doorgestuurd naar het centrale aanmeldformulier op vindjefysio.net. Het formulier is al ingesteld voor het Knie Onderbeen Netwerk. Vul uw praktijkgegevens, locatie(s) en gewenste pakket in.</p>
+        <div class="tip">💡 U kunt meerdere locaties in één aanmelding opgeven.</div>
+      </div>
+    </div>
+    <div class="stap">
+      <div class="stap-nr">2</div>
+      <div class="stap-body">
+        <h3>Wij beoordelen uw aanmelding</h3>
+        <p>Binnen twee werkdagen beoordelen wij uw aanmelding. We controleren of uw praktijk werkt volgens de behandelprotocollen van het Knie Onderbeen Netwerk. U ontvangt een bevestiging per e-mail.</p>
+      </div>
+    </div>
+    <div class="stap">
+      <div class="stap-nr">3</div>
+      <div class="stap-body">
+        <h3>U ontvangt uw praktijkcode</h3>
+        <p>Na goedkeuring ontvangt u een unieke <strong>praktijkcode</strong>. Deze code deelt u met de therapeuten die bij uw praktijk werken, zodat zij zich kunnen aanmelden via het therapeutenformulier.</p>
+        <div class="tip">🔑 Bewaar uw praktijkcode goed. Elke nieuwe therapeut heeft deze code nodig om zich aan uw locatie te koppelen.</div>
+      </div>
+    </div>
+    <div class="stap">
+      <div class="stap-nr">4</div>
+      <div class="stap-body">
+        <h3>Therapeuten melden zich aan</h3>
+        <p>Uw collega's melden zich aan via <a href="therapeut-worden.html" style="color:var(--teal);font-weight:600">knieonderbeen.net/therapeut-worden.html</a> met de praktijkcode. Na goedkeuring zijn zij zichtbaar op de kaart gekoppeld aan uw locatie.</p>
+      </div>
+    </div>
+    <div class="stap">
+      <div class="stap-nr">5</div>
+      <div class="stap-body">
+        <h3>Uw praktijk is zichtbaar</h3>
+        <p>Uw locatie verschijnt op de interactieve kaart op knieonderbeen.net én vindjefysio.net. Patiënten kunnen u vinden op klacht, locatie en specialisatie. Via <a href="mijn-profiel.html" style="color:var(--teal);font-weight:600">Mijn profiel</a> beheert u uw praktijkgegevens.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-blok">
+    <h2>Klaar om aan te melden?</h2>
+    <p>Klik op de knop om door te gaan naar het aanmeldformulier. Het Knie Onderbeen Netwerk is al voor u ingesteld.</p>
+    <a class="btn-aanmelden" href="https://vindjefysio.net/aanmelden.html?via=knieonderbeen.net">Praktijk aanmelden →</a>
+    <p class="cta-sub">U wordt doorgestuurd naar <a href="https://vindjefysio.net/aanmelden.html?via=knieonderbeen.net">vindjefysio.net/aanmelden.html</a></p>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2026 Knie Onderbeen Netwerk · <a href="index.html">Home</a> · <a href="privacy.html">Privacyverklaring</a> · <a href="mailto:info@knieonderbeen.net">info@knieonderbeen.net</a></p>
+</footer>
+
+</body>
+</html>
