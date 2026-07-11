@@ -242,14 +242,14 @@ def maak_html_pagina(protocol_naam, protocol_id, niveau, body_schoon, zone_naam)
     *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
     :root {{ --navy: #1B3A4F; --teal: #2AA88F; --teal-light: #E6F5F1; --grey-bg: #F5F7FA; --grey-border: #DDE3EC; --text: #1A1A2E; --text-muted: #6B7A99; --white: #FFFFFF; }}
     body {{ font-family: "Inter", sans-serif; font-size: 16px; color: var(--text); background: var(--grey-bg); line-height: 1.6; }}
-    header {{ background: var(--navy); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.15); }}
+    header {{ background: var(--white); border-bottom: 1px solid var(--grey-border); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }}
     .header-inner {{ max-width: 1200px; margin: 0 auto; padding: 0 clamp(1rem, 4vw, 3rem); display: flex; align-items: center; justify-content: space-between; height: 68px; }}
     .logo {{ display: flex; align-items: center; gap: 12px; text-decoration: none; }}
     .logo-icon {{ width: 40px; height: 40px; }}
-    .logo-text {{ color: var(--white); font-weight: 700; font-size: 1.05rem; line-height: 1.2; }}
+    .logo-text {{ color: var(--navy); font-weight: 700; font-size: 1.05rem; line-height: 1.2; }}
     nav {{ display: flex; gap: 6px; }}
-    nav a {{ color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.875rem; font-weight: 500; padding: 8px 14px; border-radius: 6px; transition: background 0.2s; }}
-    nav a:hover {{ background: rgba(255,255,255,0.12); color: var(--white); }}
+    nav a {{ color: var(--text-muted); text-decoration: none; font-size: 0.875rem; font-weight: 500; padding: 8px 14px; border-radius: 6px; transition: background 0.2s; }}
+    nav a:hover {{ background: var(--grey-bg); color: var(--navy); }}
     .breadcrumb {{ max-width: 860px; margin: 24px auto 0; padding: 0 clamp(1rem, 4vw, 3rem); font-size: 0.82rem; color: var(--text-muted); }}
     .breadcrumb a {{ color: var(--teal); text-decoration: none; }}
     .breadcrumb a:hover {{ text-decoration: underline; }}
@@ -276,8 +276,8 @@ def maak_html_pagina(protocol_naam, protocol_id, niveau, body_schoon, zone_naam)
     .content table {{ width: 100%; border-collapse: collapse; margin: 1em 0; font-size: 0.85rem; }}
     .content td, .content th {{ border: 1px solid var(--grey-border); padding: 8px 12px; text-align: left; }}
     .content th {{ background: var(--grey-bg); font-weight: 600; }}
-    footer {{ background: #10232F; color: rgba(255,255,255,0.5); text-align: center; padding: 28px 24px; font-size: 0.82rem; }}
-    footer a {{ color: rgba(255,255,255,0.7); text-decoration: none; }}
+    footer {{ background: var(--grey-bg); border-top: 1px solid var(--grey-border); color: var(--text-muted); text-align: center; padding: 28px 24px; font-size: 0.82rem; }}
+    footer a {{ color: var(--teal-dark); text-decoration: none; }}
     @media (max-width: 700px) {{ nav {{ display: none; }} }}
   </style>
   <script type="application/ld+json">
@@ -505,14 +505,14 @@ html_pagina = '''<!DOCTYPE html>
     :root { --navy: #1B3A4F; --teal: #2AA88F; --teal-light: #E6F5F1; --grey-bg: #F5F7FA; --grey-border: #DDE3EC; --text: #1A1A2E; --text-muted: #6B7A99; --white: #FFFFFF; }
     html { scroll-behavior: smooth; }
     body { font-family: "Inter", sans-serif; font-size: 16px; color: var(--text); background: var(--grey-bg); line-height: 1.6; }
-    header { background: var(--navy); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.15); }
+    header { background: var(--white); border-bottom: 1px solid var(--grey-border); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
     .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 clamp(1rem, 4vw, 3rem); display: flex; align-items: center; justify-content: space-between; height: 68px; }
     .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
     .logo-icon { width: 40px; height: 40px; }
-    .logo-text { color: var(--white); font-weight: 700; font-size: 1.05rem; line-height: 1.2; }
+    .logo-text { color: var(--navy); font-weight: 700; font-size: 1.05rem; line-height: 1.2; }
     nav { display: flex; gap: 6px; }
-    nav a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.875rem; font-weight: 500; padding: 8px 14px; border-radius: 6px; transition: background 0.2s; }
-    nav a:hover { background: rgba(255,255,255,0.12); color: var(--white); }
+    nav a { color: var(--text-muted); text-decoration: none; font-size: 0.875rem; font-weight: 500; padding: 8px 14px; border-radius: 6px; transition: background 0.2s; }
+    nav a:hover { background: var(--grey-bg); color: var(--navy); }
     nav a.cta { background: var(--teal); color: var(--white); margin-left: 8px; }
     .hero { background: linear-gradient(160deg, var(--teal) 0%, #3D9E7A 45%, var(--blauw) 100%); color: var(--white); padding: 56px 24px 48px; text-align: center; }
     .hero h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 700; margin-bottom: 12px; letter-spacing: -0.02em; }
@@ -571,8 +571,8 @@ html_pagina = '''<!DOCTYPE html>
     .viewer-inhoud td, .viewer-inhoud th { border: 1px solid var(--grey-border); padding: 6px 10px; text-align: left; }
     .viewer-inhoud th { background: var(--grey-bg); font-weight: 600; }
     .geen-resultaten { text-align: center; padding: 64px 24px; color: var(--text-muted); display: none; }
-    footer { background: #10232F; color: rgba(255,255,255,0.5); text-align: center; padding: 28px 24px; font-size: 0.82rem; }
-    footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
+    footer { background: var(--grey-bg); border-top: 1px solid var(--grey-border); color: var(--text-muted); text-align: center; padding: 28px 24px; font-size: 0.82rem; }
+    footer a { color: var(--teal-dark); text-decoration: none; }
     @media (max-width: 700px) { nav { display: none; } .protocollen-grid { grid-template-columns: 1fr; } }
   </style>
 </head>

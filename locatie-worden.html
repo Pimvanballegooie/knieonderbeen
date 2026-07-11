@@ -24,13 +24,13 @@
     html { scroll-behavior: smooth; }
     body { font-family: 'Inter', sans-serif; font-size: 16px; color: var(--text); background: var(--white); line-height: 1.6; }
 
-    header { background: var(--navy); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.15); }
+    header { background: var(--white); border-bottom: 1px solid var(--grey-border); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
     .header-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 68px; }
     .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
     .logo-icon { width: 40px; height: 40px; }
-    .logo-text { color: var(--white); font-weight: 700; font-size: 1.05rem; }
-    nav a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.875rem; font-weight: 500; padding: 8px 14px; border-radius: 6px; transition: all 0.2s; }
-    nav a:hover { background: rgba(255,255,255,0.12); color: var(--white); }
+    .logo-text { color: var(--navy); font-weight: 700; font-size: 1.05rem; }
+    nav a { color: var(--text-muted); text-decoration: none; font-size: 0.875rem; font-weight: 500; padding: 8px 14px; border-radius: 6px; transition: all 0.2s; }
+    nav a:hover { background: var(--grey-bg); color: var(--navy); }
     nav a.cta { background: var(--teal); color: var(--white); margin-left: 8px; }
     nav a.cta:hover { background: #1E8571; }
 
@@ -80,8 +80,8 @@
     .voordeel h3 { font-size: 0.88rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
     .voordeel p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.55; }
 
-    footer { background: var(--navy-dark); color: rgba(255,255,255,0.5); text-align: center; padding: 28px 24px; font-size: 0.82rem; }
-    footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
+    footer { background: var(--grey-bg); border-top: 1px solid var(--grey-border); color: var(--text-muted); text-align: center; padding: 28px 24px; font-size: 0.82rem; }
+    footer a { color: var(--teal-dark); text-decoration: none; }
     @media (max-width: 600px) { .netwerk-uitleg { flex-direction: column; } .cta-blok { padding: 32px 20px; } }
   </style>
 </head>
