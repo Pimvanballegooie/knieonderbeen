@@ -113,6 +113,12 @@
     .checkbox-group input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--teal); margin-top: 2px; flex-shrink: 0; }
     .checkbox-group label { font-size: 0.85rem; color: var(--text-muted); cursor: pointer; }
 
+    /* PRIJS */
+    .prijs-uitleg { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 14px; }
+    .prijs-totaal { display: flex; justify-content: space-between; align-items: center; background: var(--teal-light); border: 1.5px solid var(--teal); border-radius: 10px; padding: 14px 18px; margin-bottom: 14px; }
+    .prijs-totaal .prijs-label { font-size: 0.85rem; font-weight: 600; color: var(--navy); }
+    .prijs-totaal .prijs-bedrag { font-size: 1.3rem; font-weight: 700; color: var(--teal-dark); }
+
     .btn-submit { width: 100%; padding: 14px; background: var(--teal); color: var(--white); border: none; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; transition: background 0.2s; }
     .btn-submit:hover { background: #1E8571; }
     .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
@@ -253,6 +259,19 @@
           </div>
 
           <!-- Akkoord -->
+          <div class="form-section">
+            <div class="form-section-title">💶 Wat kost het</div>
+            <p class="prijs-uitleg">€12 per maand per netwerk waarop je je profileert. Meld je je aan op meerdere gespecialiseerde netwerken, dan telt elk netwerk apart mee.</p>
+            <div class="prijs-totaal">
+              <span class="prijs-label">Jouw investering op het Knie Onderbeen Netwerk</span>
+              <span class="prijs-bedrag">€12 / maand</span>
+            </div>
+            <div class="checkbox-group">
+              <input type="checkbox" id="prijs-akkoord" />
+              <label for="prijs-akkoord">Ik ga akkoord met de kosten van €12 per maand voor zichtbaarheid op het Knie Onderbeen Netwerk.</label>
+            </div>
+          </div>
+
           <div class="checkbox-group">
             <input type="checkbox" id="akkoord" />
             <label for="akkoord">Ik ga akkoord met de verwerking van mijn gegevens voor zichtbaarheid binnen het Knie Onderbeen Netwerk, zoals beschreven in onze <a href="privacy.html" style="color:var(--teal)">privacyverklaring</a>.</label>
@@ -430,6 +449,7 @@
 
     const disciplines = [...document.querySelectorAll('input[name="discipline"]:checked')].map(cb => cb.value);
     if (disciplines.length === 0) { alert('Selecteer minimaal één discipline.'); return; }
+    if (!document.getElementById('prijs-akkoord').checked) { alert('Bevestig dat je akkoord gaat met de kosten van €12 per maand.'); return; }
     if (!document.getElementById('akkoord').checked) { alert('Vink het akkoordvakje aan.'); return; }
     if (!geldig) { alert('Vul alle verplichte velden in.'); return; }
 
