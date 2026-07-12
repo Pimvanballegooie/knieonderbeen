@@ -326,8 +326,17 @@ async function goedkeurenPraktijk(id) {
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${toegangsToken}` },
         body: JSON.stringify({ action: 'praktijk_goedkeuring', email: ontvangerEmail, naam: ontvangerNaam, praktijk_naam: praktijk.naam, praktijk_code: praktijk.praktijk_code, aangemeld_via: praktijk.aangemeld_via || 'knieonderbeen.net' })
       });
-      alert(mailResp.ok ? `✓ Praktijk goedgekeurd. Mail verstuurd naar ${ontvangerEmail}.` : `Praktijk goedgekeurd, maar mail mislukt. Code: ${praktijk.praktijk_code}`);
-    } catch(e) { alert(`Praktijk goedgekeurd. Code: ${praktijk.praktijk_code}`); }
+      if (mailResp.ok) {
+        alert(`✓ Praktijk goedgekeurd. Mail verstuurd naar ${ontvangerEmail}.`);
+      } else {
+        const foutTekst = await mailResp.text();
+        console.error('Mail mislukt:', mailResp.status, foutTekst);
+        alert(`Praktijk goedgekeurd, maar mail mislukt (${mailResp.status}): ${foutTekst}. Code: ${praktijk.praktijk_code}`);
+      }
+    } catch(e) {
+      console.error('Mail mislukt (netwerkfout):', e);
+      alert(`Praktijk goedgekeurd, maar mail mislukt: ${e.message}. Code: ${praktijk.praktijk_code}`);
+    }
   } else { alert(`✓ Praktijk goedgekeurd. Code: ${praktijk.praktijk_code}`); }
   kaart.style.opacity = '0'; kaart.style.transition = 'opacity 0.3s';
   setTimeout(() => { kaart.remove(); laadPraktijken(); }, 400);
@@ -541,8 +550,17 @@ async function goedkeurenTherapeut(id, email) {
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${toegangsToken}` },
       body: JSON.stringify({ email, redirect_to: 'https://knieonderbeen.net/mijn-profiel.html' })
     });
-    alert(inviteResp.ok ? `✓ Therapeut goedgekeurd. Uitnodiging verstuurd naar ${email}.` : `Therapeut goedgekeurd, maar mail mislukt.`);
-  } catch(e) { alert(`Therapeut goedgekeurd, maar mail mislukt.`); }
+    if (inviteResp.ok) {
+      alert(`✓ Therapeut goedgekeurd. Uitnodiging verstuurd naar ${email}.`);
+    } else {
+      const foutTekst = await inviteResp.text();
+      console.error('Mail mislukt:', inviteResp.status, foutTekst);
+      alert(`Therapeut goedgekeurd, maar mail mislukt (${inviteResp.status}): ${foutTekst}`);
+    }
+  } catch(e) {
+    console.error('Mail mislukt (netwerkfout):', e);
+    alert(`Therapeut goedgekeurd, maar mail mislukt: ${e.message}`);
+  }
   kaart.style.opacity = '0'; kaart.style.transition = 'opacity 0.3s';
   setTimeout(() => { kaart.remove(); laadTherapeutenBeheer(); }, 400);
 }
